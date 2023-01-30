@@ -15,7 +15,6 @@ public class GameScreen implements Screen {
     public GameScreen(JumpyBirb game) {
         this.game = game;
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 300,500);
 
 
     }
@@ -27,8 +26,6 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
         ScreenUtils.clear(1,0,0,0);
-        camera.update();
-        game.batch.setProjectionMatrix(camera.combined);
 
         if (Gdx.input.isTouched()) {
             game.setScreen(new EndScreen(game));

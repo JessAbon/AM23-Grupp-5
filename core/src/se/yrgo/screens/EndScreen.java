@@ -12,7 +12,6 @@ public class EndScreen implements Screen {
     public EndScreen(final JumpyBirb game) {
         this.game = game;
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800,480);
     }
 
     @Override
@@ -24,11 +23,9 @@ public class EndScreen implements Screen {
     public void render(float delta) {
 
         ScreenUtils.clear( 0, 0.2f, 1, 0);
-        camera.update();
-        game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
-        game.font.draw(game.batch, "THE END", 20,20);
+        game.font.draw(game.batch, "THE END", 200,200);
         game.batch.end();
 
     }

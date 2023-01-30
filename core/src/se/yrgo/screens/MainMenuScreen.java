@@ -16,9 +16,7 @@ public class MainMenuScreen implements Screen {
 
     public MainMenuScreen(final JumpyBirb game) {
         this.game = game;
-
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, 800, 480);
     }
 
 
@@ -34,7 +32,7 @@ public class MainMenuScreen implements Screen {
 
 
         game.batch.begin();
-        game.font.draw(game.batch, "Test", 800/2-(200/2), 480/2);
+        game.font.draw(game.batch, "Test", JumpyBirb.WIDTH/2.0f, JumpyBirb.HEIGHT/2.0f);
         game.batch.end();
 
         if (Gdx.input.isKeyPressed(Keys.SPACE)) {
