@@ -1,5 +1,7 @@
 package se.yrgo.screens;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -20,14 +22,18 @@ public class EndScreen implements Screen {
     }
 
     @Override
-    public void render(float delta) {
+   public void render(float delta) {
 
         ScreenUtils.clear( 0, 0.2f, 1, 0);
-
         game.batch.begin();
-        game.font.draw(game.batch, "THE END", 200,200);
+        game.font.draw(game.batch, "END SCREEN PRESS SPACE TO PLAY AGAIN", 200,200);
         game.batch.end();
 
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+            game.setScreen(new GameScreen(game));
+            dispose();
+
+        }
     }
 
     @Override

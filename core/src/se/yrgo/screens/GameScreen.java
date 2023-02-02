@@ -25,7 +25,11 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(1,0,0,0);
+        ScreenUtils.clear(1,2,3,1);
+
+        game.batch.begin();
+        game.font.draw(game.batch, "GAME SCREEN - PRESS MOUSE TO END", JumpyBirb.WIDTH/2.0f, JumpyBirb.HEIGHT/2.0f);
+        game.batch.end();
 
         if (Gdx.input.isTouched()) {
             game.setScreen(new EndScreen(game));

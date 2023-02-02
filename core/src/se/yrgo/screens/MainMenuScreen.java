@@ -32,7 +32,7 @@ public class MainMenuScreen implements Screen {
 
 
         game.batch.begin();
-        game.font.draw(game.batch, "Test", JumpyBirb.WIDTH/2.0f, JumpyBirb.HEIGHT/2.0f);
+        game.font.draw(game.batch, "MAIN MENU SCREEN", JumpyBirb.WIDTH/2.0f, JumpyBirb.HEIGHT/2.0f);
         game.batch.end();
 
         if (Gdx.input.isKeyPressed(Keys.SPACE)) {
