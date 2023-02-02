@@ -33,7 +33,10 @@ public class EndScreen implements Screen {
             game.setScreen(new GameScreen(game));
             dispose();
 
+        }else if(Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)){
+            Gdx.app.exit();
         }
+
     }
 
     @Override
