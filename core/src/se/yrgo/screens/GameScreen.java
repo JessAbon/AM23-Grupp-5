@@ -1,41 +1,65 @@
 package se.yrgo.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
+import se.yrgo.Bird;
 import se.yrgo.JumpyBirb;
+
 
 public class GameScreen implements Screen {
 
     final JumpyBirb game;
+    private Bird bird;
+    private OrthographicCamera camera;
 
-    OrthographicCamera camera;
 
     public GameScreen(JumpyBirb game) {
         this.game = game;
         camera = new OrthographicCamera();
+        bird = new Bird(JumpyBirb.WIDTH/2, JumpyBirb.HEIGHT/2);
+        camera = new OrthographicCamera();
+        camera.setToOrtho(false, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+
 
 
     }
     @Override
     public void show() {
-
     }
 
     @Override
     public void render(float delta) {
         ScreenUtils.clear(1,2,3,1);
 
+        bird.update(delta);
+
+        camera.update();
+        game.batch.setProjectionMatrix(camera.combined);
+
         game.batch.begin();
-        game.font.draw(game.batch, "GAME SCREEN - PRESS MOUSE TO END", JumpyBirb.WIDTH/2.0f, JumpyBirb.HEIGHT/2.0f);
+        game.batch.draw(bird.getBird(), bird.getPosition().x, bird.getPosition().y);
         game.batch.end();
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            bird.jump();
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+            bird.back();
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+            bird.forward();
+        }
 
         if (Gdx.input.isTouched()) {
             game.setScreen(new EndScreen(game));
             dispose();
         }
-
+        if (!(Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.LEFT))) {
+            bird.still();
+        }
     }
 
     @Override
