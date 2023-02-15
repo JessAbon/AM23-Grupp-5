@@ -46,19 +46,10 @@ public class GameScreen implements Screen {
         if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             bird.jump();
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-            bird.back();
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-            bird.forward();
-        }
 
         if (Gdx.input.isTouched()) {
             game.setScreen(new EndScreen(game));
             dispose();
-        }
-        if (!(Gdx.input.isKeyPressed(Input.Keys.RIGHT) || Gdx.input.isKeyPressed(Input.Keys.LEFT))) {
-            bird.still();
         }
     }
 

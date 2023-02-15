@@ -36,23 +36,4 @@ public class Bird {
         velocity.y = 300;
     }
 
-    public void forward() {
-        velocity.x += 50;
-    }
-
-    public void back() {
-        velocity.x -= 50;
-    }
-
-    public void still() {
-        if (velocity.x > 0) {
-            velocity.x -= (velocity.x/10);
-        }
-        if (velocity.x < 0) {
-            velocity.x -= (velocity.x/10);
-        }
-    }
-
-
-
 }
