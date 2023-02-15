@@ -18,17 +18,14 @@ public class MainMenuScreen implements Screen {
         camera = new OrthographicCamera();
     }
 
-
     @Override
     public void show() {
-
     }
 
     @Override
     public void render(float delta) {
 
         ScreenUtils.clear(0, 1, 1, 1);
-
 
         game.batch.begin();
         game.font.draw(game.batch, "MAIN MENU SCREEN", JumpyBirb.WIDTH/2.0f, JumpyBirb.HEIGHT/2.0f);
