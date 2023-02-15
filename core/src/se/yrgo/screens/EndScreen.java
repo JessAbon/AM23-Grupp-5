@@ -24,7 +24,7 @@ public class EndScreen implements Screen {
     @Override
    public void render(float delta) {
 
-        ScreenUtils.clear( 0, 0.2f, 1, 0);
+        //ScreenUtils.clear( 0, 0.2f, 1, 0);
         game.batch.begin();
         game.font.draw(game.batch, "END SCREEN PRESS SPACE TO PLAY AGAIN", 200,200);
         game.batch.end();

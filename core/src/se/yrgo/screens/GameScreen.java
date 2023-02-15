@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
 import se.yrgo.Bird;
 import se.yrgo.Ground;
@@ -16,6 +17,7 @@ public class GameScreen implements Screen {
     private Bird bird;
     private Ground ground;
     private OrthographicCamera camera;
+    private static Texture bg;
 
 
     public GameScreen(JumpyBirb game) {
@@ -25,6 +27,7 @@ public class GameScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
         ground = new Ground(0, 0);
+        bg = new Texture(Gdx.files.internal("bg.png"));
 
     }
     @Override
@@ -42,7 +45,8 @@ public class GameScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
-        game.batch.draw(ground.getGround(), ground.getPosition().x + 200, ground.getPosition().y);
+        game.batch.draw(bg, 0, 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        game.batch.draw(ground.getGround(), ground.getPosition().x, ground.getPosition().y, ground.getGround().getWidth() * 3, ground.getGround().getHeight());
         game.batch.draw(bird.getBird(), bird.getPosition().x, bird.getPosition().y);
         game.batch.end();
 
