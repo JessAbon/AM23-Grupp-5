@@ -11,19 +11,19 @@ public class Tube {
     //Detta ska ändras när vi byter sprite anpassad efter storlek på bild
     public static final int TUBE_WIDTH = 52;
 
-    private static final int FLUCTUATION = 130;
+    private static final int FLUCTUATION = 150;
     //Avstånd mellan övre och undre hindret
     private static final int TUBE_GAP = 120;
     //Bestäm lägsta höjd för undre tube
-    private static final int LOWEST_OPENING = 150;
+    private static final int LOWEST_OPENING = 180;
     //sprite tubes
     private Texture topTube, bottomTube;
     //Position för tubes
     private Vector2 posTopTube, posBottomTube;
     //används för att sätta tubes på random position
     private Random rand;
-
-    private Rectangle boundsTop, boundsBottom;
+    //Prepare for collision
+    //private Rectangle boundsTop, boundsBottom;
 
     public Tube(float x){
     topTube = new Texture("topTube.png");
