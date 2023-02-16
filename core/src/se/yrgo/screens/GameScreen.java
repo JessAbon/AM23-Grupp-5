@@ -6,8 +6,8 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.ScreenUtils;
-import se.yrgo.Bird;
-import se.yrgo.Ground;
+import se.yrgo.Sprites.Bird;
+import se.yrgo.Sprites.Ground;
 import se.yrgo.JumpyBirb;
 
 
