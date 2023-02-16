@@ -5,15 +5,18 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.TimeUtils;
 import se.yrgo.JumpyBirb;
 
 public class EndScreen implements Screen {
     final JumpyBirb game;
     OrthographicCamera camera;
+    private final long delayTime;
 
     public EndScreen(final JumpyBirb game) {
         this.game = game;
         camera = new OrthographicCamera();
+        delayTime = TimeUtils.millis();
     }
 
     @Override
@@ -29,13 +32,20 @@ public class EndScreen implements Screen {
         game.font.draw(game.batch, "END SCREEN PRESS SPACE TO PLAY AGAIN", 200,200);
         game.batch.end();
 
-        if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-            game.setScreen(new GameScreen(game));
-            dispose();
+        //if isKeyPressed && keyPressedTime > desiredDelay
 
-        }else if(Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)){
-            Gdx.app.exit();
+        if (TimeUtils.millis() - delayTime > 1500) {
+            if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+                game.setScreen(new GameScreen(game));
+                dispose();
+
+            }else if(Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)){
+                Gdx.app.exit();
+            }
         }
+
+
+
 
     }
 
