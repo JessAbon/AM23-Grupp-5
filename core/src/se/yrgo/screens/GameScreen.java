@@ -5,19 +5,26 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import se.yrgo.Sprites.Bird;
 import se.yrgo.Sprites.Ground;
 import se.yrgo.JumpyBirb;
+import se.yrgo.Sprites.Tube;
 
 
 public class GameScreen implements Screen {
-
     final JumpyBirb game;
     private Bird bird;
     private Ground ground;
     private OrthographicCamera camera;
     private static Texture bg;
+
+    private Array<Tube> tube;
+    //Sätt avstånd mellan tubes
+    private static final int TUBE_SPACING = 125;
+    //Rader med tubes som ska rotera
+    private static final int TUBE_COUNT = 6;
 
 
     public GameScreen(JumpyBirb game) {
@@ -28,6 +35,11 @@ public class GameScreen implements Screen {
         camera.setToOrtho(false, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
         ground = new Ground(0, 0);
         bg = new Texture(Gdx.files.internal("bg.png"));
+        tube = new Array<Tube>();
+        for (int i = 1; i <= TUBE_COUNT; i++) {
+            tube.add(new Tube(i * (TUBE_SPACING + Tube.TUBE_WIDTH)));
+
+        }
 
     }
     @Override
@@ -46,6 +58,10 @@ public class GameScreen implements Screen {
 
         game.batch.begin();
         game.batch.draw(bg, 0, 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        for (Tube tubes:tube) {
+            game.batch.draw(tubes.getTopTube(), tubes.getPosTopTube().x, tubes.getPosTopTube().y);
+            game.batch.draw(tubes.getBottomTube(), tubes.getPosBottomTube().x, tubes.getPosBottomTube().y);
+        }
         game.batch.draw(ground.getGround(), ground.getPosition().x, ground.getPosition().y, ground.getGround().getWidth() * 3, ground.getGround().getHeight());
         game.batch.draw(bird.getBird(), bird.getPosition().x, bird.getPosition().y);
         game.batch.end();
