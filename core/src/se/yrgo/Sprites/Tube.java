@@ -49,4 +49,9 @@ public class Tube {
     public Vector2 getPosBottomTube() {
         return posBottomTube;
     }
+
+    public void reposition (float x){
+        posTopTube.set(x, rand.nextInt(FLUCTUATION) + TUBE_GAP + LOWEST_OPENING);
+        posBottomTube.set(x, posTopTube.y - TUBE_GAP - bottomTube.getHeight());
+    }
 }
