@@ -31,8 +31,7 @@ public class GameScreen implements Screen {
 
     }
     @Override
-    public void show() {
-    }
+    public void show() {}
 
     @Override
     public void render(float delta) {
@@ -50,7 +49,9 @@ public class GameScreen implements Screen {
         game.batch.draw(bird.getBird(), bird.getPosition().x, bird.getPosition().y);
         game.batch.end();
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+        float gameHeightToFloat = (float)JumpyBirb.HEIGHT - 30;
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             bird.jump();
         }
 
@@ -59,27 +60,24 @@ public class GameScreen implements Screen {
             dispose();
         }
 
-    }
-
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
+        if (bird.getPosition().y >= gameHeightToFloat) {
+            bird.removeVelocity();
+            bird.setPositionY(gameHeightToFloat);
+        }
 
     }
 
     @Override
-    public void resume() {
-
-    }
+    public void resize(int width, int height) {}
 
     @Override
-    public void hide() {
+    public void pause() {}
 
-    }
+    @Override
+    public void resume() {}
+
+    @Override
+    public void hide() {}
 
     @Override
     public void dispose() {
