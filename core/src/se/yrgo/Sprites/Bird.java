@@ -3,6 +3,7 @@ package se.yrgo.Sprites;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import se.yrgo.JumpyBirb;
 
 public class Bird {
     private static final int GRAVITY = -15;
@@ -32,22 +33,24 @@ public class Bird {
         velocity.scl(1/delta);
     }
 
-
-    public Vector3 getPosition() {
-        return position;
+    public void removeVelocity() {
+        //velocity.y = -(velocity.y/(JumpyBirb.HEIGHT));
+        //velocity.add(0,-70,-0);
+        velocity.y = -70;
     }
-
-    public Texture getBird() {
-        return bird;
-    }
-
     public void jump() {
         velocity.y = 300;
     }
-
-
-    public Rectangle getBounds() {
-        return bounds;
+    public void setPositionY(float positionY) {
+        position.y = positionY;
     }
+
+    public Vector3 getPosition() { return position; }
+
+    public Texture getBird() { return bird; }
+
+    public Rectangle getBounds() { return bounds; }
+
+
 
 }

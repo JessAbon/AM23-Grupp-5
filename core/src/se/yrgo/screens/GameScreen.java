@@ -15,6 +15,7 @@ import se.yrgo.Sprites.Tube;
 
 
 public class GameScreen implements Screen {
+
     final JumpyBirb game;
     private Bird bird;
     private Ground ground;
@@ -52,8 +53,8 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         ScreenUtils.clear(1,2,3,1);
 
-        //bird.update(delta);
-        //ground.update(delta);
+        bird.update(delta);
+        ground.update(delta);
 
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
@@ -70,6 +71,9 @@ public class GameScreen implements Screen {
         game.batch.draw(ground.getGround(), ground.getPosition().x, ground.getPosition().y, ground.getGround().getWidth() * 3, ground.getGround().getHeight());
         //game.batch.draw(ground.getGround(), camera.position.x - (camera.viewportWidth / 2), ground.getPosition().y, ground.getGround().getWidth() * 3, ground.getGround().getHeight());
         game.batch.draw(bird.getBird(), bird.getPosition().x, bird.getPosition().y);
+        game.batch.end();
+
+        float gameHeightToFloat = (float)JumpyBirb.HEIGHT - 30;
 
         bird.update(delta);
         camera.position.x = bird.getPosition().x + 250;
@@ -79,6 +83,10 @@ public class GameScreen implements Screen {
             if (camera.position.x - (camera.viewportWidth / 2) > tubes.getPosTopTube().x + tubes.getTopTube().getWidth()) {
                 tubes.reposition(tubes.getPosTopTube().x + ((tubes.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT));
             }
+        }
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            bird.jump();
         }
 
         if (bird.getBounds().overlaps(ground.getBounds())) {
@@ -92,6 +100,11 @@ public class GameScreen implements Screen {
             bird.jump();
         }
 
+
+        if (bird.getPosition().y >= gameHeightToFloat) {
+            bird.removeVelocity();
+            bird.setPositionY(gameHeightToFloat);
+        }
 
     }
 
