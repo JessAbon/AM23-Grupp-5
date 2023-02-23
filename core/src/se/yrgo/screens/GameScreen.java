@@ -71,11 +71,7 @@ public class GameScreen implements Screen {
         game.batch.draw(ground.getGround(), ground.getPosition().x, ground.getPosition().y, ground.getGround().getWidth() * 3, ground.getGround().getHeight());
         //game.batch.draw(ground.getGround(), camera.position.x - (camera.viewportWidth / 2), ground.getPosition().y, ground.getGround().getWidth() * 3, ground.getGround().getHeight());
         game.batch.draw(bird.getBird(), bird.getPosition().x, bird.getPosition().y);
-        game.batch.end();
 
-        float gameHeightToFloat = (float)JumpyBirb.HEIGHT - 30;
-
-        bird.update(delta);
         camera.position.x = bird.getPosition().x + 250;
         camera.update();
         //Movement tubes
@@ -84,6 +80,7 @@ public class GameScreen implements Screen {
                 tubes.reposition(tubes.getPosTopTube().x + ((tubes.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT));
             }
         }
+        float gameHeightToFloat = (float)JumpyBirb.HEIGHT - 30;
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             bird.jump();
