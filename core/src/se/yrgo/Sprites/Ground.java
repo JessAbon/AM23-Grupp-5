@@ -14,7 +14,7 @@ public class Ground {
     public Ground (int x, int y) {
         position = new Vector3(x, y, 0);
         ground = new Texture("ground.png");
-        bounds = new Rectangle(x, y, JumpyBirb.WIDTH, ground.getHeight());
+        bounds = new Rectangle(x, y, JumpyBirb.WIDTH, ground.getHeight()); //ground.getWidth() sen
     }
 
     public void update(float delta) {
