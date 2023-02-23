@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -23,8 +24,9 @@ public class GameScreen implements Screen {
     private Array<Tube> tube;
     //Sätt avstånd mellan tubes
     private static final int TUBE_SPACING = 125;
-    //Rader med tubes som ska rotera
+    //Rader med tubes som ska loopa genom skärmen
     private static final int TUBE_COUNT = 6;
+
 
 
     public GameScreen(JumpyBirb game) {
@@ -50,30 +52,46 @@ public class GameScreen implements Screen {
     public void render(float delta) {
         ScreenUtils.clear(1,2,3,1);
 
-        bird.update(delta);
-        ground.update(delta);
+        //bird.update(delta);
+        //ground.update(delta);
 
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
-        game.batch.draw(bg, 0, 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        game.batch.draw(bg, camera.position.x - (camera.viewportWidth / 2),0,JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+
+
         for (Tube tubes:tube) {
             game.batch.draw(tubes.getTopTube(), tubes.getPosTopTube().x, tubes.getPosTopTube().y);
             game.batch.draw(tubes.getBottomTube(), tubes.getPosBottomTube().x, tubes.getPosBottomTube().y);
         }
-        game.batch.draw(ground.getGround(), ground.getPosition().x, ground.getPosition().y, ground.getGround().getWidth() * 3, ground.getGround().getHeight());
-        game.batch.draw(bird.getBird(), bird.getPosition().x, bird.getPosition().y);
-        game.batch.end();
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            bird.jump();
+        game.batch.draw(ground.getGround(), ground.getPosition().x, ground.getPosition().y, ground.getGround().getWidth() * 3, ground.getGround().getHeight());
+        //game.batch.draw(ground.getGround(), camera.position.x - (camera.viewportWidth / 2), ground.getPosition().y, ground.getGround().getWidth() * 3, ground.getGround().getHeight());
+        game.batch.draw(bird.getBird(), bird.getPosition().x, bird.getPosition().y);
+
+        bird.update(delta);
+        camera.position.x = bird.getPosition().x + 250;
+        camera.update();
+        //Movement tubes
+        for (Tube tubes : tube) {
+            if (camera.position.x - (camera.viewportWidth / 2) > tubes.getPosTopTube().x + tubes.getTopTube().getWidth()) {
+                tubes.reposition(tubes.getPosTopTube().x + ((tubes.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT));
+            }
         }
 
         if (bird.getBounds().overlaps(ground.getBounds())) {
             game.setScreen(new EndScreen(game));
             dispose();
         }
+        camera.update();
+            game.batch.end();
+
+        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            bird.jump();
+        }
+
 
     }
 

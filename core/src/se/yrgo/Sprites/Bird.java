@@ -6,6 +6,8 @@ import com.badlogic.gdx.math.Vector3;
 
 public class Bird {
     private static final int GRAVITY = -15;
+
+    private static final int MOVEMENT = 100;
     private Vector3 position;
     private Vector3 velocity;
     private Texture bird;
@@ -24,6 +26,8 @@ public class Bird {
         position.add(velocity.x ,velocity.y, 0);
         bounds.x = position.x;
         bounds.y = position.y;
+        //Framåt
+        position.add(MOVEMENT * delta,velocity.y, 0);
 
         velocity.scl(1/delta);
     }
