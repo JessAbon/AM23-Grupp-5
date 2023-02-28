@@ -7,8 +7,8 @@ import se.yrgo.JumpyBirb;
 
 public class Bird {
     private static final int GRAVITY = -15;
-
     private static final int MOVEMENT = 100;
+    private int jumpVelocity;
     private Vector3 position;
     private Vector3 velocity;
     private Texture bird;
@@ -19,6 +19,7 @@ public class Bird {
         velocity = new Vector3(0, 0, 0);
         bird = new Texture("bird.png");
         bounds = new Rectangle(x,y, bird.getWidth(), bird.getHeight());
+        jumpVelocity = 220;
     }
 
     public void update(float delta) {
@@ -34,15 +35,19 @@ public class Bird {
     }
 
     public void removeVelocity() {
-        //velocity.y = -(velocity.y/(JumpyBirb.HEIGHT));
-        //velocity.add(0,-70,-0);
-        velocity.y = -70;
+        System.out.println(velocity); //for testing
+        //velocity.add(0,-70,-0); //Alternative method body
+        velocity.y = -(velocity.y/JumpyBirb.HEIGHT);
+        System.out.println(velocity); //for testing
     }
     public void jump() {
-        velocity.y = 300;
+        velocity.y = jumpVelocity;
     }
     public void setPositionY(float positionY) {
         position.y = positionY;
+    }
+    public void stillY() {
+        velocity.set(0,0,0);
     }
 
     public Vector3 getPosition() { return position; }
@@ -50,6 +55,10 @@ public class Bird {
     public Texture getBird() { return bird; }
 
     public Rectangle getBounds() { return bounds; }
+
+    public void dispose() {
+        bird.dispose();
+    }
 
 
 
