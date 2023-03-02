@@ -36,8 +36,7 @@ public class Bird {
 
     public void removeVelocity() {
         System.out.println(velocity); //for testing
-        //velocity.add(0,-70,-0); //Alternative method body
-        velocity.y = -(velocity.y/JumpyBirb.HEIGHT);
+        velocity.y = 0;
         System.out.println(velocity); //for testing
     }
     public void jump() {
