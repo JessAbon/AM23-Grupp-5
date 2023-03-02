@@ -108,7 +108,7 @@ public class GameScreen implements Screen {
         //}
 
        // float gameHeightToFloat = (float)JumpyBirb.HEIGHT - 30;
-        float gameHeightToFloat = (float)JumpyBirb.HEIGHT - 30;
+        // float gameHeightToFloat = (float)JumpyBirb.HEIGHT - 30;
 
         if (bird.getPosition().y >= gameHeightToFloat) {
             bird.removeVelocity();
