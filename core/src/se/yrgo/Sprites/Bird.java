@@ -35,9 +35,7 @@ public class Bird {
     }
 
     public void removeVelocity() {
-        System.out.println(velocity); //for testing
         velocity.y = 0;
-        System.out.println(velocity); //for testing
     }
     public void jump() {
         velocity.y = jumpVelocity;
@@ -49,11 +47,14 @@ public class Bird {
         velocity.set(0,0,0);
     }
 
-    public Vector3 getPosition() { return position; }
+    public Vector3 getPosition() {
+        return position; }
 
-    public Texture getBird() { return bird; }
+    public Texture getBird() {
+        return bird; }
 
-    public Rectangle getBounds() { return bounds; }
+    public Rectangle getBounds() {
+        return bounds; }
 
     public void dispose() {
         bird.dispose();

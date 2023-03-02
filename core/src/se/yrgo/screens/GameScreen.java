@@ -45,6 +45,7 @@ public class GameScreen implements Screen {
 
         }
 
+
     }
     @Override
     public void show() {
@@ -69,24 +70,22 @@ public class GameScreen implements Screen {
             game.batch.draw(tubes.getBottomTube(), tubes.getPosBottomTube().x, tubes.getPosBottomTube().y);
         }
 
-        game.batch.draw(ground.getGround(), ground.getPosition().x, ground.getPosition().y, ground.getGround().getWidth() * 3, ground.getGround().getHeight());
-        //game.batch.draw(ground.getGround(), camera.position.x - (camera.viewportWidth / 2), ground.getPosition().y, ground.getGround().getWidth() * 3, ground.getGround().getHeight());
+        game.batch.draw(ground.getGround(), ground.getPosition().x, ground.getPosition().y, ground.getGround().getWidth(), ground.getGround().getHeight());
         game.batch.draw(bird.getBird(), bird.getPosition().x, bird.getPosition().y);
 
-        camera.position.x = bird.getPosition().x + 250;
+        // CAMERA FOLLOW
+        camera.position.x = bird.getPosition().x + (JumpyBirb.WIDTH/4F);
         camera.update();
         //Movement tubes
         for (Tube tubes : tube) {
             if (camera.position.x - (camera.viewportWidth / 2) > tubes.getPosTopTube().x + tubes.getTopTube().getWidth()) {
-                tubes.reposition(tubes.getPosTopTube().x + ((tubes.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT));
+                tubes.reposition(tubes.getPosTopTube().x + ((Tube.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT));
             }
             if(tubes.collides(bird.getBounds())){
                 game.setScreen(new EndScreen(game));
                 dispose();
             }
         }
-
-        float gameHeightToFloat = (float)JumpyBirb.HEIGHT - 30;
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             bird.jump();
@@ -99,24 +98,18 @@ public class GameScreen implements Screen {
         camera.update();
             game.batch.end();
 
-        //if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-        //    bird.jump();
-        //}
-
-        //if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-        //    bird.jump();
-        //}
-
-       // float gameHeightToFloat = (float)JumpyBirb.HEIGHT - 30;
-        // float gameHeightToFloat = (float)JumpyBirb.HEIGHT - 30;
+        //ROOF GÖR TILL METOD
+        float gameHeightToFloat = (float)JumpyBirb.HEIGHT - JumpyBirb.HEIGHT/2F;
 
         if (bird.getPosition().y >= gameHeightToFloat) {
             bird.removeVelocity();
             bird.setPositionY(gameHeightToFloat);
         }
+
+        //FLOOR GÖR TILL METOD
         if (bird.getPosition().y <= 112) {
             bird.setPositionY(112);
-            //bird.stillY();
+            bird.stillY();
 
         }
 
