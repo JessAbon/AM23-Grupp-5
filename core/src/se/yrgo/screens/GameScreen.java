@@ -6,7 +6,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import se.yrgo.Sprites.Bird;
@@ -22,15 +21,12 @@ public class GameScreen implements Screen {
     private Ground ground;
     private OrthographicCamera camera;
     private static Texture bg;
-    //public FrameBuffer freezeScreen;
-
-    //public static Texture screenShot;
 
     private Array<Tube> tube;
     //Sätt avstånd mellan tubes
-    private static final int TUBE_SPACING = 125;
+   private static final int TUBE_SPACING = 125;
     //Rader med tubes som ska loopa genom skärmen
-    private static final int TUBE_COUNT = 6;
+    private static final int TUBE_COUNT = 7;
 
 
 
@@ -44,13 +40,10 @@ public class GameScreen implements Screen {
         ground = new Ground(0, 0);
         bg = new Texture(Gdx.files.internal("bg.png"));
         tube = new Array<Tube>();
-        for (int i = 1; i <= TUBE_COUNT; i++) {
+        for (int i = 2; i <= TUBE_COUNT; i++) {
             tube.add(new Tube(i * (TUBE_SPACING + Tube.TUBE_WIDTH)));
+
         }
-        //print-screen rellaterat
-        //freezeScreen = new FrameBuffer(Pixmap.Format.RGBA8888, JumpyBirb.WIDTH, JumpyBirb.HEIGHT, false);
-
-
 
     }
     @Override
@@ -67,9 +60,8 @@ public class GameScreen implements Screen {
         camera.update();
         game.batch.setProjectionMatrix(camera.combined);
 
-        //freezeScreen.begin();
         game.batch.begin();
-        game.batch.draw(bg, camera.position.x - (camera.viewportWidth / 2),0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        game.batch.draw(bg, camera.position.x - (camera.viewportWidth / 2),0,JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
 
 
         for (Tube tubes:tube) {
@@ -77,7 +69,7 @@ public class GameScreen implements Screen {
             game.batch.draw(tubes.getBottomTube(), tubes.getPosBottomTube().x, tubes.getPosBottomTube().y);
         }
 
-        game.batch.draw(ground.getGround(), ground.getPosition().x, ground.getPosition().y, ground.getGround().getWidth(), ground.getGround().getHeight());
+        game.batch.draw(ground.getGround(), ground.getPosition().x, ground.getPosition().y, ground.getGround().getWidth() * 3, ground.getGround().getHeight());
         //game.batch.draw(ground.getGround(), camera.position.x - (camera.viewportWidth / 2), ground.getPosition().y, ground.getGround().getWidth() * 3, ground.getGround().getHeight());
         game.batch.draw(bird.getBird(), bird.getPosition().x, bird.getPosition().y);
 
@@ -88,7 +80,13 @@ public class GameScreen implements Screen {
             if (camera.position.x - (camera.viewportWidth / 2) > tubes.getPosTopTube().x + tubes.getTopTube().getWidth()) {
                 tubes.reposition(tubes.getPosTopTube().x + ((tubes.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT));
             }
+            if(tubes.collides(bird.getBounds())){
+                game.setScreen(new EndScreen(game));
+                dispose();
+            }
         }
+
+        float gameHeightToFloat = (float)JumpyBirb.HEIGHT - 30;
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             bird.jump();
@@ -99,14 +97,17 @@ public class GameScreen implements Screen {
             dispose();
         }
         camera.update();
-        game.batch.end();
+            game.batch.end();
 
+        //if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+        //    bird.jump();
+        //}
 
+        //if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+        //    bird.jump();
+        //}
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            bird.jump();
-        }
-
+       // float gameHeightToFloat = (float)JumpyBirb.HEIGHT - 30;
         float gameHeightToFloat = (float)JumpyBirb.HEIGHT - 30;
 
         if (bird.getPosition().y >= gameHeightToFloat) {
@@ -115,10 +116,14 @@ public class GameScreen implements Screen {
         }
         if (bird.getPosition().y <= 112) {
             bird.setPositionY(112);
-            bird.stillY();
+            //bird.stillY();
 
         }
 
+    }
+
+    public static int getTubeSpacing() {
+        return TUBE_SPACING + Tube.TUBE_WIDTH;
     }
 
     @Override
@@ -143,12 +148,6 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        bg.dispose();
-        bird.dispose();
-        ground.getGround().dispose();
-        for (Tube t : tube ) {
-            t.getBottomTube().dispose();
-            t.getTopTube().dispose();
-        }
+
     }
 }
