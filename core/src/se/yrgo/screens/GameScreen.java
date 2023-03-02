@@ -13,6 +13,8 @@ import se.yrgo.Sprites.Ground;
 import se.yrgo.JumpyBirb;
 import se.yrgo.Sprites.Tube;
 
+import java.awt.*;
+
 
 public class GameScreen implements Screen {
 
@@ -24,9 +26,9 @@ public class GameScreen implements Screen {
 
     private Array<Tube> tube;
     //Sätt avstånd mellan tubes
-    private static final int TUBE_SPACING = 125;
+   private static final int TUBE_SPACING = 125;
     //Rader med tubes som ska loopa genom skärmen
-    private static final int TUBE_COUNT = 6;
+    private static final int TUBE_COUNT = 7;
 
 
 
@@ -39,7 +41,7 @@ public class GameScreen implements Screen {
         ground = new Ground(0, 0);
         bg = new Texture(Gdx.files.internal("bg.png"));
         tube = new Array<Tube>();
-        for (int i = 1; i <= TUBE_COUNT; i++) {
+        for (int i = 2; i <= TUBE_COUNT; i++) {
             tube.add(new Tube(i * (TUBE_SPACING + Tube.TUBE_WIDTH)));
 
         }
@@ -79,6 +81,10 @@ public class GameScreen implements Screen {
             if (camera.position.x - (camera.viewportWidth / 2) > tubes.getPosTopTube().x + tubes.getTopTube().getWidth()) {
                 tubes.reposition(tubes.getPosTopTube().x + ((tubes.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT));
             }
+            if(tubes.collides(bird.getBounds())){
+                game.setScreen(new EndScreen(game));
+                dispose();
+            }
         }
         float gameHeightToFloat = (float)JumpyBirb.HEIGHT - 30;
 
@@ -93,9 +99,9 @@ public class GameScreen implements Screen {
         camera.update();
             game.batch.end();
 
-        if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            bird.jump();
-        }
+        //if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+        //    bird.jump();
+        //}
 
 
         if (bird.getPosition().y >= gameHeightToFloat) {
@@ -103,6 +109,10 @@ public class GameScreen implements Screen {
             bird.setPositionY(gameHeightToFloat);
         }
 
+    }
+
+    public static int getTubeSpacing() {
+        return TUBE_SPACING + Tube.TUBE_WIDTH;
     }
 
     @Override
@@ -129,4 +139,5 @@ public class GameScreen implements Screen {
     public void dispose() {
 
     }
+
 }

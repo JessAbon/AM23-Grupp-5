@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector3;
 import se.yrgo.JumpyBirb;
 
 public class Bird {
-    private static final int GRAVITY = -15;
+    private static final int GRAVITY = -10;
 
     private static final int MOVEMENT = 100;
     private Vector3 position;
@@ -29,7 +29,6 @@ public class Bird {
         bounds.y = position.y;
         //Framåt
         position.add(MOVEMENT * delta,velocity.y, 0);
-
         velocity.scl(1/delta);
     }
 
@@ -39,7 +38,7 @@ public class Bird {
         velocity.y = -70;
     }
     public void jump() {
-        velocity.y = 300;
+        velocity.y = 150;
     }
     public void setPositionY(float positionY) {
         position.y = positionY;
