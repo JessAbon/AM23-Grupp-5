@@ -6,14 +6,13 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import se.yrgo.Sprites.Bird;
 import se.yrgo.Sprites.Ground;
 import se.yrgo.JumpyBirb;
 import se.yrgo.Sprites.Tube;
-
-import java.awt.*;
 
 
 public class GameScreen implements Screen {
@@ -29,6 +28,7 @@ public class GameScreen implements Screen {
    private static final int TUBE_SPACING = 125;
     //Rader med tubes som ska loopa genom skärmen
     private static final int TUBE_COUNT = 7;
+
 
 
 
@@ -62,7 +62,7 @@ public class GameScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
-        game.batch.draw(bg, camera.position.x - (camera.viewportWidth / 2),0,JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        game.batch.draw(bg, camera.position.x - (camera.viewportWidth / 2),0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
 
 
         for (Tube tubes:tube) {
@@ -70,7 +70,7 @@ public class GameScreen implements Screen {
             game.batch.draw(tubes.getBottomTube(), tubes.getPosBottomTube().x, tubes.getPosBottomTube().y);
         }
 
-        game.batch.draw(ground.getGround(), ground.getPosition().x, ground.getPosition().y, ground.getGround().getWidth() * 3, ground.getGround().getHeight());
+        game.batch.draw(ground.getGround(), ground.getPosition().x, ground.getPosition().y, ground.getGround().getWidth(), ground.getGround().getHeight());
         //game.batch.draw(ground.getGround(), camera.position.x - (camera.viewportWidth / 2), ground.getPosition().y, ground.getGround().getWidth() * 3, ground.getGround().getHeight());
         game.batch.draw(bird.getBird(), bird.getPosition().x, bird.getPosition().y);
 
@@ -86,6 +86,7 @@ public class GameScreen implements Screen {
                 dispose();
             }
         }
+
         float gameHeightToFloat = (float)JumpyBirb.HEIGHT - 30;
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
@@ -103,10 +104,20 @@ public class GameScreen implements Screen {
         //    bird.jump();
         //}
 
+        //if(Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+        //    bird.jump();
+        //}
+
+       // float gameHeightToFloat = (float)JumpyBirb.HEIGHT - 30;
 
         if (bird.getPosition().y >= gameHeightToFloat) {
             bird.removeVelocity();
             bird.setPositionY(gameHeightToFloat);
+        }
+        if (bird.getPosition().y <= 112) {
+            bird.setPositionY(112);
+            //bird.stillY();
+
         }
 
     }
@@ -137,7 +148,12 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-
+        bg.dispose();
+        //bird.dispose();
+        ground.getGround().dispose();
+        for (Tube t : tube ) {
+            t.getBottomTube().dispose();
+            t.getTopTube().dispose();
+        }
     }
-
 }
