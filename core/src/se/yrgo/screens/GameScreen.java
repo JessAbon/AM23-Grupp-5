@@ -106,7 +106,7 @@ public class GameScreen implements Screen {
             bird.jump();
         }
 
-        if (bird.getBounds().overlaps(ground.getBounds())) {
+        if (bird.getBounds().overlaps(ground.getBounds()) || bird.getBounds().overlaps(ground2.getBounds())) {
             game.setScreen(new EndScreen(game));
             dispose();
         }

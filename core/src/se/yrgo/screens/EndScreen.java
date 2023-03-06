@@ -28,7 +28,7 @@ public class EndScreen implements Screen {
     @Override
    public void render(float delta) {
 
-        //ScreenUtils.clear(Color.CLEAR, true);
+        //ScreenUtils.clear(Color.BLACK);
 
         game.batch.begin();
         //game.batch.draw(GameScreen.screenShot, 0,0);

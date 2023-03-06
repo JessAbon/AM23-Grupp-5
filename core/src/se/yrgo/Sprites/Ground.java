@@ -15,7 +15,7 @@ public class Ground {
     public Ground (int x, int y) {
         position = new Vector2(x, y);
         ground = new Texture("ground.png");
-        bounds = new Rectangle(x, y, JumpyBirb.WIDTH, ground.getHeight()); //ground.getWidth() sen
+        bounds = new Rectangle(position.x, position.y, ground.getWidth(), ground.getHeight()); //ground.getWidth() sen
     }
 
     public void update(float delta) {
@@ -24,6 +24,7 @@ public class Ground {
 
     public void reposition(float x) {
         position.set(x, 0);
+        bounds.setPosition(position.x, position.y);
     }
 
     public Vector2 getPosition() { return position; }
