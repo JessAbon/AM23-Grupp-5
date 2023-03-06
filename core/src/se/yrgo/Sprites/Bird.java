@@ -43,6 +43,7 @@ public class Bird {
     public void setPositionY(float positionY) {
         position.y = positionY;
     }
+
     public void stillY() {
         velocity.set(0,0,0);
     }

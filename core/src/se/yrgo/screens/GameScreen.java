@@ -12,6 +12,7 @@ import se.yrgo.Sprites.Bird;
 import se.yrgo.Sprites.Ground;
 import se.yrgo.JumpyBirb;
 import se.yrgo.Sprites.Tube;
+import se.yrgo.util.Score;
 
 
 public class GameScreen implements Screen {
@@ -61,6 +62,7 @@ public class GameScreen implements Screen {
 
         bird.update(delta);
         ground.update(delta);
+        Score.setScore(bird.getPosition().x);
 
         //camera.update();
         game.batch.setProjectionMatrix(camera.combined);
@@ -69,7 +71,6 @@ public class GameScreen implements Screen {
 
         game.batch.draw(bg, camera.position.x - (camera.viewportWidth / 2),0,JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
 
-
         for (Tube tubes:tube) {
             game.batch.draw(tubes.getTopTube(), tubes.getPosTopTube().x, tubes.getPosTopTube().y);
             game.batch.draw(tubes.getBottomTube(), tubes.getPosBottomTube().x, tubes.getPosBottomTube().y);
@@ -77,7 +78,11 @@ public class GameScreen implements Screen {
 
         game.batch.draw(ground.getGround(), ground.getPosition().x, ground.getPosition().y, ground.getGround().getWidth(), ground.getGround().getHeight());
         game.batch.draw(ground2.getGround(), ground2.getPosition().x, ground2.getPosition().y, ground2.getGround().getWidth(), ground2.getGround().getHeight());
+
         game.batch.draw(bird.getBird(), bird.getPosition().x, bird.getPosition().y);
+
+        game.font.draw(game.batch, Score.printScore(), camera.position.x - (JumpyBirb.WIDTH/2F), camera.position.y + (JumpyBirb.HEIGHT/2F));
+
         game.batch.end();
 
         // CAMERA FOLLOW
@@ -90,6 +95,7 @@ public class GameScreen implements Screen {
             }
             if(tubes.collides(bird.getBounds())){
                 game.setScreen(new EndScreen(game));
+                Score.setHighScore();
                 dispose();
             }
         }
@@ -108,6 +114,7 @@ public class GameScreen implements Screen {
 
         if (bird.getBounds().overlaps(ground.getBounds()) || bird.getBounds().overlaps(ground2.getBounds())) {
             game.setScreen(new EndScreen(game));
+            Score.setHighScore();
             dispose();
         }
 

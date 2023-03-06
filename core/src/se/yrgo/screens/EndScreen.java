@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import se.yrgo.JumpyBirb;
+import se.yrgo.Sprites.Bird;
+import se.yrgo.util.Score;
 
 public class EndScreen implements Screen {
     final JumpyBirb game;
@@ -32,8 +34,10 @@ public class EndScreen implements Screen {
 
         game.batch.begin();
         //game.batch.draw(GameScreen.screenShot, 0,0);
-        game.font.draw(game.batch, "END SCREEN PRESS SPACE TO PLAY AGAIN", 200,200);
+        game.font.draw(game.batch, "Score: " + Score.printScore(), Score.getPosition(), 400);
+        game.font.draw(game.batch, "High Score: " + Score.printHighScore(), Score.getPosition(), 300);
         game.batch.end();
+
 
         //if isKeyPressed && keyPressedTime > desiredDelay
 
@@ -46,9 +50,6 @@ public class EndScreen implements Screen {
                 Gdx.app.exit();
             }
         }
-
-
-
 
     }
 
