@@ -24,9 +24,11 @@ public class GameScreen implements Screen {
 
     private Array<Tube> tube;
     //Sätt avstånd mellan tubes
-   private static final int TUBE_SPACING = 125;
+    private static final int TUBE_SPACING = 125;
     //Rader med tubes som ska loopa genom skärmen
     private static final int TUBE_COUNT = 7;
+
+    private static final int CAMERA_OF_SET = JumpyBirb.WIDTH/4;
 
 
 
@@ -58,10 +60,11 @@ public class GameScreen implements Screen {
         bird.update(delta);
         ground.update(delta);
 
-        camera.update();
+        //camera.update();
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
+
         game.batch.draw(bg, camera.position.x - (camera.viewportWidth / 2),0,JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
 
 
@@ -72,9 +75,10 @@ public class GameScreen implements Screen {
 
         game.batch.draw(ground.getGround(), ground.getPosition().x, ground.getPosition().y, ground.getGround().getWidth(), ground.getGround().getHeight());
         game.batch.draw(bird.getBird(), bird.getPosition().x, bird.getPosition().y);
+        game.batch.end();
 
         // CAMERA FOLLOW
-        camera.position.x = bird.getPosition().x + (JumpyBirb.WIDTH/4F);
+        camera.position.x = bird.getPosition().x + CAMERA_OF_SET;
         camera.update();
         //Movement tubes
         for (Tube tubes : tube) {
@@ -95,11 +99,11 @@ public class GameScreen implements Screen {
             game.setScreen(new EndScreen(game));
             dispose();
         }
-        camera.update();
-            game.batch.end();
+
+        //camera.update();
 
         //ROOF GÖR TILL METOD
-        float gameHeightToFloat = (float)JumpyBirb.HEIGHT - JumpyBirb.HEIGHT/2F;
+        float gameHeightToFloat = (float)JumpyBirb.HEIGHT - bird.getBird().getHeight();
 
         if (bird.getPosition().y >= gameHeightToFloat) {
             bird.removeVelocity();
@@ -107,8 +111,8 @@ public class GameScreen implements Screen {
         }
 
         //FLOOR GÖR TILL METOD
-        if (bird.getPosition().y <= 112) {
-            bird.setPositionY(112);
+        if (bird.getPosition().y <= ground.getGround().getHeight()) {
+            bird.setPositionY(ground.getGround().getHeight());
             bird.stillY();
 
         }
