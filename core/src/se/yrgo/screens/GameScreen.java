@@ -25,7 +25,7 @@ public class GameScreen implements Screen {
 
     private Array<Tube> tube;
     //Sätt avstånd mellan tubes
-    private static final int TUBE_SPACING = 125;
+    private static final int TUBE_SPACING = 200;
     //Rader med tubes som ska loopa genom skärmen
     private static final int TUBE_COUNT = 7;
 

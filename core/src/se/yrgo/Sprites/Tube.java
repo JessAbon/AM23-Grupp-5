@@ -14,7 +14,7 @@ public class Tube {
 
     private static final int FLUCTUATION = 250;
     //Avstånd mellan övre och undre hindret
-    private static final int TUBE_GAP = 120;
+    private static final int TUBE_GAP = 200;
     //Bestäm lägsta höjd för undre tube
     private static final int LOWEST_OPENING = 180;
     //sprite tubes
