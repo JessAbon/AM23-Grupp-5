@@ -19,6 +19,7 @@ public class GameScreen implements Screen {
     final JumpyBirb game;
     private Bird bird;
     private Ground ground;
+    private Ground ground2;
     private OrthographicCamera camera;
     private static Texture bg;
 
@@ -38,6 +39,7 @@ public class GameScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
         ground = new Ground(0, 0);
+        ground2 = new Ground((int)ground.getGround().getWidth(), 0);
         bg = new Texture(Gdx.files.internal("bg.png"));
         tube = new Array<Tube>();
         for (int i = 2; i <= TUBE_COUNT; i++) {
@@ -71,6 +73,7 @@ public class GameScreen implements Screen {
         }
 
         game.batch.draw(ground.getGround(), ground.getPosition().x, ground.getPosition().y, ground.getGround().getWidth(), ground.getGround().getHeight());
+        game.batch.draw(ground2.getGround(), ground2.getPosition().x, ground2.getPosition().y, ground2.getGround().getWidth(), ground2.getGround().getHeight());
         game.batch.draw(bird.getBird(), bird.getPosition().x, bird.getPosition().y);
 
         // CAMERA FOLLOW
@@ -86,6 +89,14 @@ public class GameScreen implements Screen {
                 dispose();
             }
         }
+        //Movement ground
+        if(camera.position.x -(camera.viewportWidth / 2) >= ground.getPosition().x + ground.getGround().getWidth()) {
+            ground.reposition(ground2.getGround().getWidth() +ground2.getPosition().x);
+        }
+        if(camera.position.x - (camera.viewportWidth / 2) >= ground2.getPosition().x + ground2.getGround().getWidth()) {
+            ground2.reposition(ground.getGround().getWidth() + ground.getPosition().x);
+        }
+
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             bird.jump();
