@@ -64,7 +64,7 @@ public class GameScreen implements Screen {
         ground.update(delta);
         Score.setScore(bird.getPosition().x);
 
-        //camera.update();
+        camera.update();
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
