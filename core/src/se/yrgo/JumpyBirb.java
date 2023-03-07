@@ -1,6 +1,8 @@
 package se.yrgo;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import se.yrgo.screens.MainMenuScreen;
@@ -29,5 +31,8 @@ public class JumpyBirb extends Game {
 	public void dispose () {
 		batch.dispose();
 		font.dispose();
+	}
+	public boolean spaceAndMouseClickInput() {
+		return Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.justTouched();
 	}
 }

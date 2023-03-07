@@ -1,10 +1,8 @@
 package se.yrgo.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -13,156 +11,161 @@ import se.yrgo.Sprites.Ground;
 import se.yrgo.JumpyBirb;
 import se.yrgo.Sprites.Tube;
 import se.yrgo.util.Score;
+import se.yrgo.util.Settings;
 
 
 public class GameScreen implements Screen {
 
+    //private static final int TUBE_SPACING = 200;
+    private static final int TUBE_COUNT = 7;
+    private static final int CAMERA_OF_SET = JumpyBirb.WIDTH / 4;
+
     final JumpyBirb game;
     private Bird bird;
-    private Ground ground;
-    private Ground ground2;
     private OrthographicCamera camera;
     private static Texture bg;
-
-    private Array<Tube> tube;
-    //Sätt avstånd mellan tubes
-    private static final int TUBE_SPACING = 200;
-    //Rader med tubes som ska loopa genom skärmen
-    private static final int TUBE_COUNT = 7;
-
-    private static final int CAMERA_OF_SET = JumpyBirb.WIDTH/4;
-
-
-
+    private Array<Tube> tubes;
+    private Array<Ground> grounds;
 
     public GameScreen(JumpyBirb game) {
         this.game = game;
         camera = new OrthographicCamera();
-        bird = new Bird(JumpyBirb.WIDTH/4, JumpyBirb.HEIGHT/2);
+        bird = new Bird(JumpyBirb.WIDTH / 4, JumpyBirb.HEIGHT / 2);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
-        ground = new Ground(0, 0);
-        ground2 = new Ground((int)ground.getGround().getWidth(), 0);
         bg = new Texture(Gdx.files.internal("bg.png"));
-        tube = new Array<Tube>();
+        tubes = new Array<>();
         for (int i = 2; i <= TUBE_COUNT; i++) {
-            tube.add(new Tube(i * (TUBE_SPACING + Tube.TUBE_WIDTH)));
-
+            tubes.add(new Tube(i * (Settings.TUBE_SPACING + Tube.TUBE_WIDTH)));
+        }
+        grounds = new Array<>();
+        for (int i = 0; i <= 2; i++) {
+            grounds.add(new Ground(i * 800, 0));
         }
 
-
-    }
-    @Override
-    public void show() {
     }
 
     @Override
     public void render(float delta) {
-        ScreenUtils.clear(1,2,3,1);
 
+        ScreenUtils.clear(1, 2, 3, 1);
         bird.update(delta);
-        ground.update(delta);
+        camera.update();
+
         Score.setScore(bird.getPosition().x);
 
-        camera.update();
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
+        game.batch.draw(bg, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
 
-        game.batch.draw(bg, camera.position.x - (camera.viewportWidth / 2),0,JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
-
-        for (Tube tubes:tube) {
+        for (Tube tubes : tubes) {
             game.batch.draw(tubes.getTopTube(), tubes.getPosTopTube().x, tubes.getPosTopTube().y);
             game.batch.draw(tubes.getBottomTube(), tubes.getPosBottomTube().x, tubes.getPosBottomTube().y);
         }
-
-        game.batch.draw(ground.getGround(), ground.getPosition().x, ground.getPosition().y, ground.getGround().getWidth(), ground.getGround().getHeight());
-        game.batch.draw(ground2.getGround(), ground2.getPosition().x, ground2.getPosition().y, ground2.getGround().getWidth(), ground2.getGround().getHeight());
+        for (Ground ground : grounds) {
+            game.batch.draw(ground.getGround(), ground.getPosition().x, ground.getPosition().y);
+        }
 
         game.batch.draw(bird.getBird(), bird.getPosition().x, bird.getPosition().y);
 
-        game.font.draw(game.batch, Score.printScore(), camera.position.x - (JumpyBirb.WIDTH/2F), camera.position.y + (JumpyBirb.HEIGHT/2F));
+        game.font.draw(game.batch, Score.printScore(), camera.position.x - (JumpyBirb.WIDTH / 2F),
+                camera.position.y + (JumpyBirb.HEIGHT / 2F));
 
         game.batch.end();
 
         // CAMERA FOLLOW
         camera.position.x = bird.getPosition().x + CAMERA_OF_SET;
         camera.update();
-        //Movement tubes
-        for (Tube tubes : tube) {
-            if (camera.position.x - (camera.viewportWidth / 2) > tubes.getPosTopTube().x + tubes.getTopTube().getWidth()) {
-                tubes.reposition(tubes.getPosTopTube().x + ((Tube.TUBE_WIDTH + TUBE_SPACING) * TUBE_COUNT));
-            }
-            if(tubes.collides(bird.getBounds())){
-                game.setScreen(new EndScreen(game));
-                Score.setHighScore();
-                dispose();
-            }
-        }
-        //Movement ground
-        if(camera.position.x -(camera.viewportWidth / 2) >= ground.getPosition().x + ground.getGround().getWidth()) {
-            ground.reposition(ground2.getGround().getWidth() +ground2.getPosition().x);
-        }
-        if(camera.position.x - (camera.viewportWidth / 2) >= ground2.getPosition().x + ground2.getGround().getWidth()) {
-            ground2.reposition(ground.getGround().getWidth() + ground.getPosition().x);
-        }
 
+        movementTubes();
+        movementGround();
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            bird.jump();
-        }
+        handleInput();
 
-        if (bird.getBounds().overlaps(ground.getBounds()) || bird.getBounds().overlaps(ground2.getBounds())) {
-            game.setScreen(new EndScreen(game));
-            Score.setHighScore();
-            dispose();
-        }
+        roofBound();
+    }
 
-        //camera.update();
-
-        //ROOF GÖR TILL METOD
-        float gameHeightToFloat = (float)JumpyBirb.HEIGHT - bird.getBird().getHeight();
+    private void roofBound() {
+        float gameHeightToFloat = (float) JumpyBirb.HEIGHT - bird.getBird().getHeight();
 
         if (bird.getPosition().y >= gameHeightToFloat) {
             bird.removeVelocity();
             bird.setPositionY(gameHeightToFloat);
         }
+    }
 
-        //FLOOR GÖR TILL METOD
-        if (bird.getPosition().y <= ground.getGround().getHeight()) {
-            bird.setPositionY(ground.getGround().getHeight());
-            bird.stillY();
+    private void handleInput() {
+        if (game.spaceAndMouseClickInput()) {
+            bird.jump();
+        }
+    }
+
+    private void movementGround() {
+        for (int i = 0; i < grounds.size; i++) {
+            Ground ground = grounds.get(i);
+            if (camera.position.x - (camera.viewportWidth / 2) >= ground.getPosition().x + ground.getGround().getWidth()) {
+                ground.reposition(ground.getPosition().x + ground.getGround().getWidth() * 2);
+            }
+            if (bird.getBounds().overlaps(ground.getBounds()) || bird.getBounds().overlaps(ground.getBounds())) {
+                death();
+            }
+        }
+    }
+
+    private void movementTubes() {
+        for (int i = 0; i < tubes.size; i++) {
+            Tube tube = tubes.get(i);
+            if (camera.position.x - (camera.viewportWidth / 2) > tube.getPosTopTube().x + tube.getTopTube().getWidth()) {
+                tube.reposition(tube.getPosTopTube().x + ((Tube.TUBE_WIDTH + Settings.TUBE_SPACING) * TUBE_COUNT));
+            }
+            if (tube.collides(bird.getBounds())) {
+                death();
+            }
 
         }
-
     }
 
     public static int getTubeSpacing() {
-        return TUBE_SPACING + Tube.TUBE_WIDTH;
+        return Settings.TUBE_SPACING + Tube.TUBE_WIDTH;
     }
 
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public void hide() {
-
+    private void death() {
+        game.setScreen(new EndScreen(game));
+        Score.setHighScore();
+        dispose();
     }
 
     @Override
     public void dispose() {
+        bg.dispose();
+        bird.dispose();
+        for (Ground ground : grounds) {
+            ground.dispose();
+        }
+        for (Tube tube : tubes) {
+            tube.dispose();
+        }
 
+    }
+
+    @Override
+    public void show() {
+    }
+
+    @Override
+    public void resize(int width, int height) {
+    }
+
+    @Override
+    public void pause() {
+    }
+
+    @Override
+    public void resume() {
+    }
+
+    @Override
+    public void hide() {
     }
 }

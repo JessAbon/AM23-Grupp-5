@@ -10,7 +10,6 @@ import se.yrgo.JumpyBirb;
 public class MainMenuScreen implements Screen {
 
     final JumpyBirb game;
-
     OrthographicCamera camera;
 
     public MainMenuScreen(final JumpyBirb game) {
@@ -31,7 +30,7 @@ public class MainMenuScreen implements Screen {
         game.font.draw(game.batch, "MAIN MENU SCREEN", JumpyBirb.WIDTH/2.0f, JumpyBirb.HEIGHT/2.0f);
         game.batch.end();
 
-        if (Gdx.input.isKeyPressed(Keys.SPACE)) {
+        if (game.spaceAndMouseClickInput()) {
             game.setScreen(new GameScreen(game));
             dispose();
         }

@@ -15,11 +15,7 @@ public class Ground {
     public Ground (int x, int y) {
         position = new Vector2(x, y);
         ground = new Texture("ground.png");
-        bounds = new Rectangle(position.x, position.y, ground.getWidth(), ground.getHeight()); //ground.getWidth() sen
-    }
-
-    public void update(float delta) {
-        position.add(0, 0);
+        bounds = new Rectangle(position.x, position.y, ground.getWidth(), ground.getHeight());
     }
 
     public void reposition(float x) {
@@ -32,6 +28,10 @@ public class Ground {
     public Texture getGround() { return ground; }
 
     public Rectangle getBounds() { return bounds; }
+
+    public void dispose() {
+        ground.dispose();
+    }
 
 
 }

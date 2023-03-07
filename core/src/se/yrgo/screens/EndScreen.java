@@ -3,23 +3,22 @@ package se.yrgo.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import se.yrgo.JumpyBirb;
-import se.yrgo.Sprites.Bird;
 import se.yrgo.util.Score;
 
 public class EndScreen implements Screen {
+
+    private static final long DELAY_TIME = 1500;
     final JumpyBirb game;
     OrthographicCamera camera;
-    private final long delayTime;
+    private final long timeStamp;
 
     public EndScreen(final JumpyBirb game) {
         this.game = game;
         camera = new OrthographicCamera();
-        delayTime = TimeUtils.millis();
+        timeStamp = TimeUtils.millis();
     }
 
     @Override
@@ -31,26 +30,30 @@ public class EndScreen implements Screen {
    public void render(float delta) {
 
         //ScreenUtils.clear(Color.BLACK);
-
         game.batch.begin();
-        //game.batch.draw(GameScreen.screenShot, 0,0);
         game.font.draw(game.batch, "Score: " + Score.printScore(), Score.getPosition(), 400);
         game.font.draw(game.batch, "High Score: " + Score.printHighScore(), Score.getPosition(), 300);
         game.batch.end();
 
+        restart();
 
-        //if isKeyPressed && keyPressedTime > desiredDelay
+    }
+    private void restart() {
 
-        if (TimeUtils.millis() - delayTime > 1500) {
-            if (Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-                game.setScreen(new GameScreen(game));
-                dispose();
+            if (game.spaceAndMouseClickInput()) {
+                if (delayRestart()) {
+                    game.setScreen(new GameScreen(game));
+                    dispose();
+                }
 
-            }else if(Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)){
+            }
+            else if (Gdx.input.isKeyPressed(Input.Keys.Q)) {
                 Gdx.app.exit();
             }
         }
 
+    private boolean delayRestart() {
+        return TimeUtils.millis() - timeStamp > DELAY_TIME;
     }
 
     @Override
