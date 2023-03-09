@@ -23,6 +23,11 @@ public class Ground {
         bounds.setPosition(position.x, position.y);
     }
 
+    //Parallax movement prototype
+    public void moveGround() {
+        position.add(-5, 0);
+    }
+
     public Vector2 getPosition() { return position; }
 
     public Texture getGround() { return ground; }

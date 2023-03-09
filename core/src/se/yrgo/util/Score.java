@@ -1,8 +1,5 @@
 package se.yrgo.util;
 
-import se.yrgo.Sprites.Bird;
-import se.yrgo.screens.GameScreen;
-
 public class Score {
     private static Float score;
     private static Float highScore;

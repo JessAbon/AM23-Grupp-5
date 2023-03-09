@@ -5,20 +5,20 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import se.yrgo.util.Settings;
 
-public class Bird {
+public class Hero {
     //private static final int GRAVITY = -15;
     //private static final int FORWARD_MOVEMENT = 100;
     //private static final int JUMP_VELOCITY = 220;
     private Vector3 position;
     private Vector3 velocity;
-    private Texture bird;
+    private Texture hero;
     private Rectangle bounds;
 
-    public Bird(int x, int y) {
+    public Hero(int x, int y) {
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
-        bird = new Texture("bird.png");
-        bounds = new Rectangle(x,y, bird.getWidth(), bird.getHeight());
+        hero = new Texture("hero.png");
+        bounds = new Rectangle(x,y, hero.getWidth(), hero.getHeight());
     }
 
     public void update(float delta) {
@@ -27,7 +27,7 @@ public class Bird {
         position.add(velocity.x ,velocity.y, 0);
         bounds.x = position.x;
         bounds.y = position.y;
-        position.add(Settings.BIRD_FORWARD_MOVEMENT * delta,velocity.y, 0); //Framåtrörelse
+        position.add(Settings.HERO_FORWARD_MOVEMENT * delta,velocity.y, 0); //Framåtrörelse
         velocity.scl(1/delta);
 
     }
@@ -36,7 +36,7 @@ public class Bird {
         velocity.y = 0;
     }
     public void jump() {
-        velocity.y = Settings.BIRD_JUMP_VELOCITY;
+        velocity.y = Settings.HERO_JUMP_VELOCITY;
     }
     public void setPositionY(float positionY) {
         position.y = positionY;
@@ -45,14 +45,14 @@ public class Bird {
     public Vector3 getPosition() {
         return position; }
 
-    public Texture getBird() {
-        return bird; }
+    public Texture getHero() {
+        return hero; }
 
     public Rectangle getBounds() {
         return bounds; }
 
     public void dispose() {
-        bird.dispose();
+        hero.dispose();
     }
 
 

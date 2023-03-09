@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
-import se.yrgo.Sprites.Bird;
+import se.yrgo.Sprites.Hero;
 import se.yrgo.Sprites.Ground;
 import se.yrgo.JumpyBirb;
 import se.yrgo.Sprites.Tube;
@@ -21,7 +21,7 @@ public class GameScreen implements Screen {
     private static final int CAMERA_OF_SET = JumpyBirb.WIDTH / 4;
 
     final JumpyBirb game;
-    private Bird bird;
+    private Hero hero;
     private OrthographicCamera camera;
     private static Texture bg;
     private Array<Tube> tubes;
@@ -30,7 +30,7 @@ public class GameScreen implements Screen {
     public GameScreen(JumpyBirb game) {
         this.game = game;
         camera = new OrthographicCamera();
-        bird = new Bird(JumpyBirb.WIDTH / 4, JumpyBirb.HEIGHT / 2);
+        hero = new Hero(JumpyBirb.WIDTH / 4, JumpyBirb.HEIGHT / 2);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
         bg = new Texture(Gdx.files.internal("bg.png"));
@@ -49,15 +49,16 @@ public class GameScreen implements Screen {
     public void render(float delta) {
 
         ScreenUtils.clear(1, 2, 3, 1);
-        bird.update(delta);
+        hero.update(delta);
         camera.update();
 
-        Score.setScore(bird.getPosition().x);
+        Score.setScore(hero.getPosition().x);
 
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
         game.batch.draw(bg, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+
 
         for (Tube tubes : tubes) {
             game.batch.draw(tubes.getTopTube(), tubes.getPosTopTube().x, tubes.getPosTopTube().y);
@@ -65,9 +66,10 @@ public class GameScreen implements Screen {
         }
         for (Ground ground : grounds) {
             game.batch.draw(ground.getGround(), ground.getPosition().x, ground.getPosition().y);
+
         }
 
-        game.batch.draw(bird.getBird(), bird.getPosition().x, bird.getPosition().y);
+        game.batch.draw(hero.getHero(), hero.getPosition().x, hero.getPosition().y);
 
         game.font.draw(game.batch, Score.printScore(), camera.position.x - (JumpyBirb.WIDTH / 2F),
                 camera.position.y + (JumpyBirb.HEIGHT / 2F));
@@ -75,7 +77,7 @@ public class GameScreen implements Screen {
         game.batch.end();
 
         // CAMERA FOLLOW
-        camera.position.x = bird.getPosition().x + CAMERA_OF_SET;
+        camera.position.x = hero.getPosition().x + CAMERA_OF_SET;
         camera.update();
 
         movementTubes();
@@ -87,27 +89,30 @@ public class GameScreen implements Screen {
     }
 
     private void roofBound() {
-        float gameHeightToFloat = (float) JumpyBirb.HEIGHT - bird.getBird().getHeight();
+        float gameHeightToFloat = (float) JumpyBirb.HEIGHT - hero.getHero().getHeight();
 
-        if (bird.getPosition().y >= gameHeightToFloat) {
-            bird.removeVelocity();
-            bird.setPositionY(gameHeightToFloat);
+        if (hero.getPosition().y >= gameHeightToFloat) {
+            hero.removeVelocity();
+            hero.setPositionY(gameHeightToFloat);
         }
     }
 
     private void handleInput() {
         if (game.spaceAndMouseClickInput()) {
-            bird.jump();
+            hero.jump();
         }
     }
 
     private void movementGround() {
         for (int i = 0; i < grounds.size; i++) {
             Ground ground = grounds.get(i);
+
+            //ground.moveGround(); Parallax movement (call in equivalent place for foreground and background.
+
             if (camera.position.x - (camera.viewportWidth / 2) >= ground.getPosition().x + ground.getGround().getWidth()) {
                 ground.reposition(ground.getPosition().x + ground.getGround().getWidth() * 2);
             }
-            if (bird.getBounds().overlaps(ground.getBounds()) || bird.getBounds().overlaps(ground.getBounds())) {
+            if (hero.getBounds().overlaps(ground.getBounds()) || hero.getBounds().overlaps(ground.getBounds())) {
                 death();
             }
         }
@@ -119,7 +124,7 @@ public class GameScreen implements Screen {
             if (camera.position.x - (camera.viewportWidth / 2) > tube.getPosTopTube().x + tube.getTopTube().getWidth()) {
                 tube.reposition(tube.getPosTopTube().x + ((Tube.TUBE_WIDTH + Settings.TUBE_SPACING) * TUBE_COUNT));
             }
-            if (tube.collides(bird.getBounds())) {
+            if (tube.collides(hero.getBounds())) {
                 death();
             }
 
@@ -139,7 +144,7 @@ public class GameScreen implements Screen {
     @Override
     public void dispose() {
         bg.dispose();
-        bird.dispose();
+        hero.dispose();
         for (Ground ground : grounds) {
             ground.dispose();
         }
