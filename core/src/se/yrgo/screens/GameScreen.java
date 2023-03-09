@@ -40,7 +40,7 @@ public class GameScreen implements Screen {
         }
         grounds = new Array<>();
         for (int i = 0; i <= 2; i++) {
-            grounds.add(new Ground(i * 800, 0));
+            grounds.add(new Ground(i * JumpyBirb.WIDTH, 0));
         }
 
     }
