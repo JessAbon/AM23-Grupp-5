@@ -51,10 +51,12 @@ public class GameScreen implements Screen {
         ScreenUtils.clear(1, 2, 3, 1);
         hero.update(delta);
         camera.update();
-
+        game.batch.setProjectionMatrix(camera.combined);
+        // CAMERA FOLLOW
+        camera.position.x = hero.getPosition().x + CAMERA_OF_SET;
+        camera.update();
         Score.setScore(hero.getPosition().x);
 
-        game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
         game.batch.draw(bg, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
@@ -76,9 +78,6 @@ public class GameScreen implements Screen {
 
         game.batch.end();
 
-        // CAMERA FOLLOW
-        camera.position.x = hero.getPosition().x + CAMERA_OF_SET;
-        camera.update();
 
         movementTubes();
         movementGround();
@@ -86,6 +85,9 @@ public class GameScreen implements Screen {
         handleInput();
 
         roofBound();
+        death();
+
+
     }
 
     private void roofBound() {
@@ -113,7 +115,7 @@ public class GameScreen implements Screen {
                 ground.reposition(ground.getPosition().x + ground.getGround().getWidth() * 2);
             }
             if (hero.getBounds().overlaps(ground.getBounds()) || hero.getBounds().overlaps(ground.getBounds())) {
-                death();
+                hero.hit();
             }
         }
     }
@@ -125,9 +127,8 @@ public class GameScreen implements Screen {
                 tube.reposition(tube.getPosTopTube().x + ((Tube.TUBE_WIDTH + Settings.TUBE_SPACING) * TUBE_COUNT));
             }
             if (tube.collides(hero.getBounds())) {
-                death();
+                hero.hit();
             }
-
         }
     }
 
@@ -135,10 +136,13 @@ public class GameScreen implements Screen {
         return Settings.TUBE_SPACING + Tube.TUBE_WIDTH;
     }
 
+
     private void death() {
-        game.setScreen(new EndScreen(game));
-        Score.setHighScore();
-        dispose();
+        if (hero.getPosition().y <= -hero.getHero().getHeight() * 2) {
+            game.setScreen(new EndScreen(game));
+            Score.setHighScore();
+            dispose();
+        }
     }
 
     @Override
@@ -151,7 +155,6 @@ public class GameScreen implements Screen {
         for (Tube tube : tubes) {
             tube.dispose();
         }
-
     }
 
     @Override

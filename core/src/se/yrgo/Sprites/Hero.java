@@ -13,48 +13,72 @@ public class Hero {
     private Vector3 velocity;
     private Texture hero;
     private Rectangle bounds;
+    private boolean hit;
+    private boolean hasDeathJumped;
+
 
     public Hero(int x, int y) {
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
         hero = new Texture("hero.png");
-        bounds = new Rectangle(x,y, hero.getWidth(), hero.getHeight());
+        bounds = new Rectangle(x, y, hero.getWidth(), hero.getHeight());
+        hasDeathJumped = false;
     }
 
     public void update(float delta) {
         velocity.add(0, Settings.GRAVITY, 0);
         velocity.scl(delta);
-        position.add(velocity.x ,velocity.y, 0);
+        position.add(velocity.x, velocity.y, 0);
         bounds.x = position.x;
         bounds.y = position.y;
-        position.add(Settings.HERO_FORWARD_MOVEMENT * delta,velocity.y, 0); //Framåtrörelse
-        velocity.scl(1/delta);
+        //position.add(Settings.HERO_FORWARD_MOVEMENT * delta, velocity.y, 0); //Framåtrörelse
+        forwardMovement(delta);
+        velocity.scl(1 / delta);
+    }
 
+    private void forwardMovement(float delta) {
+        if (hit) {
+            position.add(0, velocity.y,0);
+            if (!hasDeathJumped) {
+                velocity.y = 200 * delta;
+                hasDeathJumped = true;
+            }
+        }
+        else position.add(Settings.HERO_FORWARD_MOVEMENT * delta, velocity.y, 0);
     }
 
     public void removeVelocity() {
         velocity.y = 0;
     }
+
     public void jump() {
-        velocity.y = Settings.HERO_JUMP_VELOCITY;
+        if (!hasDeathJumped) {
+            velocity.y = Settings.HERO_JUMP_VELOCITY;
+        }
     }
+    public void hit() {
+        hit = true;
+    }
+
     public void setPositionY(float positionY) {
         position.y = positionY;
     }
 
     public Vector3 getPosition() {
-        return position; }
+        return position;
+    }
 
     public Texture getHero() {
-        return hero; }
+        return hero;
+    }
 
     public Rectangle getBounds() {
-        return bounds; }
+        return bounds;
+    }
 
     public void dispose() {
         hero.dispose();
     }
-
 
 
 }

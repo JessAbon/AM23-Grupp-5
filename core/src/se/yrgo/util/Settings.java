@@ -7,5 +7,5 @@ public final class Settings {
     public static final int TUBE_SPACING = 200;
     public static final int TUBE_FLUCTUATION = 250;
     public static final int TUBE_GAP = 200;
-    public static final int TUBE_LOWEST_OPENING = 150;
+    public static final int TUBE_LOWEST_OPENING = 120;
 }
