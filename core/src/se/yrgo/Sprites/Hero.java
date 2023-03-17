@@ -1,6 +1,7 @@
 package se.yrgo.Sprites;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import se.yrgo.util.Settings;
@@ -15,17 +16,23 @@ public class Hero {
     private Rectangle bounds;
     private boolean hit;
     private boolean hasDeathJumped;
+    private Animation heroAnimation;
 
 
     public Hero(int x, int y) {
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
-        hero = new Texture("hero.png");
-        bounds = new Rectangle(x, y, hero.getWidth(), hero.getHeight());
+        //hero = new Texture("hero.png"); //hero - stilla
+        hero = new Texture("heroAnimation.png");
+        heroAnimation = new Animation(new TextureRegion(hero), 6,0.5f);
+        //bounds = new Rectangle(x, y, hero.getWidth(), hero.getHeight()); //gamla bounds
+        bounds = new Rectangle(x,y,  hero.getWidth()/6, hero.getHeight());
         hasDeathJumped = false;
     }
 
+
     public void update(float delta) {
+        heroAnimation.update(delta);
         velocity.add(0, Settings.GRAVITY, 0);
         velocity.scl(delta);
         position.add(velocity.x, velocity.y, 0);
@@ -70,6 +77,9 @@ public class Hero {
 
     public Texture getHero() {
         return hero;
+    }
+    public TextureRegion getTexture() {
+        return heroAnimation.getFrame();
     }
 
     public Rectangle getBounds() {
