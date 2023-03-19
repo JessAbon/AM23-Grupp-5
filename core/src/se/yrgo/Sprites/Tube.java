@@ -20,8 +20,8 @@ public class Tube {
 
 
     public Tube(float x){
-    topTube = new Texture("flowerLeaf-top.png");
-    bottomTube = new Texture("flowerLeaf-bottom.png");
+    topTube = new Texture("toptube.png");
+    bottomTube = new Texture("bottomtube.png");
     rand = new Random();
     posTopTube = new Vector2(x, rand.nextInt(Settings.TUBE_FLUCTUATION) + Settings.TUBE_GAP + Settings.TUBE_LOWEST_OPENING);
     posBottomTube = new Vector2(x,posTopTube.y - Settings.TUBE_GAP - bottomTube.getHeight());
