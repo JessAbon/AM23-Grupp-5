@@ -3,10 +3,13 @@ package se.yrgo.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import se.yrgo.JumpyBirb;
 import se.yrgo.util.Score;
+import se.yrgo.util.Util;
 
 public class EndScreen implements Screen {
 
@@ -29,10 +32,9 @@ public class EndScreen implements Screen {
     @Override
    public void render(float delta) {
 
-        //ScreenUtils.clear(Color.BLACK);
         game.batch.begin();
-        game.font.draw(game.batch, "Score: " + Score.printScore(), Score.getPosition(), 400);
-        game.font.draw(game.batch, "High Score: " + Score.printHighScore(), Score.getPosition(), 300);
+        game.font.draw(game.batch, "Score: " + Score.getScore(), Util.getGlobalHeroPositionX() + JumpyBirb.WIDTH/2F - 50, JumpyBirb.HEIGHT/2F + 40);
+        game.font.draw(game.batch, "High Score: " + Score.getHighScore(), Util.getGlobalHeroPositionX() + JumpyBirb.WIDTH/2F - 50, JumpyBirb.HEIGHT/2F - 10);
         game.batch.end();
 
         restart();

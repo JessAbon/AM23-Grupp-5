@@ -1,29 +1,24 @@
 package se.yrgo.util;
 
 public class Score {
-    private static Float score;
-    private static Float highScore;
+    private static Integer score;
+    private static Integer highScore;
 
     public static void setScore(float birdPosition) {
-        score = birdPosition;
+
+        score = (int)birdPosition / 10;
     }
 
     public static void setHighScore() {
         if(highScore == null) {
-            highScore = 0F;
+            highScore = 0;
         }
         if (score > highScore) {
             highScore = score;
         }
     }
-    public static String printScore() {
-        return score.toString();
-    }
-
-    public static String printHighScore() {
+    public static String getScore() { return score.toString(); }
+    public static String getHighScore() {
         return highScore.toString();
-    }
-    public static float getPosition() {
-        return score;
     }
 }

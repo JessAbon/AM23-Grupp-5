@@ -9,9 +9,6 @@ import se.yrgo.util.Settings;
 import java.util.Random;
 
 public class Tube {
-    //private static final int FLUCTUATION = 250;
-    //private static final int TUBE_GAP = 200;
-    //private static final int LOWEST_OPENING = 180;
     public static final int TUBE_WIDTH = 52;
     private Texture topTube, bottomTube;
     private Vector2 posTopTube, posBottomTube; //Position för tubes

@@ -12,11 +12,11 @@ import se.yrgo.JumpyBirb;
 import se.yrgo.Sprites.Tube;
 import se.yrgo.util.Score;
 import se.yrgo.util.Settings;
+import se.yrgo.util.Util;
 
 
 public class GameScreen implements Screen {
 
-    //private static final int TUBE_SPACING = 200;
     private static final int TUBE_COUNT = 7;
     private static final int CAMERA_OF_SET = JumpyBirb.WIDTH / 4;
 
@@ -49,18 +49,22 @@ public class GameScreen implements Screen {
     public void render(float delta) {
 
         ScreenUtils.clear(1, 2, 3, 1);
-        hero.update(delta);
-        camera.update();
-        game.batch.setProjectionMatrix(camera.combined);
-        // CAMERA FOLLOW
-        camera.position.x = hero.getPosition().x + CAMERA_OF_SET;
-        camera.update();
-        Score.setScore(hero.getPosition().x);
 
+        hero.update(delta);
+        camera.position.x = hero.getPosition().x + CAMERA_OF_SET; // CAMERA FOLLOW
+        camera.update();
+
+        Score.setScore(hero.getPosition().x);
+        Util.setGlobalHeroPositionX(hero.getPosition().x);
+        movementTubes();
+        movementGround();
+        handleInput();
+        roofBound();
+
+        game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
         game.batch.draw(bg, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
-
 
         for (Tube tubes : tubes) {
             game.batch.draw(tubes.getTopTube(), tubes.getPosTopTube().x, tubes.getPosTopTube().y);
@@ -68,26 +72,16 @@ public class GameScreen implements Screen {
         }
         for (Ground ground : grounds) {
             game.batch.draw(ground.getGround(), ground.getPosition().x, ground.getPosition().y);
-
         }
 
         //game.batch.draw(hero.getHero(), hero.getPosition().x, hero.getPosition().y);
         game.batch.draw(hero.getHeroAnimation(), hero.getPosition().x, hero.getPosition().y);
-        game.font.draw(game.batch, Score.printScore(), camera.position.x - (JumpyBirb.WIDTH / 2F),
+        game.font.draw(game.batch, Score.getScore(), camera.position.x - (JumpyBirb.WIDTH / 2F),
                 camera.position.y + (JumpyBirb.HEIGHT / 2F));
 
         game.batch.end();
 
-
-        movementTubes();
-        movementGround();
-
-        handleInput();
-
-        roofBound();
         death();
-
-
     }
 
     private void roofBound() {
@@ -104,7 +98,6 @@ public class GameScreen implements Screen {
             hero.jump();
         }
     }
-
     private void movementGround() {
         for (int i = 0; i < grounds.size; i++) {
             Ground ground = grounds.get(i);

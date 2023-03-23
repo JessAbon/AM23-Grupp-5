@@ -7,9 +7,6 @@ import com.badlogic.gdx.math.Vector3;
 import se.yrgo.util.Settings;
 
 public class Hero {
-    //private static final int GRAVITY = -15;
-    //private static final int FORWARD_MOVEMENT = 100;
-    //private static final int JUMP_VELOCITY = 220;
     private Vector3 position;
     private Vector3 velocity;
     private Texture hero;
@@ -38,9 +35,9 @@ public class Hero {
         position.add(velocity.x, velocity.y, 0);
         bounds.x = position.x;
         bounds.y = position.y;
-        //position.add(Settings.HERO_FORWARD_MOVEMENT * delta, velocity.y, 0); //Framåtrörelse
         forwardMovement(delta);
         velocity.scl(1 / delta);
+
     }
 
     private void forwardMovement(float delta) {
