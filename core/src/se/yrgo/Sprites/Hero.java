@@ -78,7 +78,7 @@ public class Hero {
     public Texture getHero() {
         return hero;
     }
-    public TextureRegion getTexture() {
+    public TextureRegion getHeroAnimation() {
         return heroAnimation.getFrame();
     }
 

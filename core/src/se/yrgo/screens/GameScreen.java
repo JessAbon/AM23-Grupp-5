@@ -72,7 +72,7 @@ public class GameScreen implements Screen {
         }
 
         //game.batch.draw(hero.getHero(), hero.getPosition().x, hero.getPosition().y);
-        game.batch.draw(hero.getTexture(), hero.getPosition().x, hero.getPosition().y);
+        game.batch.draw(hero.getHeroAnimation(), hero.getPosition().x, hero.getPosition().y);
         game.font.draw(game.batch, Score.printScore(), camera.position.x - (JumpyBirb.WIDTH / 2F),
                 camera.position.y + (JumpyBirb.HEIGHT / 2F));
 
