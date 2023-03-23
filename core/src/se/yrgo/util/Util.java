@@ -11,7 +11,7 @@ public class Util {
         globalHeroPositionX = birdPositionX;
     }
 
-    public static float getGlobalHeroPositionX() {
+    public static float getGlobalHeroPositionXzero() {
         return globalHeroPositionX - (JumpyBirb.WIDTH / 4F);
     }
 }
