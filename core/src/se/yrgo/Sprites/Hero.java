@@ -82,6 +82,9 @@ public class Hero {
     public Rectangle getBounds() {
         return bounds;
     }
+    public boolean getHit(){
+        return hit;
+    }
 
     public void dispose() {
         hero.dispose();

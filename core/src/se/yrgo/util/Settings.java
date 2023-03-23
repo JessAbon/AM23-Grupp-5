@@ -6,6 +6,6 @@ public final class Settings {
     public static final int HERO_FORWARD_MOVEMENT = 200;
     public static final int TUBE_SPACING = 200;
     public static final int TUBE_FLUCTUATION = 250;
-    public static final int TUBE_GAP = 600;
+    public static final int TUBE_GAP = 250;
     public static final int TUBE_LOWEST_OPENING = 120;
 }
