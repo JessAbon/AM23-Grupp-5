@@ -18,7 +18,7 @@ public class JumpyBirb extends Game {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-		font = new BitmapFont();
+		font = new BitmapFont(Gdx.files.internal("Fonts/font1.fnt"));
 		this.setScreen(new MainMenuScreen(this));
 	}
 
