@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.utils.TimeUtils;
 import se.yrgo.JumpyBirb;
 import se.yrgo.util.Score;
@@ -15,11 +16,14 @@ public class EndScreen implements Screen {
     final JumpyBirb game;
     OrthographicCamera camera;
     private final long timeStamp;
+    private GlyphLayout gLayout;
 
     public EndScreen(final JumpyBirb game) {
         this.game = game;
         camera = new OrthographicCamera();
         timeStamp = TimeUtils.millis();
+        gLayout = new GlyphLayout();
+
     }
 
     @Override
@@ -31,8 +35,10 @@ public class EndScreen implements Screen {
    public void render(float delta) {
 
         game.batch.begin();
-        game.font.draw(game.batch, "Score: " + Score.getScore(), Util.getGlobalHeroPositionXzero() + JumpyBirb.WIDTH/2F - 50, JumpyBirb.HEIGHT/2F + 40);
-        game.font.draw(game.batch, "High Score: " + Score.getHighScore(), Util.getGlobalHeroPositionXzero() + JumpyBirb.WIDTH/2F - 50, JumpyBirb.HEIGHT/2F - 10);
+        gLayout.setText(game.font, "Score: " + Score.getScore());
+        game.font.draw(game.batch, gLayout, Util.getGlobalHeroPositionXzero() + JumpyBirb.WIDTH/2F - gLayout.width/2F, JumpyBirb.HEIGHT /2F + gLayout.height*2);
+        gLayout.setText(game.font, "High Score: " + Score.getHighScore());
+        game.font.draw(game.batch, gLayout, Util.getGlobalHeroPositionXzero() + JumpyBirb.WIDTH/2F - gLayout.width/2F, JumpyBirb.HEIGHT /2F + gLayout.height);
         game.batch.end();
 
         restart();

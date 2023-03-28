@@ -2,8 +2,10 @@ package se.yrgo.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import se.yrgo.Sprites.Hero;
@@ -30,6 +32,7 @@ public class GameScreen implements Screen {
     private Array<Ground> grounds;
     private Array<MidGround> midGrounds;
     private Array<ForGround> forGrounds;
+    private GlyphLayout glyphLayout;
 
     public GameScreen(JumpyBirb game) {
         this.game = game;
@@ -38,6 +41,7 @@ public class GameScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
         bg = new Texture(Gdx.files.internal("bg.png"));
+        glyphLayout = new GlyphLayout();
         tubes = new Array<>();
         for (int i = 2; i <= TUBE_COUNT; i++) {
             tubes.add(new Tube(i * (Settings.TUBE_SPACING + Tube.TUBE_WIDTH)));
@@ -77,6 +81,7 @@ public class GameScreen implements Screen {
         roofBound();
 
         game.batch.setProjectionMatrix(camera.combined);
+        glyphLayout.setText(game.font, Score.getScore());
 
         game.batch.begin();
         game.batch.draw(bg, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
@@ -97,9 +102,7 @@ public class GameScreen implements Screen {
         for (ForGround forGround : forGrounds) {
             game.batch.draw(forGround.getGround(), forGround.getPosition().x, forGround.getPosition().y);
         }
-        //game.batch.draw(hero.getHero(), hero.getPosition().x, hero.getPosition().y);
-        game.font.draw(game.batch, Score.getScore(), camera.position.x - (JumpyBirb.WIDTH / 2F),
-                camera.position.y + (JumpyBirb.HEIGHT / 2F));
+        game.font.draw(game.batch, glyphLayout, camera.position.x + (JumpyBirb.WIDTH/2F - glyphLayout.width), JumpyBirb.HEIGHT);
 
         game.batch.end();
 
