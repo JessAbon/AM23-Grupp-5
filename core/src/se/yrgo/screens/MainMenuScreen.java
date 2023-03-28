@@ -20,13 +20,14 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void show() {
-        gLayout.setText(game.font, "MAIN MENU SCREEN");
+
     }
 
     @Override
     public void render(float delta) {
 
         ScreenUtils.clear(0, 1, 1, 1);
+        gLayout.setText(game.font, "MAIN MENU SCREEN");
 
         game.batch.begin();
         game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH/2.0f - gLayout.width/2, JumpyBirb.HEIGHT/2.0f + gLayout.height/2);
@@ -62,10 +63,6 @@ public class MainMenuScreen implements Screen {
     @Override
     public void dispose() {
 
-    }
-
-    public JumpyBirb getGame() {
-        return game;
     }
 
 }
