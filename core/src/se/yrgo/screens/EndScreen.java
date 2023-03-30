@@ -42,9 +42,9 @@ public class EndScreen implements Screen {
         game.batch.draw(gameOver,Util.getGlobalHeroPositionXzero() , 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
         gLayout.setText(game.font, "Score: " + Score.getScore());
 
-        game.font.draw(game.batch, gLayout, Util.getGlobalHeroPositionXzero() + JumpyBirb.WIDTH/2F - gLayout.width/2F, JumpyBirb.HEIGHT /2F + gLayout.height*2);
+        game.font.draw(game.batch, gLayout, Util.getGlobalHeroPositionXzero() + JumpyBirb.WIDTH/2F - gLayout.width/2F, JumpyBirb.HEIGHT /2.7F + gLayout.height*2);
         gLayout.setText(game.font, "High Score: " + Score.getHighScore());
-        game.font.draw(game.batch, gLayout, Util.getGlobalHeroPositionXzero() + JumpyBirb.WIDTH/2F - gLayout.width/2F, JumpyBirb.HEIGHT /2F + gLayout.height);
+        game.font.draw(game.batch, gLayout, Util.getGlobalHeroPositionXzero() + JumpyBirb.WIDTH/2F - gLayout.width/2F, JumpyBirb.HEIGHT /3F + gLayout.height);
         game.batch.end();
 
         restart();
