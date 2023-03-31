@@ -87,7 +87,7 @@ public class GameScreen implements Screen {
         game.batch.draw(Settings.BACKGROUND, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
 
         for (MidGround midGround : midGrounds) {
-            game.batch.draw(midGround.getGround(), midGround.getPosition().x, midGround.getPosition().y);
+            game.batch.draw(midGround.getGround(), midGround.getPosition().x, midGround.getPosition().y - 20);
         }
         for (Tube tubes : tubes) {
             game.batch.draw(tubes.getTopTube(), tubes.getPosTopTube().x, tubes.getPosTopTube().y);
@@ -100,7 +100,7 @@ public class GameScreen implements Screen {
         game.batch.draw(hero.getHeroAnimation(), hero.getPosition().x, hero.getPosition().y);
 
         for (ForGround forGround : forGrounds) {
-            game.batch.draw(forGround.getGround(), forGround.getPosition().x, forGround.getPosition().y);
+            game.batch.draw(forGround.getGround(), forGround.getPosition().x, forGround.getPosition().y + 40);
         }
         game.font.draw(game.batch, glyphLayout, camera.position.x + (JumpyBirb.WIDTH/2F - glyphLayout.width), JumpyBirb.HEIGHT);
 

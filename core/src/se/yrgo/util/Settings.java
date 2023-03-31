@@ -24,14 +24,14 @@ public final class Settings {
         HERO_FORWARD_MOVEMENT = 200;
         TUBE_SPACING = 200;
         TUBE_FLUCTUATION = 250;
-        TUBE_GAP = 250;
-        TUBE_LOWEST_OPENING = 120;
-        BACKGROUND = new Texture("bg-pink.png");
-        FOREGROUND = new Texture("fg.png");
-        TOPTUBE = new Texture("toptube.png");
-        BOTTOMTUBE = new Texture("bottomtube.png");
+        TUBE_GAP = 230;
+        TUBE_LOWEST_OPENING = 130;
+        BACKGROUND = new Texture("easy/bg.png");
+        FOREGROUND = new Texture("easy/fg.png");
+        TOPTUBE = new Texture("easy/Top-smallcarrot.png");
+        BOTTOMTUBE = new Texture("easy/Bottom-smallcarrot.png");
         GROUND = new Texture("ground.png");
-        MIDGROUND = new Texture("mg.png");
+        MIDGROUND = new Texture("easy/mg.png");
     }
 
     public static void medium() {
