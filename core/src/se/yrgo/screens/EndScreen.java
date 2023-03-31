@@ -26,7 +26,7 @@ public class EndScreen implements Screen {
         camera = new OrthographicCamera();
         timeStamp = TimeUtils.millis();
         gLayout = new GlyphLayout();
-        gameOver = new Texture("Main_menu/gameovertest.png");
+        gameOver = new Texture("menu/gameovertest.png");
 
     }
 

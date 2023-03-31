@@ -40,20 +40,20 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
         this.game = game;
         camera = new OrthographicCamera();
         gLayout = new GlyphLayout();
-        startbg = new Texture("Main_menu/bg-mainmenu.png");
-        fg = new Texture("Main_menu/fg-main-menu.png");
+        startbg = new Texture("menu/bg-mainmenu.png");
+        fg = new Texture("menu/fg-main-menu.png");
         easy = new Rectangle(130, 400, 175, 75);
         medium = new Rectangle(340, 380, 175, 75);
         hard = new Rectangle(540, 300, 180, 80);
         play = new Rectangle(330, 210, 180, 80);
 
-        easyButton = new Texture("Main_menu/easy-btn.png");
-        easyButtonPressed = new Texture("Main_menu/easy-btn-pressed.png");
-        mediumButton = new Texture("Main_menu/medium-btn.png");
-        mediumButtonPressed = new Texture("Main_menu/medium-btn-pressed.png");
-        hardButton = new Texture("Main_menu/hard-btn.png");
-        hardButtonPressed = new Texture("Main_menu/hard-pressed.png");
-        playButton = new Texture("Main_menu/playbtn-wood.png");
+        easyButton = new Texture("menu/easy-btn.png");
+        easyButtonPressed = new Texture("menu/easy-btn-pressed.png");
+        mediumButton = new Texture("menu/medium-btn.png");
+        mediumButtonPressed = new Texture("menu/medium-btn-pressed.png");
+        hardButton = new Texture("menu/hard-btn.png");
+        hardButtonPressed = new Texture("menu/hard-pressed.png");
+        playButton = new Texture("menu/playbtn-wood.png");
     }
 
 
@@ -80,8 +80,7 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
             if (play.contains(x, y)) {
                 System.out.println("PLAY");
-
-                //game.setScreen(new GameScreen(game));
+                game.setScreen(new GameScreen(game));
             } else if (easy.contains(x, y)) {
                 Settings.easy();
                 game.batch.draw(easyButtonPressed, camera.position.x - (camera.viewportWidth / 2),
