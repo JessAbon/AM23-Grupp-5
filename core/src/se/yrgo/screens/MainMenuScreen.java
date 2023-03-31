@@ -1,21 +1,15 @@
 package se.yrgo.screens;
 
+import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.ScreenUtils;
 import se.yrgo.JumpyBirb;
 
-public class MainMenuScreen implements Screen {
+public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
     final JumpyBirb game;
     OrthographicCamera camera;
@@ -27,69 +21,87 @@ public class MainMenuScreen implements Screen {
     Rectangle medium;
     Rectangle hard;
 
-    ShapeRenderer shapeRenderer;
+    Rectangle play;
 
+    private Texture easyButton;
+    private Texture easyButtonPressed;
+    private Texture mediumButton;
+    private Texture mediumButtonPressed;
+    private Texture hardButton;
+    private Texture hardButtonPressed;
+
+    private Texture playButton;
 
     public MainMenuScreen(final JumpyBirb game) {
         this.game = game;
         camera = new OrthographicCamera();
         gLayout = new GlyphLayout();
-        startbg = new Texture("Startplaceholder.png");
-        easy = new Rectangle(150, 125, 175, 75);
-        medium = new Rectangle(345, 150, 175, 75);
-        hard = new Rectangle(540, 250, 175, 75);
+        startbg = new Texture("Main_menu/bg-mainmenu.png");
+        easy = new Rectangle(130, 400, 175, 75);
+        medium = new Rectangle(340, 380, 175, 75);
+        hard = new Rectangle(540, 300, 180, 80);
+        play = new Rectangle(330, 210, 180, 80);
 
-        shapeRenderer = new ShapeRenderer();
-        shapeRenderer.setAutoShapeType(true);
+        easyButton = new Texture("Main_menu/easy-btn.png");
+        easyButtonPressed = new Texture("Main_menu/easy-btn-pressed.png");
+        mediumButton = new Texture("Main_menu/medium-btn.png");
+        mediumButtonPressed = new Texture("Main_menu/medium-btn-pressed.png");
+        hardButton = new Texture("Main_menu/hard-btn.png");
+        hardButtonPressed = new Texture("Main_menu/hard-pressed.png");
+        playButton = new Texture("Main_menu/playbtn-wood.png");
     }
+
 
     @Override
     public void show() {
-        Gdx.input.setInputProcessor(new InputAdapter() {
-            public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                float x = screenX;
-                float y = screenY;
-
-                Vector3 worldCoords = camera.unproject(new Vector3(x, y, 0));
-                System.out.println("mouseclick x" + x);
-                System.out.println("mouseclick y" + y);
-
-
-                if (easy.contains(worldCoords.x, worldCoords.y)) {
-                    game.setScreen(new GameScreen(game));
-                    System.out.println("EASY");
-                } else if (medium.contains(worldCoords.x, worldCoords.y)) {
-                    System.out.println("Medium button pressed");
-                } else if (hard.contains(worldCoords.x, worldCoords.y)) {
-                    System.out.println("Hard button pressed");
-                }
-                return true;
-            }
-        });
 
     }
 
+
     @Override
     public void render(float delta) {
-
-        ScreenUtils.clear(0, 1, 1, 1);
-
-
-        gLayout.setText(game.font, "MAIN MENU SCREEN");
+        String level = "";
 
         game.batch.begin();
 
-        game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH/2.0f - gLayout.width/2, JumpyBirb.HEIGHT/2.0f + gLayout.height/2);
+        game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2.0f - gLayout.width / 2, JumpyBirb.HEIGHT / 2.0f + gLayout.height / 2);
         game.batch.draw(startbg, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        game.batch.draw(easyButton, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        game.batch.draw(mediumButton, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        game.batch.draw(hardButton, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        game.batch.draw(playButton, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+
+        if (Gdx.input.isTouched()) {
+            int x = Gdx.input.getX();
+            int y = Gdx.input.getY();
+            if(play.contains(x,y)){
+                System.out.println("PLAY");
+
+                //game.setScreen(new GameScreen(game));
+            }
+            else if (easy.contains(x, y)) {
+                game.batch.draw(easyButtonPressed, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+                level = "easy";
+                //game.setScreen(new GameScreen(game));
+                System.out.println("EASY");
+               dispose();
+            } else if (medium.contains(x, y)) {
+                game.batch.draw(mediumButtonPressed, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+                level = "medium";
+                //game.setScreen(new GameScreen(game));
+                System.out.println("Medium");
+                dispose();
+            } else if (hard.contains(x, y)) {
+                game.batch.draw(hardButtonPressed, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+                level = "hard";
+                //game.setScreen(new GameScreen(game));
+                System.out.println("Hard");
+                dispose();
+            }
+        }
+
 
         game.batch.end();
-
-        shapeRenderer.begin();
-        shapeRenderer.setColor(Color.BLUE);
-        shapeRenderer.rect(easy.x, easy.y, easy.width, easy.height);
-        shapeRenderer.rect(medium.x, medium.y, medium.width, medium.height);
-        shapeRenderer.rect(hard.x, hard.y, hard.width, hard.height);
-        shapeRenderer.end();
 
         //if (game.spaceAndMouseClickInput()) {
         //    game.setScreen(new GameScreen(game));
@@ -97,6 +109,7 @@ public class MainMenuScreen implements Screen {
         //}
 
     }
+
 
     @Override
     public void resize(int width, int height) {
