@@ -2,12 +2,14 @@ package se.yrgo.screens;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.math.Rectangle;
 import se.yrgo.JumpyBirb;
+import se.yrgo.util.Settings;
 
 public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
@@ -17,11 +19,13 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
     private Texture startbg;
 
-    Rectangle easy;
-    Rectangle medium;
-    Rectangle hard;
+    private Texture fg;
 
-    Rectangle play;
+    private Rectangle easy;
+    private Rectangle medium;
+    private Rectangle hard;
+
+    private Rectangle play;
 
     private Texture easyButton;
     private Texture easyButtonPressed;
@@ -37,6 +41,7 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
         camera = new OrthographicCamera();
         gLayout = new GlyphLayout();
         startbg = new Texture("Main_menu/bg-mainmenu.png");
+        fg = new Texture("Main_menu/fg-main-menu.png");
         easy = new Rectangle(130, 400, 175, 75);
         medium = new Rectangle(340, 380, 175, 75);
         hard = new Rectangle(540, 300, 180, 80);
@@ -60,7 +65,6 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
     @Override
     public void render(float delta) {
-        String level = "";
 
         game.batch.begin();
 
@@ -74,6 +78,7 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
         if (Gdx.input.isTouched()) {
             int x = Gdx.input.getX();
             int y = Gdx.input.getY();
+
             if(play.contains(x,y)){
                 System.out.println("PLAY");
 
@@ -81,33 +86,36 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
             }
             else if (easy.contains(x, y)) {
                 game.batch.draw(easyButtonPressed, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
-                level = "easy";
+
                 //game.setScreen(new GameScreen(game));
                 System.out.println("EASY");
                dispose();
             } else if (medium.contains(x, y)) {
                 game.batch.draw(mediumButtonPressed, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
-                level = "medium";
+
                 //game.setScreen(new GameScreen(game));
                 System.out.println("Medium");
                 dispose();
             } else if (hard.contains(x, y)) {
                 game.batch.draw(hardButtonPressed, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
-                level = "hard";
+
                 //game.setScreen(new GameScreen(game));
                 System.out.println("Hard");
                 dispose();
             }
+
         }
 
 
         game.batch.end();
 
-        //if (game.spaceAndMouseClickInput()) {
-        //    game.setScreen(new GameScreen(game));
-        //    dispose();
-        //}
-
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+            game.setScreen(new GameScreen(game));
+           dispose();
+        }
+        game.batch.begin();
+        game.batch.draw(fg, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        game.batch.end();
     }
 
 
