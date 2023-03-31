@@ -40,7 +40,7 @@ public class GameScreen implements Screen {
         hero = new Hero(JumpyBirb.WIDTH / 4, JumpyBirb.HEIGHT / 2);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
-        bg = new Texture(Gdx.files.internal("bg.png"));
+        //bg = new Texture(Gdx.files.internal("bg.png"));
         glyphLayout = new GlyphLayout();
         tubes = new Array<>();
         for (int i = 2; i <= TUBE_COUNT; i++) {
@@ -84,7 +84,7 @@ public class GameScreen implements Screen {
         glyphLayout.setText(game.font, Score.getScore());
 
         game.batch.begin();
-        game.batch.draw(bg, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        game.batch.draw(Settings.BACKGROUND, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
 
         for (MidGround midGround : midGrounds) {
             game.batch.draw(midGround.getGround(), midGround.getPosition().x, midGround.getPosition().y);
@@ -184,20 +184,20 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        bg.dispose();
-        hero.dispose();
-        for (Ground ground : grounds) {
-            ground.dispose();
-        }
-        for (Tube tube : tubes) {
-            tube.dispose();
-        }
-        for (MidGround ground : midGrounds) {
-            ground.dispose();
-        }
-        for (ForGround ground : forGrounds) {
-            ground.dispose();
-        }
+        //Settings.BACKGROUND.dispose();
+        //hero.dispose();
+        //for (Ground ground : grounds) {
+        //    ground.dispose();
+        //}
+        //for (Tube tube : tubes) {
+        //    tube.dispose();
+        //}
+        //for (MidGround ground : midGrounds) {
+        //    ground.dispose();
+        //}
+        //for (ForGround ground : forGrounds) {
+        //    ground.dispose();
+        //}
     }
 
     @Override
