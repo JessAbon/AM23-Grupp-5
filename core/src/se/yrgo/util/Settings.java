@@ -24,8 +24,8 @@ public final class Settings {
         HERO_FORWARD_MOVEMENT = 200;
         TUBE_SPACING = 200;
         TUBE_FLUCTUATION = 250;
-        TUBE_GAP = 230;
-        TUBE_LOWEST_OPENING = 130;
+        TUBE_GAP = 190;
+        TUBE_LOWEST_OPENING = 150;
         BACKGROUND = new Texture("easy/bg.png");
         FOREGROUND = new Texture("easy/fg.png");
         TOPTUBE = new Texture("easy/Top-smallcarrot.png");
@@ -52,7 +52,7 @@ public final class Settings {
         TUBE_SPACING = 170;
         TUBE_FLUCTUATION = 250;
         TUBE_GAP = 220;
-        TUBE_LOWEST_OPENING = 130;
+        TUBE_LOWEST_OPENING = 150;
         BACKGROUND = new Texture("hard/bg.png");
         FOREGROUND = new Texture("hard/fg.png");
         TOPTUBE = new Texture("hard/toptube.png");
