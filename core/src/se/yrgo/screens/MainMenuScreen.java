@@ -65,7 +65,6 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
     @Override
     public void render(float delta) {
-
         game.batch.begin();
 
         game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2.0f - gLayout.width / 2, JumpyBirb.HEIGHT / 2.0f + gLayout.height / 2);
@@ -79,25 +78,30 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
             int x = Gdx.input.getX();
             int y = Gdx.input.getY();
 
-            if(play.contains(x,y)){
+            if (play.contains(x, y)) {
                 System.out.println("PLAY");
 
                 //game.setScreen(new GameScreen(game));
-            }
-            else if (easy.contains(x, y)) {
-                game.batch.draw(easyButtonPressed, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+            } else if (easy.contains(x, y)) {
+                Settings.easy();
+                game.batch.draw(easyButtonPressed, camera.position.x - (camera.viewportWidth / 2),
+                        0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
 
                 //game.setScreen(new GameScreen(game));
                 System.out.println("EASY");
-               dispose();
+                dispose();
             } else if (medium.contains(x, y)) {
-                game.batch.draw(mediumButtonPressed, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+                Settings.medium();
+                game.batch.draw(mediumButtonPressed, camera.position.x - (camera.viewportWidth / 2),
+                        0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
 
                 //game.setScreen(new GameScreen(game));
                 System.out.println("Medium");
                 dispose();
             } else if (hard.contains(x, y)) {
-                game.batch.draw(hardButtonPressed, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+                Settings.hard();
+                game.batch.draw(hardButtonPressed, camera.position.x - (camera.viewportWidth / 2),
+                        0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
 
                 //game.setScreen(new GameScreen(game));
                 System.out.println("Hard");
@@ -111,7 +115,7 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             game.setScreen(new GameScreen(game));
-           dispose();
+            dispose();
         }
         game.batch.begin();
         game.batch.draw(fg, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
