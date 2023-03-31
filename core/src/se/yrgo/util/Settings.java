@@ -11,12 +11,12 @@ public final class Settings {
     public static int TUBE_GAP = 250;
     public static int TUBE_LOWEST_OPENING = 120;
 
-    public static Texture BACKGROUND = new Texture("bg.png");
-    public static Texture FOREGROUND = new Texture("fg.png");
-    public static Texture TOPTUBE = new Texture("toptube.png");
-    public static Texture BOTTOMTUBE = new Texture("bottomtube.png");
-    public static Texture GROUND = new Texture("ground.png");
-    public static Texture MIDGROUND = new Texture("mg.png");
+    public static Texture BACKGROUND = new Texture("medium/bg.png");
+    public static Texture FOREGROUND = new Texture("medium/fg.png");
+    public static Texture TOPTUBE = new Texture("medium/toptube.png");
+    public static Texture BOTTOMTUBE = new Texture("medium/bottomtube.png");
+    public static Texture GROUND = new Texture("medium/ground.png");
+    public static Texture MIDGROUND = new Texture("medium/mg.png");
 
     public static void easy() {
         GRAVITY = -15;
@@ -30,7 +30,7 @@ public final class Settings {
         FOREGROUND = new Texture("easy/fg.png");
         TOPTUBE = new Texture("easy/Top-smallcarrot.png");
         BOTTOMTUBE = new Texture("easy/Bottom-smallcarrot.png");
-        GROUND = new Texture("ground.png");
+        GROUND = new Texture("medium/ground.png");
         MIDGROUND = new Texture("easy/mg.png");
     }
 
@@ -48,11 +48,12 @@ public final class Settings {
     public static void hard() {
         GRAVITY = -15;
         HERO_JUMP_VELOCITY = 280;
-        HERO_FORWARD_MOVEMENT = 250;
+        HERO_FORWARD_MOVEMENT = 200;
         TUBE_SPACING = 170;
         TUBE_FLUCTUATION = 250;
         TUBE_GAP = 220;
         TUBE_LOWEST_OPENING = 150;
+
         BACKGROUND = new Texture("hard/bg.png");
         FOREGROUND = new Texture("hard/fg.png");
         TOPTUBE = new Texture("hard/toptube.png");
