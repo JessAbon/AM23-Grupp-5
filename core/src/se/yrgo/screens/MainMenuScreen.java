@@ -65,11 +65,13 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
     @Override
     public void render(float delta) {
+
         game.batch.begin();
 
         game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2.0f - gLayout.width / 2, JumpyBirb.HEIGHT / 2.0f + gLayout.height / 2);
         game.batch.draw(startbg, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
         game.batch.draw(easyButton, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+
         game.batch.draw(mediumButton, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
         game.batch.draw(hardButton, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
         game.batch.draw(playButton, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
@@ -117,7 +119,7 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
             dispose();
         }
         game.batch.begin();
-        game.batch.draw(fg, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        game.batch.draw(fg, camera.position.x - (camera.viewportWidth) /2, 0, fg.getWidth(), fg.getHeight());
         game.batch.end();
     }
 
