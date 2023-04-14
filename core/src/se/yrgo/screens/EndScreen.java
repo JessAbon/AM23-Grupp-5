@@ -8,8 +8,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import se.yrgo.JumpyBirb;
 import se.yrgo.util.Score;
@@ -24,6 +22,18 @@ public class EndScreen implements Screen {
     private GlyphLayout gLayout;
 
     private Texture gameOver;
+
+    private Texture playBtn;
+
+    private Texture playBtnPressed;
+
+    private Texture homeBtn;
+
+    private Texture homeBtnPressed;
+
+    private Texture stopBtn;
+
+    private Texture stopBtnPressed;
     private Rectangle play;
     private Rectangle quit;
     private Rectangle mainMenu;
@@ -34,7 +44,14 @@ public class EndScreen implements Screen {
         camera = new OrthographicCamera();
         timeStamp = TimeUtils.millis();
         gLayout = new GlyphLayout();
-        gameOver = new Texture("menu/gameovertest.png");
+
+        gameOver = new Texture("menu/Bg.png");
+        playBtn = new Texture("menu/Play.png");
+        playBtnPressed = new Texture("menu/Play-pressed.png");
+        homeBtn = new Texture("menu/Home.png");
+        homeBtnPressed = new Texture("menu/Home-pressed.png");
+        stopBtn = new Texture("menu/Stop.png");
+        stopBtnPressed = new Texture("menu/Stop-pressed.png");
 
         play = new Rectangle(200, 450, 100, 100);
         quit = new Rectangle(370, 450, 100, 100);
@@ -67,6 +84,9 @@ public class EndScreen implements Screen {
 
         game.batch.begin();
         game.batch.draw(gameOver, Util.getGlobalPositionZeroX(), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        game.batch.draw(playBtn, Util.getGlobalPositionZeroX(), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        game.batch.draw(homeBtn, Util.getGlobalPositionZeroX(), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        game.batch.draw(stopBtn, Util.getGlobalPositionZeroX(), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
         gLayout.setText(game.font, "SCORE: " + Score.getScore());
 
         game.font.draw(game.batch, gLayout, Util.getGlobalPositionZeroX() + JumpyBirb.WIDTH / 2F - gLayout.width / 2F, JumpyBirb.HEIGHT / 2.7F + gLayout.height * 2);

@@ -41,8 +41,6 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
     private Texture playButton;
 
-    private Vector3 originalCameraPosition;
-
     public MainMenuScreen(final JumpyBirb game) {
         this.game = game;
         camera = new OrthographicCamera();
@@ -54,6 +52,10 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
         hard = new Rectangle(540, 300, 180, 80);
         play = new Rectangle(330, 210, 180, 80);
 
+        //play = new Rectangle(0, 0, playButton.getWidth(), playButton.getHeight());
+
+
+
         easyButton = new Texture("menu/easy-btn.png");
         easyButtonPressed = new Texture("menu/easy-btn-pressed.png");
         mediumButton = new Texture("menu/medium-btn.png");
@@ -61,6 +63,7 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
         hardButton = new Texture("menu/hard-btn.png");
         hardButtonPressed = new Texture("menu/hard-pressed.png");
         playButton = new Texture("menu/playbtn-wood.png");
+
     }
 
 
