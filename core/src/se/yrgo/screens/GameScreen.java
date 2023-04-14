@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import se.yrgo.Sprites.Hero;
 import se.yrgo.Sprites.Ground;
 import se.yrgo.JumpyBirb;
@@ -35,12 +36,15 @@ public class GameScreen implements Screen {
 
     private Sound deathSound;
 
+    private ScreenViewport viewport;
+
     public GameScreen(JumpyBirb game) {
         this.game = game;
 
         hero = new Hero(JumpyBirb.WIDTH / 4, JumpyBirb.HEIGHT / 2);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        viewport = new ScreenViewport();
         bg = new Texture(Gdx.files.internal(Settings.getFolder() + "bg.png"));
         glyphLayout = new GlyphLayout();
         tubes = new Array<>();
@@ -218,6 +222,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
+        viewport.update(width, height);
     }
 
     @Override

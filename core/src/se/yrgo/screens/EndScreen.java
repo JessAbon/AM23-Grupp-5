@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import se.yrgo.JumpyBirb;
 import se.yrgo.Sprites.Button;
 import se.yrgo.util.Score;
@@ -42,10 +43,13 @@ public class EndScreen implements Screen {
 
     private Button stopButton;
 
+    private ScreenViewport viewport;
+
     public EndScreen(final JumpyBirb game) {
         this.game = game;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        viewport = new ScreenViewport();
         timeStamp = TimeUtils.millis();
         gLayout = new GlyphLayout();
 
@@ -129,7 +133,7 @@ public class EndScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        viewport.update(width, height);
     }
 
     @Override
