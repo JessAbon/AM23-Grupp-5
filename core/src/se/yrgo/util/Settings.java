@@ -1,66 +1,79 @@
 package se.yrgo.util;
 
-import com.badlogic.gdx.graphics.Texture;
+public class Settings {
+    private static int gravity = -15;
+    private static int heroJumpVelocity = 280;
+    private static int heroForwardMovement = 200;
+    private static int tubeSpacing = 200;
+    private static int tubeFluctuation = 250;
+    private static int tubeGap = 250;
+    private static int tubeLowestOpening = 120;
+    private static String folder = "medium/";
 
-public final class Settings {
-    public static int GRAVITY = -15;
-    public static int HERO_JUMP_VELOCITY = 280;
-    public static int HERO_FORWARD_MOVEMENT = 200;
-    public static int TUBE_SPACING = 200;
-    public static int TUBE_FLUCTUATION = 250;
-    public static int TUBE_GAP = 250;
-    public static int TUBE_LOWEST_OPENING = 120;
 
-    public static Texture BACKGROUND = new Texture("medium/bg.png");
-    public static Texture FOREGROUND = new Texture("medium/fg.png");
-    public static Texture TOPTUBE = new Texture("medium/toptube.png");
-    public static Texture BOTTOMTUBE = new Texture("medium/bottomtube.png");
-    public static Texture GROUND = new Texture("medium/ground.png");
-    public static Texture MIDGROUND = new Texture("medium/mg.png");
 
     public static void easy() {
-        GRAVITY = -15;
-        HERO_JUMP_VELOCITY = 280;
-        HERO_FORWARD_MOVEMENT = 200;
-        TUBE_SPACING = 200;
-        TUBE_FLUCTUATION = 250;
-        TUBE_GAP = 190;
-        TUBE_LOWEST_OPENING = 150;
-        BACKGROUND = new Texture("easy/bg.png");
-        FOREGROUND = new Texture("easy/fg.png");
-        TOPTUBE = new Texture("easy/Top-smallcarrot.png");
-        BOTTOMTUBE = new Texture("easy/Bottom-smallcarrot.png");
-        GROUND = new Texture("medium/ground.png");
-        MIDGROUND = new Texture("easy/mg.png");
+        folder = "easy/";
+
+        tubeSpacing = 200;
+        tubeFluctuation = 250;
+        tubeGap = 190;
+        tubeLowestOpening = 150;
+
     }
 
     public static void medium() {
-        GRAVITY = -15;
-        HERO_JUMP_VELOCITY = 280;
-        HERO_FORWARD_MOVEMENT = 200;
-        TUBE_SPACING = 180;
-        TUBE_FLUCTUATION = 250;
-        TUBE_GAP = 230;
-        TUBE_LOWEST_OPENING = 130;
+        folder = "medium/";
+
+        tubeSpacing = 180;
+        tubeFluctuation = 250;
+        tubeGap = 230;
+        tubeLowestOpening = 130;
 
     }
 
     public static void hard() {
-        GRAVITY = -15;
-        HERO_JUMP_VELOCITY = 280;
-        HERO_FORWARD_MOVEMENT = 200;
-        TUBE_SPACING = 170;
-        TUBE_FLUCTUATION = 250;
-        TUBE_GAP = 220;
-        TUBE_LOWEST_OPENING = 150;
+        folder = "hard/";
 
-        BACKGROUND = new Texture("hard/bg.png");
-        FOREGROUND = new Texture("hard/fg.png");
-        TOPTUBE = new Texture("hard/toptube.png");
-        BOTTOMTUBE = new Texture("hard/bottomtube.png");
-        GROUND = new Texture("hard/ground.png");
-        MIDGROUND = new Texture("hard/mg.png");
+        heroForwardMovement = 200;
+        tubeSpacing = 170;
+        tubeFluctuation = 250;
+        tubeGap = 220;
+        tubeLowestOpening = 150;
+    }
 
+
+
+    public static String getFolder() {
+        return folder;
+    }
+
+    public static int getGravity() {
+        return gravity;
+    }
+
+    public static int getHeroJumpVelocity() {
+        return heroJumpVelocity;
+    }
+
+    public static int getHeroForwardMovement() {
+        return heroForwardMovement;
+    }
+
+    public static int getTubeSpacing() {
+        return tubeSpacing;
+    }
+
+    public static int getTubeFluctuation() {
+        return tubeFluctuation;
+    }
+
+    public static int getTubeGap() {
+        return tubeGap;
+    }
+
+    public static int getTubeLowestOpening() {
+        return tubeLowestOpening;
     }
 
     public enum Difficulty {

@@ -15,7 +15,7 @@ public class Ground {
 
     public Ground (int x, int y) {
         position = new Vector2(x, y);
-        ground = Settings.GROUND;
+        ground = new Texture(Settings.getFolder() + "ground.png");
         bounds = new Rectangle(position.x, position.y, ground.getWidth(), ground.getHeight());
     }
 

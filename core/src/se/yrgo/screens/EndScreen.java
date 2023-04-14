@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import se.yrgo.JumpyBirb;
 import se.yrgo.util.Score;
@@ -39,7 +40,7 @@ public class EndScreen implements Screen {
         quit = new Rectangle(370, 450, 100, 100);
         mainMenu = new Rectangle(500, 450, 100, 100);
 
-        //Ser var rektanglar är OBS Höjd stämmer inte, är typ tvärtom?? men y-axel stämmer
+
         ShapeRenderer shapeRenderer = new ShapeRenderer();
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.rect(play.x, play.y, play.width, play.height);
@@ -63,14 +64,16 @@ public class EndScreen implements Screen {
 
     @Override
     public void render(float delta) {
-
         game.batch.begin();
+        camera.update();
         game.batch.draw(gameOver, Util.getGlobalHeroPositionXzero(), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
         gLayout.setText(game.font, "SCORE: " + Score.getScore());
 
         game.font.draw(game.batch, gLayout, Util.getGlobalHeroPositionXzero() + JumpyBirb.WIDTH / 2F - gLayout.width / 2F, JumpyBirb.HEIGHT / 2.7F + gLayout.height * 2);
         gLayout.setText(game.font, "HIGHSCORE: " + Score.getHighScore());
         game.font.draw(game.batch, gLayout, Util.getGlobalHeroPositionXzero() + JumpyBirb.WIDTH / 2F - gLayout.width / 2F, JumpyBirb.HEIGHT / 3F + gLayout.height);
+        //Ser var rektanglar är OBS Höjd stämmer inte, är typ tvärtom?? men y-axel stämmer
+
 
         if (Gdx.input.isTouched()) {
             int x = Gdx.input.getX();
