@@ -20,7 +20,7 @@ public class Hero {
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
         //hero = new Texture("hero.png"); //hero - stilla
-        hero = new Texture("heroanimation.png");
+        hero = new Texture("hero/heroanimation.png");
         heroAnimation = new Animation(new TextureRegion(hero), 6,0.5f);
         //bounds = new Rectangle(x, y, hero.getWidth(), hero.getHeight()); //gamla bounds
         bounds = new Rectangle(x,y,  hero.getWidth()/6, hero.getHeight());

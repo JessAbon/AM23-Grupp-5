@@ -3,6 +3,7 @@ package se.yrgo.Sprites;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import se.yrgo.util.Settings;
 
 public class MidGround {
 
@@ -11,7 +12,7 @@ public class MidGround {
 
     public MidGround(int x, int y) {
         position = new Vector2(x, y);
-        ground = new Texture("mg.png");
+        ground = Settings.MIDGROUND;
     }
 
     public void reposition(float x) {

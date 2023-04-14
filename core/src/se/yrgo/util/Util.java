@@ -1,17 +1,28 @@
 package se.yrgo.util;
 
 import se.yrgo.JumpyBirb;
+import sun.text.resources.cldr.ext.FormatData_es_419;
 
 public class Util {
     private static float globalHeroPositionX;
 
 
 
+
     public static void setGlobalHeroPositionX(float birdPositionX) {
+
         globalHeroPositionX = birdPositionX;
     }
 
-    public static float getGlobalHeroPositionXzero() {
+    public static void initiateGlobalPositionZeroX() {
+        globalHeroPositionX = JumpyBirb.WIDTH / 4F;
+
+    }
+    public static float getGlobalPositionZeroX() {
+
         return globalHeroPositionX - (JumpyBirb.WIDTH / 4F);
+    }
+    public static float getGlobalHeroPositionX() {
+        return globalHeroPositionX;
     }
 }
