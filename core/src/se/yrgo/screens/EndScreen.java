@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.TimeUtils;
 import se.yrgo.JumpyBirb;
+import se.yrgo.Sprites.Button;
 import se.yrgo.util.Score;
 import se.yrgo.util.Util;
 
@@ -37,30 +38,35 @@ public class EndScreen implements Screen {
     private Rectangle play;
     private Rectangle quit;
     private Rectangle mainMenu;
-
+    private Button playTestbtn;
 
     public EndScreen(final JumpyBirb game) {
         this.game = game;
         camera = new OrthographicCamera();
+        camera.setToOrtho(false, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
         timeStamp = TimeUtils.millis();
         gLayout = new GlyphLayout();
 
+        //playTestbtn = new Button(Util.getGlobalPositionZeroX(), 0 , 100 ,100);
+
         gameOver = new Texture("menu/Bg.png");
-        playBtn = new Texture("menu/Play.png");
+        playBtn = new Texture("menu/PlayTest.png");
         playBtnPressed = new Texture("menu/Play-pressed.png");
         homeBtn = new Texture("menu/Home.png");
         homeBtnPressed = new Texture("menu/Home-pressed.png");
         stopBtn = new Texture("menu/Stop.png");
         stopBtnPressed = new Texture("menu/Stop-pressed.png");
 
-        play = new Rectangle(200, 450, 100, 100);
+        //play = new Rectangle(200, 450, 100, 100);
         quit = new Rectangle(370, 450, 100, 100);
         mainMenu = new Rectangle(500, 450, 100, 100);
+        //play = new Rectangle(190, 60, playBtn.getWidth(), playBtn.getHeight());
 
+        playTestbtn = new Button(0, 0 , 100 ,100);
 
         ShapeRenderer shapeRenderer = new ShapeRenderer();
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.rect(play.x, play.y, play.width, play.height);
+        shapeRenderer.rect(playTestbtn.getBoundsButton().x, playTestbtn.getBoundsButton().y, playTestbtn.getBoundsButton().width, playTestbtn.getBoundsButton().height);
         shapeRenderer.end();
 
 
@@ -69,9 +75,9 @@ public class EndScreen implements Screen {
         shapeRenderer.end();
 
 
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.rect(mainMenu.x, mainMenu.y, mainMenu.width, mainMenu.height);
-        shapeRenderer.end();
+        //shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        //shapeRenderer.rect(mainMenu.x, mainMenu.y, mainMenu.width, mainMenu.height);
+        //shapeRenderer.end();
     }
 
     @Override
@@ -82,23 +88,30 @@ public class EndScreen implements Screen {
     @Override
     public void render(float delta) {
 
+        game.batch.setProjectionMatrix(camera.combined);
+
         game.batch.begin();
-        game.batch.draw(gameOver, Util.getGlobalPositionZeroX(), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
-        game.batch.draw(playBtn, Util.getGlobalPositionZeroX(), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
-        game.batch.draw(homeBtn, Util.getGlobalPositionZeroX(), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
-        game.batch.draw(stopBtn, Util.getGlobalPositionZeroX(), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        game.batch.draw(gameOver, 0, 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        game.batch.draw(homeBtn, 0, 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        game.batch.draw(stopBtn, 0, 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
         gLayout.setText(game.font, "SCORE: " + Score.getScore());
 
-        game.font.draw(game.batch, gLayout, Util.getGlobalPositionZeroX() + JumpyBirb.WIDTH / 2F - gLayout.width / 2F, JumpyBirb.HEIGHT / 2.7F + gLayout.height * 2);
+        game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2F - gLayout.width / 2F, JumpyBirb.HEIGHT / 2.7F + gLayout.height * 2);
         gLayout.setText(game.font, "HIGHSCORE: " + Score.getHighScore());
-        game.font.draw(game.batch, gLayout, Util.getGlobalPositionZeroX() + JumpyBirb.WIDTH / 2F - gLayout.width / 2F, JumpyBirb.HEIGHT / 3F + gLayout.height);
+        game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2F - gLayout.width / 2F, JumpyBirb.HEIGHT / 3F + gLayout.height);
+        game.batch.draw(playBtn, 190, 60, playBtn.getWidth(), playBtn.getHeight());
+
+
+        game.batch.draw(playBtn, playTestbtn.getPositionButton().x, playTestbtn.getPositionButton().y);
+
+
 
         if (Gdx.input.isTouched()) {
             int x = Gdx.input.getX();
             int y = Gdx.input.getY();
 
-            if (play.contains(x, y)) {
-                System.out.println("PLAY");
+            if (playTestbtn.getBoundsButton().contains(x, y)) {
+                System.out.println("PLAY END");
                 game.setScreen(new GameScreen(game));
                 dispose();
             } else if (quit.contains(x, y)) {

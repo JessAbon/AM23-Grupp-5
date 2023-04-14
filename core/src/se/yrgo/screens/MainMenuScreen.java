@@ -41,6 +41,7 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
     private Texture playButton;
 
+    // TODO: 2023-04-14 Fixa alla knappar till png i sin egna storlek och positionera på skärm i mainMenu och EndScreen
     public MainMenuScreen(final JumpyBirb game) {
         this.game = game;
         camera = new OrthographicCamera();
@@ -54,8 +55,6 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
         //play = new Rectangle(0, 0, playButton.getWidth(), playButton.getHeight());
 
-
-
         easyButton = new Texture("menu/easy-btn.png");
         easyButtonPressed = new Texture("menu/easy-btn-pressed.png");
         mediumButton = new Texture("menu/medium-btn.png");
@@ -66,14 +65,12 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
     }
 
-
     @Override
     public void show() {
         if (Util.getGlobalHeroPositionX() == 0.0F) {
             Util.initiateGlobalPositionZeroX();
         }
     }
-
 
     @Override
     public void render(float delta) {
@@ -122,7 +119,6 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
             }
 
         }
-
 
         game.batch.end();
 

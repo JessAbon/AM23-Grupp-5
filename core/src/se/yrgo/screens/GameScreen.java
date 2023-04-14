@@ -35,7 +35,7 @@ public class GameScreen implements Screen {
 
     public GameScreen(JumpyBirb game) {
         this.game = game;
-        camera = new OrthographicCamera();
+
         hero = new Hero(JumpyBirb.WIDTH / 4, JumpyBirb.HEIGHT / 2);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
