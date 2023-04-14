@@ -8,6 +8,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import se.yrgo.JumpyBirb;
 import se.yrgo.Sprites.Button;
 import se.yrgo.util.Settings;
@@ -31,10 +34,13 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
     private Button easyButton;
     private Button playButton;
 
+    private ScreenViewport viewport;
+
     public MainMenuScreen(final JumpyBirb game) {
         this.game = game;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        viewport = new ScreenViewport();
         gLayout = new GlyphLayout();
 
         startbg = new Texture("menu/bg-mainmenu.png");
@@ -53,6 +59,7 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
         mediumButton = new Button(310, 20, mediumTexture.getWidth(), mediumTexture.getHeight());
         easyButton = new Button(110, 30, easyTexture.getWidth(), easyTexture.getHeight());
 
+        //camera.update();
     }
 
     @Override
@@ -122,8 +129,7 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        super.resize(width, height);
-        camera.setToOrtho(false, width, height);
+        viewport.update(width, height);
     }
 
     @Override
@@ -143,7 +149,12 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
     @Override
     public void dispose() {
-
+        /*fg.dispose();
+        startbg.dispose();
+        playTexture.dispose();
+        easyTexture.dispose();
+        mediumTexture.dispose();
+        hardBtnTexture.dispose();*/
     }
 
 }
