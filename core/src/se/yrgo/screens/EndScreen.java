@@ -49,8 +49,6 @@ public class EndScreen implements Screen {
         timeStamp = TimeUtils.millis();
         gLayout = new GlyphLayout();
 
-
-
         gameOver = new Texture("menu/Bg.png");
         playTexture = new Texture("menu/PlayTest.png");
         playTexturePressed = new Texture("menu/Play-pressed.png");
@@ -58,7 +56,6 @@ public class EndScreen implements Screen {
         homeTexturePressed = new Texture("menu/Home-pressed.png");
         stopTexture = new Texture("menu/Stop.png");
         stopTexturePressed = new Texture("menu/Stop-pressed.png");
-
 
         playButton = new Button(190, 50, playTexture.getWidth(), playTexture.getHeight());
         homeButton = new Button(365, 50, homeTexture.getWidth(), homeTexture.getHeight());
@@ -91,9 +88,6 @@ public class EndScreen implements Screen {
         game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2F - gLayout.width / 2F, JumpyBirb.HEIGHT / 2.7F + gLayout.height * 2);
         gLayout.setText(game.font, "HIGHSCORE: " + Score.getHighScore());
         game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2F - gLayout.width / 2F, JumpyBirb.HEIGHT / 3F + gLayout.height);
-
-
-
 
 
 
