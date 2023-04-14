@@ -1,5 +1,7 @@
 package se.yrgo.Sprites;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
@@ -15,6 +17,7 @@ public class Hero {
     private boolean hasDeathJumped;
     private Animation heroAnimation;
 
+    private Sound flap;
 
     public Hero(int x, int y) {
         position = new Vector3(x, y, 0);
@@ -25,6 +28,8 @@ public class Hero {
         //bounds = new Rectangle(x, y, hero.getWidth(), hero.getHeight()); //gamla bounds
         bounds = new Rectangle(x,y,  hero.getWidth()/6, hero.getHeight());
         hasDeathJumped = false;
+        flap = Gdx.audio.newSound(Gdx.files.internal("sound/jump.mp3"));
+
     }
 
 
@@ -56,12 +61,14 @@ public class Hero {
     }
 
     public void jump() {
+        flap.play(0.1f);
         if (!hasDeathJumped) {
             velocity.y = Settings.getHeroJumpVelocity();
         }
     }
     public void hit() {
         hit = true;
+
     }
 
     public void setPositionY(float positionY) {
@@ -88,6 +95,8 @@ public class Hero {
 
     public void dispose() {
         hero.dispose();
+        flap.dispose();
+
     }
 
 

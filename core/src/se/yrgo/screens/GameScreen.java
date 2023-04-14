@@ -2,6 +2,7 @@ package se.yrgo.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -17,7 +18,6 @@ import se.yrgo.util.Util;
 import se.yrgo.Sprites.MidGround;
 import se.yrgo.Sprites.ForGround;
 
-
 public class GameScreen implements Screen {
 
     private static final int TUBE_COUNT = 7;
@@ -32,6 +32,8 @@ public class GameScreen implements Screen {
     private Array<MidGround> midGrounds;
     private Array<ForGround> forGrounds;
     private GlyphLayout glyphLayout;
+
+    private Sound deathSound;
 
     public GameScreen(JumpyBirb game) {
         this.game = game;
@@ -57,6 +59,8 @@ public class GameScreen implements Screen {
         for (int i = 0; i <= 2; i++) {
             forGrounds.add(new ForGround(i * 2400, -40));
         }
+
+        deathSound = Gdx.audio.newSound(Gdx.files.internal("sound/hit.mp3"));
     }
 
     @Override
@@ -130,7 +134,9 @@ public class GameScreen implements Screen {
                 ground.reposition(ground.getPosition().x + ground.getGround().getWidth() * 2);
             }
             if (hero.getBounds().overlaps(ground.getBounds()) || hero.getBounds().overlaps(ground.getBounds())) {
+
                 hero.hit();
+
             }
         }
     }
@@ -163,7 +169,8 @@ public class GameScreen implements Screen {
                 tube.reposition(tube.getPosTopTube().x + ((Tube.TUBE_WIDTH + Settings.getTubeSpacing()) * TUBE_COUNT));
             }
             if (tube.collides(hero.getBounds())) {
-                hero.hit();
+
+               hero.hit();
             }
         }
     }
@@ -175,6 +182,7 @@ public class GameScreen implements Screen {
 
     private void death() {
         if (hero.getPosition().y <= -hero.getHero().getHeight() * 2) {
+            deathSound.play();
             game.setScreen(new EndScreen(game));
             Score.setHighScore();
             dispose();
@@ -183,10 +191,10 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-/*
-        Settings.BACKGROUND.dispose();
-        hero.dispose();
+        //deathSound.dispose();
+        //hero.dispose();
 
+        /*Settings.BACKGROUND.dispose();
         Settings.GROUND.dispose();
         Settings.MIDGROUND.dispose();*/
 
