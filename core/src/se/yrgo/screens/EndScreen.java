@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Sort;
 import com.badlogic.gdx.utils.TimeUtils;
 import se.yrgo.JumpyBirb;
 import se.yrgo.Sprites.Button;
@@ -62,9 +64,18 @@ public class EndScreen implements Screen {
         mainMenu = new Rectangle(500, 450, 100, 100);
         //play = new Rectangle(190, 60, playBtn.getWidth(), playBtn.getHeight());
 
-        playTestbtn = new Button(0, 0 , 100 ,100);
+        playTestbtn = new Button(0, 0 , playBtn.getWidth() ,playBtn.getHeight());
 
-        ShapeRenderer shapeRenderer = new ShapeRenderer();
+        /*ShapeRenderer shapeRenderer = new ShapeRenderer();
+        shapeRenderer.setProjectionMatrix(camera.combined);
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+
+        Vector3 v = camera.unproject(new Vector3(playTestbtn.getBoundsButton().x, playTestbtn.getBoundsButton().y, 0),
+                0, 0, camera.viewportWidth, camera.viewportHeight);
+
+        shapeRenderer.rect(v.x, v.y, playTestbtn.getBoundsButton().width, playTestbtn.getBoundsButton().height);
+        shapeRenderer.end();
+
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.rect(playTestbtn.getBoundsButton().x, playTestbtn.getBoundsButton().y, playTestbtn.getBoundsButton().width, playTestbtn.getBoundsButton().height);
         shapeRenderer.end();
@@ -72,7 +83,7 @@ public class EndScreen implements Screen {
 
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
         shapeRenderer.rect(quit.x, quit.y, quit.width, quit.height);
-        shapeRenderer.end();
+        shapeRenderer.end();*/
 
 
         //shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -87,6 +98,14 @@ public class EndScreen implements Screen {
 
     @Override
     public void render(float delta) {
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.T)) {
+            System.out.println("bounds: x= "+ playTestbtn.getBoundsButton().x + "y= " + playTestbtn.getBoundsButton().y);
+
+            System.out.println(playTestbtn.getPositionButton().x);
+            System.out.println(playTestbtn.getPositionButton().y);
+
+        }
 
         game.batch.setProjectionMatrix(camera.combined);
 
@@ -110,7 +129,10 @@ public class EndScreen implements Screen {
             int x = Gdx.input.getX();
             int y = Gdx.input.getY();
 
-            if (playTestbtn.getBoundsButton().contains(x, y)) {
+            System.out.println("x= "+ x + " y= " + y );
+
+
+            if (playTestbtn.getBoundsButton().contains(x, y - JumpyBirb.HEIGHT + playBtn.getHeight())) {
                 System.out.println("PLAY END");
                 game.setScreen(new GameScreen(game));
                 dispose();

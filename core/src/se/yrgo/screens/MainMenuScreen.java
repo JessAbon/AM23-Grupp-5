@@ -46,6 +46,7 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
         this.game = game;
         camera = new OrthographicCamera();
         gLayout = new GlyphLayout();
+
         startbg = new Texture("menu/bg-mainmenu.png");
         fg = new Texture("menu/fg-main-menu.png");
         easy = new Rectangle(130, 400, 175, 75);
