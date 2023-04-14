@@ -61,10 +61,6 @@ public class EndScreen implements Screen {
         homeButton = new Button(365, 50, homeTexture.getWidth(), homeTexture.getHeight());
         stopButton = new Button(550, 50, stopTexture.getWidth(), stopTexture.getHeight());
 
-        /*ShapeRenderer shapeRenderer = new ShapeRenderer();
-        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-        shapeRenderer.rect(playButton.getBoundsButton().x, playButton.getBoundsButton().y, playButton.getBoundsButton().width, playButton.getBoundsButton().height);
-        shapeRenderer.end();*/
     }
 
     @Override
@@ -89,8 +85,6 @@ public class EndScreen implements Screen {
         gLayout.setText(game.font, "HIGHSCORE: " + Score.getHighScore());
         game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2F - gLayout.width / 2F, JumpyBirb.HEIGHT / 3F + gLayout.height);
 
-
-
         if (Gdx.input.isTouched()) {
 
             Vector3 click = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
@@ -102,7 +96,7 @@ public class EndScreen implements Screen {
                 dispose();
             } else if (stopButton.getBoundsButton().contains(click.x, click.y)) {
                 System.out.println("QUIT");
-                //Gdx.app.exit();
+                Gdx.app.exit();
                 dispose();
             } else if (homeButton.getBoundsButton().contains(click.x, click.y)) {
                 System.out.println("MAIN MENU");
