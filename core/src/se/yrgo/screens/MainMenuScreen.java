@@ -19,34 +19,20 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
     final JumpyBirb game;
     OrthographicCamera camera;
     private GlyphLayout gLayout;
-
     private Texture startbg;
-
     private Texture fg;
-
-    private Rectangle easy;
-    private Rectangle medium;
-    private Rectangle hard;
-
-    private Rectangle play;
-
     private Texture easyTexture;
     private Texture easyButtonPressed;
     private Texture mediumTexture;
     private Texture mediumButtonPressed;
     private Texture hardBtnTexture;
     private Texture hardButtonPressed;
-
     private Texture playTexture;
-
     private Button mediumButton;
     private Button hardButton;
-
     private Button easyButton;
-
     private Button playButton;
 
-    // TODO: 2023-04-14 Fixa alla knappar till png i sin egna storlek och positionera på skärm i mainMenu och EndScreen
     public MainMenuScreen(final JumpyBirb game) {
         this.game = game;
         camera = new OrthographicCamera();
@@ -68,12 +54,6 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
         hardButton = new Button(510, 40, hardBtnTexture.getWidth(), hardBtnTexture.getHeight());
         mediumButton = new Button(310, 20, mediumTexture.getWidth(), mediumTexture.getHeight());
         easyButton = new Button(110, 30, easyTexture.getWidth(), easyTexture.getHeight());
-
-
-    }
-
-    @Override
-    public void show() {
 
     }
 
@@ -129,11 +109,16 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
             game.setScreen(new GameScreen(game));
             dispose();
         }
+
         game.batch.begin();
         game.batch.draw(fg, 0, 0, fg.getWidth(), fg.getHeight());
         game.batch.end();
     }
 
+    @Override
+    public void show() {
+
+    }
 
     @Override
     public void resize(int width, int height) {
