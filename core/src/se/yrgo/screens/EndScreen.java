@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.TimeUtils;
 import se.yrgo.JumpyBirb;
 import se.yrgo.util.Score;
@@ -26,6 +27,7 @@ public class EndScreen implements Screen {
     private Rectangle quit;
     private Rectangle mainMenu;
 
+
     public EndScreen(final JumpyBirb game) {
         this.game = game;
         camera = new OrthographicCamera();
@@ -34,7 +36,7 @@ public class EndScreen implements Screen {
         gameOver = new Texture("menu/gameovertest.png");
 
         play = new Rectangle(200, 450, 100, 100);
-        quit = new Rectangle(370, 250, 100, 100);
+        quit = new Rectangle(370, 450, 100, 100);
         mainMenu = new Rectangle(500, 450, 100, 100);
 
         //Ser var rektanglar är OBS Höjd stämmer inte, är typ tvärtom?? men y-axel stämmer
@@ -80,7 +82,7 @@ public class EndScreen implements Screen {
                 dispose();
             } else if (quit.contains(x, y)) {
                 System.out.println("QUIT");
-                Gdx.app.exit();
+                //Gdx.app.exit();
                 dispose();
             } else if (mainMenu.contains(x, y)) {
                 System.out.println("MAIN MENU");

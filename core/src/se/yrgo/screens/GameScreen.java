@@ -184,8 +184,13 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        //Settings.BACKGROUND.dispose();
-        //hero.dispose();
+/*
+        Settings.BACKGROUND.dispose();
+        hero.dispose();
+
+        Settings.GROUND.dispose();
+        Settings.MIDGROUND.dispose();*/
+
         //for (Ground ground : grounds) {
         //    ground.dispose();
         //}

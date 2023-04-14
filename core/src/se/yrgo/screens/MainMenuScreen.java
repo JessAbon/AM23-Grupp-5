@@ -8,8 +8,13 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import se.yrgo.JumpyBirb;
+import se.yrgo.Sprites.Hero;
 import se.yrgo.util.Settings;
+import se.yrgo.util.Util;
 
 public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
@@ -36,9 +41,12 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
     private Texture playButton;
 
+    private Vector3 originalCameraPosition;
+
     public MainMenuScreen(final JumpyBirb game) {
         this.game = game;
         camera = new OrthographicCamera();
+
         gLayout = new GlyphLayout();
         startbg = new Texture("menu/bg-mainmenu.png");
         fg = new Texture("menu/fg-main-menu.png");
@@ -59,6 +67,8 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
     @Override
     public void show() {
+        camera.setToOrtho(false, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        camera.update();
 
     }
 
@@ -69,7 +79,7 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
         game.batch.begin();
 
         game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2.0f - gLayout.width / 2, JumpyBirb.HEIGHT / 2.0f + gLayout.height / 2);
-        game.batch.draw(startbg, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        game.batch.draw(startbg,  camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
         game.batch.draw(easyButton, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
 
         game.batch.draw(mediumButton, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
@@ -109,6 +119,7 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
                 dispose();
             }
 
+
         }
 
 
@@ -147,6 +158,9 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
     @Override
     public void dispose() {
 
+ /*   startbg.dispose();
+    playButton.dispose();
+    easyButton.dispose();*/
     }
 
 }
