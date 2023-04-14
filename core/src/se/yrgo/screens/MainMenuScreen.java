@@ -7,12 +7,10 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import se.yrgo.JumpyBirb;
 import se.yrgo.Sprites.Button;
 import se.yrgo.util.Settings;
-import se.yrgo.util.Util;
 
 public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
@@ -59,6 +57,8 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
     @Override
     public void render(float delta) {
+        camera.update();
+
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
 
@@ -95,7 +95,7 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
             } else if (hardButton.getBoundsButton().contains(click.x, click.y)) {
                 Settings.hard();
-                game.batch.draw(hardButtonPressed,hardButton.getPositionButton().x,
+                game.batch.draw(hardButtonPressed, hardButton.getPositionButton().x,
                         hardButton.getPositionButton().y, hardBtnTexture.getWidth(), hardBtnTexture.getHeight());
                 System.out.println("Hard");
                 dispose();
@@ -122,7 +122,8 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        super.resize(width, height);
+        camera.setToOrtho(false, width, height);
     }
 
     @Override
