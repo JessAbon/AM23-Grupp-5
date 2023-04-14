@@ -18,20 +18,21 @@ public class Hero {
     private Animation heroAnimation;
 
     private Sound flap;
+    private Sound deathSound;
+
+    // TODO: 2023-04-14 fix death sound
 
     public Hero(int x, int y) {
         position = new Vector3(x, y, 0);
         velocity = new Vector3(0, 0, 0);
-        //hero = new Texture("hero.png"); //hero - stilla
         hero = new Texture("hero/heroanimation.png");
-        heroAnimation = new Animation(new TextureRegion(hero), 6,0.5f);
-        //bounds = new Rectangle(x, y, hero.getWidth(), hero.getHeight()); //gamla bounds
-        bounds = new Rectangle(x,y,  hero.getWidth()/6, hero.getHeight());
+        heroAnimation = new Animation(new TextureRegion(hero), 6, 0.5f);
+        bounds = new Rectangle(x, y, hero.getWidth() / 6, hero.getHeight());
         hasDeathJumped = false;
         flap = Gdx.audio.newSound(Gdx.files.internal("sound/jump.mp3"));
+        deathSound = Gdx.audio.newSound(Gdx.files.internal("sound/hit.ogg"));
 
     }
-
 
     public void update(float delta) {
         heroAnimation.update(delta);
@@ -43,17 +44,21 @@ public class Hero {
         forwardMovement(delta);
         velocity.scl(1 / delta);
 
+        /*if(hit){
+            deathSound.play(0.1f);
+        }*/
+
     }
 
     private void forwardMovement(float delta) {
         if (hit) {
-            position.add(0, velocity.y,0);
+            position.add(0, velocity.y, 0);
             if (!hasDeathJumped) {
                 velocity.y = 200 * delta;
                 hasDeathJumped = true;
             }
-        }
-        else position.add(Settings.getHeroForwardMovement() * delta, velocity.y, 0);
+        } else position.add(Settings.getHeroForwardMovement() * delta, velocity.y, 0);
+
     }
 
     public void removeVelocity() {
@@ -66,7 +71,9 @@ public class Hero {
             velocity.y = Settings.getHeroJumpVelocity();
         }
     }
+
     public void hit() {
+
         hit = true;
 
     }
@@ -82,6 +89,7 @@ public class Hero {
     public Texture getHero() {
         return hero;
     }
+
     public TextureRegion getHeroAnimation() {
         return heroAnimation.getFrame();
     }
@@ -89,7 +97,8 @@ public class Hero {
     public Rectangle getBounds() {
         return bounds;
     }
-    public boolean getHit(){
+
+    public boolean getHit() {
         return hit;
     }
 

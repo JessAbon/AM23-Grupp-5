@@ -19,6 +19,9 @@ import se.yrgo.util.Util;
 import se.yrgo.Sprites.MidGround;
 import se.yrgo.Sprites.ForGround;
 
+// TODO: 2023-04-14 fix dispose method
+
+
 public class GameScreen implements Screen {
 
     private static final int TUBE_COUNT = 7;
@@ -34,7 +37,7 @@ public class GameScreen implements Screen {
     private Array<ForGround> forGrounds;
     private GlyphLayout glyphLayout;
 
-    private Sound deathSound;
+
 
     private ScreenViewport viewport;
 
@@ -64,7 +67,7 @@ public class GameScreen implements Screen {
             forGrounds.add(new ForGround(i * 2400, -40));
         }
 
-        deathSound = Gdx.audio.newSound(Gdx.files.internal("sound/hit.mp3"));
+
     }
 
     @Override
@@ -186,7 +189,7 @@ public class GameScreen implements Screen {
 
     private void death() {
         if (hero.getPosition().y <= -hero.getHero().getHeight() * 2) {
-            deathSound.play();
+
             game.setScreen(new EndScreen(game));
             Score.setHighScore();
             dispose();

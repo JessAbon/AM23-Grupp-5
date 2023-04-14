@@ -45,6 +45,7 @@ public class EndScreen implements Screen {
 
     private ScreenViewport viewport;
 
+    // TODO: 2023-04-14 background disappears when resizing
     public EndScreen(final JumpyBirb game) {
         this.game = game;
         camera = new OrthographicCamera();
