@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.math.Rectangle;
 import se.yrgo.JumpyBirb;
 import se.yrgo.util.Settings;
+import se.yrgo.util.Util;
 
 public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
@@ -47,6 +48,11 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
         hard = new Rectangle(540, 300, 180, 80);
         play = new Rectangle(330, 210, 180, 80);
 
+
+
+            //Util.setGlobalHeroPositionX(10000F);
+
+
         easyButton = new Texture("menu/easy-btn.png");
         easyButtonPressed = new Texture("menu/easy-btn-pressed.png");
         mediumButton = new Texture("menu/medium-btn.png");
@@ -59,7 +65,9 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
     @Override
     public void show() {
-
+        if (Util.getGlobalHeroPositionX() == 0.0F) {
+            Util.initiateGlobalPositionZeroX();
+        }
     }
 
 
@@ -69,12 +77,12 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
         game.batch.begin();
 
         game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2.0f - gLayout.width / 2, JumpyBirb.HEIGHT / 2.0f + gLayout.height / 2);
-        game.batch.draw(startbg, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
-        game.batch.draw(easyButton, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        game.batch.draw(startbg, Util.getGlobalPositionZeroX(), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        game.batch.draw(easyButton, Util.getGlobalPositionZeroX(), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
 
-        game.batch.draw(mediumButton, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
-        game.batch.draw(hardButton, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
-        game.batch.draw(playButton, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        game.batch.draw(mediumButton, Util.getGlobalPositionZeroX(), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        game.batch.draw(hardButton, Util.getGlobalPositionZeroX(), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        game.batch.draw(playButton, Util.getGlobalPositionZeroX(), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
 
         if (Gdx.input.isTouched()) {
             int x = Gdx.input.getX();
@@ -85,7 +93,7 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
                 game.setScreen(new GameScreen(game));
             } else if (easy.contains(x, y)) {
                 Settings.easy();
-                game.batch.draw(easyButtonPressed, camera.position.x - (camera.viewportWidth / 2),
+                game.batch.draw(easyButtonPressed, Util.getGlobalPositionZeroX(),
                         0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
 
                 //game.setScreen(new GameScreen(game));
@@ -93,7 +101,7 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
                 dispose();
             } else if (medium.contains(x, y)) {
                 Settings.medium();
-                game.batch.draw(mediumButtonPressed, camera.position.x - (camera.viewportWidth / 2),
+                game.batch.draw(mediumButtonPressed, Util.getGlobalPositionZeroX(),
                         0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
 
                 //game.setScreen(new GameScreen(game));
@@ -101,7 +109,7 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
                 dispose();
             } else if (hard.contains(x, y)) {
                 Settings.hard();
-                game.batch.draw(hardButtonPressed, camera.position.x - (camera.viewportWidth / 2),
+                game.batch.draw(hardButtonPressed, Util.getGlobalPositionZeroX(),
                         0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
 
                 //game.setScreen(new GameScreen(game));
@@ -119,7 +127,7 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
             dispose();
         }
         game.batch.begin();
-        game.batch.draw(fg, camera.position.x - (camera.viewportWidth) /2, 0, fg.getWidth(), fg.getHeight());
+        game.batch.draw(fg, Util.getGlobalPositionZeroX(), 0, fg.getWidth(), fg.getHeight());
         game.batch.end();
     }
 

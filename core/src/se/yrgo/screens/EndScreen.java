@@ -63,12 +63,12 @@ public class EndScreen implements Screen {
     public void render(float delta) {
 
         game.batch.begin();
-        game.batch.draw(gameOver, Util.getGlobalHeroPositionXzero(), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        game.batch.draw(gameOver, Util.getGlobalPositionZeroX(), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
         gLayout.setText(game.font, "SCORE: " + Score.getScore());
 
-        game.font.draw(game.batch, gLayout, Util.getGlobalHeroPositionXzero() + JumpyBirb.WIDTH / 2F - gLayout.width / 2F, JumpyBirb.HEIGHT / 2.7F + gLayout.height * 2);
+        game.font.draw(game.batch, gLayout, Util.getGlobalPositionZeroX() + JumpyBirb.WIDTH / 2F - gLayout.width / 2F, JumpyBirb.HEIGHT / 2.7F + gLayout.height * 2);
         gLayout.setText(game.font, "HIGHSCORE: " + Score.getHighScore());
-        game.font.draw(game.batch, gLayout, Util.getGlobalHeroPositionXzero() + JumpyBirb.WIDTH / 2F - gLayout.width / 2F, JumpyBirb.HEIGHT / 3F + gLayout.height);
+        game.font.draw(game.batch, gLayout, Util.getGlobalPositionZeroX() + JumpyBirb.WIDTH / 2F - gLayout.width / 2F, JumpyBirb.HEIGHT / 3F + gLayout.height);
 
         if (Gdx.input.isTouched()) {
             int x = Gdx.input.getX();
