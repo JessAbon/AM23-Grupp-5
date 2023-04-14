@@ -13,7 +13,7 @@ public class ForGround {
 
     public ForGround(int x, int y) {
         position = new Vector2(x, y);
-        ground = Settings.FOREGROUND;
+        ground = new Texture(Settings.getFolder() + "fg.png");
 
         bounds = new Rectangle(position.x, position.y, ground.getWidth(), ground.getHeight());
     }

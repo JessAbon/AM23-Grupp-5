@@ -17,18 +17,18 @@ public class Tube {
 
 
     public Tube(float x){
-    topTube = Settings.TOPTUBE;
-    bottomTube = Settings.BOTTOMTUBE;
+    topTube = new Texture(Settings.getFolder() + "toptube.png");
+    bottomTube = new Texture(Settings.getFolder() + "bottomtube.png");
     rand = new Random();
-    posTopTube = new Vector2(x, rand.nextInt(Settings.TUBE_FLUCTUATION) + Settings.TUBE_GAP + Settings.TUBE_LOWEST_OPENING);
-    posBottomTube = new Vector2(x,posTopTube.y - Settings.TUBE_GAP - bottomTube.getHeight());
+    posTopTube = new Vector2(x, rand.nextInt(Settings.getTubeFluctuation()) + Settings.getTubeGap() + Settings.getTubeLowestOpening());
+    posBottomTube = new Vector2(x,posTopTube.y - Settings.getTubeGap() - bottomTube.getHeight());
     boundsTop = new Rectangle(posTopTube.x, posTopTube.y, topTube.getWidth(), topTube.getHeight());
     boundsBottom = new Rectangle(posBottomTube.x, posBottomTube.y, bottomTube.getWidth() , bottomTube.getHeight());
     }
 
     public void reposition (float x){
-        posTopTube.set(x - GameScreen.getTubeSpacing(), rand.nextInt(Settings.TUBE_FLUCTUATION) + Settings.TUBE_GAP + Settings.TUBE_LOWEST_OPENING);
-        posBottomTube.set(x - GameScreen.getTubeSpacing() , posTopTube.y - Settings.TUBE_GAP - bottomTube.getHeight());
+        posTopTube.set(x - GameScreen.getTubeSpacing(), rand.nextInt(Settings.getTubeFluctuation()) + Settings.getTubeGap() + Settings.getTubeLowestOpening());
+        posBottomTube.set(x - GameScreen.getTubeSpacing() , posTopTube.y - Settings.getTubeGap() - bottomTube.getHeight());
         boundsTop.setPosition(posTopTube.x, posTopTube.y);
         boundsBottom.setPosition(posBottomTube.x, posBottomTube.y);
     }

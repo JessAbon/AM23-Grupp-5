@@ -31,6 +31,7 @@ public class JumpyBirb extends Game {
 	public void dispose () {
 		batch.dispose();
 		font.dispose();
+
 	}
 	public boolean spaceAndMouseClickInput() {
 		return Gdx.input.isKeyJustPressed(Input.Keys.SPACE) || Gdx.input.justTouched();

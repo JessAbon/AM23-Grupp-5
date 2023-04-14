@@ -12,7 +12,7 @@ public class MidGround {
 
     public MidGround(int x, int y) {
         position = new Vector2(x, y);
-        ground = Settings.MIDGROUND;
+        ground = new Texture(Settings.getFolder() + "mg.png");
     }
 
     public void reposition(float x) {

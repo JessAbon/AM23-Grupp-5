@@ -30,7 +30,7 @@ public class Hero {
 
     public void update(float delta) {
         heroAnimation.update(delta);
-        velocity.add(0, Settings.GRAVITY, 0);
+        velocity.add(0, Settings.getGravity(), 0);
         velocity.scl(delta);
         position.add(velocity.x, velocity.y, 0);
         bounds.x = position.x;
@@ -48,7 +48,7 @@ public class Hero {
                 hasDeathJumped = true;
             }
         }
-        else position.add(Settings.HERO_FORWARD_MOVEMENT * delta, velocity.y, 0);
+        else position.add(Settings.getHeroForwardMovement() * delta, velocity.y, 0);
     }
 
     public void removeVelocity() {
@@ -57,7 +57,7 @@ public class Hero {
 
     public void jump() {
         if (!hasDeathJumped) {
-            velocity.y = Settings.HERO_JUMP_VELOCITY;
+            velocity.y = Settings.getHeroJumpVelocity();
         }
     }
     public void hit() {

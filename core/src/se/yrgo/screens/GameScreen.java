@@ -2,7 +2,6 @@ package se.yrgo.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -40,11 +39,11 @@ public class GameScreen implements Screen {
         hero = new Hero(JumpyBirb.WIDTH / 4, JumpyBirb.HEIGHT / 2);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
-        //bg = new Texture(Gdx.files.internal("bg.png"));
+        bg = new Texture(Gdx.files.internal(Settings.getFolder() + "bg.png"));
         glyphLayout = new GlyphLayout();
         tubes = new Array<>();
         for (int i = 2; i <= TUBE_COUNT; i++) {
-            tubes.add(new Tube(i * (Settings.TUBE_SPACING + Tube.TUBE_WIDTH)));
+            tubes.add(new Tube(i * (Settings.getTubeSpacing() + Tube.TUBE_WIDTH)));
         }
         midGrounds = new Array<>();
         for (int i = 0; i <= 2; i++) {
@@ -84,7 +83,7 @@ public class GameScreen implements Screen {
         glyphLayout.setText(game.font, Score.getScore());
 
         game.batch.begin();
-        game.batch.draw(Settings.BACKGROUND, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        game.batch.draw(bg, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
 
         for (MidGround midGround : midGrounds) {
             game.batch.draw(midGround.getGround(), midGround.getPosition().x, midGround.getPosition().y - 20);
@@ -161,7 +160,7 @@ public class GameScreen implements Screen {
         for (int i = 0; i < tubes.size; i++) {
             Tube tube = tubes.get(i);
             if (camera.position.x - (camera.viewportWidth / 2) > tube.getPosTopTube().x + tube.getTopTube().getWidth()) {
-                tube.reposition(tube.getPosTopTube().x + ((Tube.TUBE_WIDTH + Settings.TUBE_SPACING) * TUBE_COUNT));
+                tube.reposition(tube.getPosTopTube().x + ((Tube.TUBE_WIDTH + Settings.getTubeSpacing()) * TUBE_COUNT));
             }
             if (tube.collides(hero.getBounds())) {
                 hero.hit();
@@ -170,7 +169,7 @@ public class GameScreen implements Screen {
     }
 
     public static int getTubeSpacing() {
-        return Settings.TUBE_SPACING + Tube.TUBE_WIDTH;
+        return Settings.getTubeSpacing() + Tube.TUBE_WIDTH;
     }
 
 
@@ -184,8 +183,13 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        //Settings.BACKGROUND.dispose();
-        //hero.dispose();
+/*
+        Settings.BACKGROUND.dispose();
+        hero.dispose();
+
+        Settings.GROUND.dispose();
+        Settings.MIDGROUND.dispose();*/
+
         //for (Ground ground : grounds) {
         //    ground.dispose();
         //}
