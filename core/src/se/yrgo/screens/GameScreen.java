@@ -2,21 +2,16 @@ package se.yrgo.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
-import se.yrgo.Sprites.Hero;
-import se.yrgo.Sprites.Ground;
 import se.yrgo.JumpyBirb;
-import se.yrgo.Sprites.Tube;
+import se.yrgo.Sprites.*;
 import se.yrgo.util.Score;
 import se.yrgo.util.Settings;
 import se.yrgo.util.Util;
-import se.yrgo.Sprites.MidGround;
-import se.yrgo.Sprites.ForGround;
 
 
 public class GameScreen implements Screen {
@@ -178,6 +173,7 @@ public class GameScreen implements Screen {
         if (hero.getPosition().y <= -hero.getHero().getHeight() * 2) {
             game.setScreen(new EndScreen(game));
             Score.setHighScore();
+            Score.checkIfAllTimeHigh();
             dispose();
         }
     }
