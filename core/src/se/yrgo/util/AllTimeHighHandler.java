@@ -8,6 +8,8 @@ public class AllTimeHighHandler {
     private static final String FILEPATH = "../assets/top10.txt";
     private static final File file = new File(FILEPATH);
 
+    public ArrayList<Score> allTimeHighList = new ArrayList<>();
+
     // Metod för att läsa in från fil till lista, returnerar sen listan:
     public static ArrayList<Score> loadHighscores() {
         ArrayList<Score> allTimeHighList = new ArrayList<>();
@@ -31,30 +33,51 @@ public class AllTimeHighHandler {
 
     //Metod för att sortera lista efter score.
     private static void sortByValue(ArrayList<Score> allTimeHighList) {
-        allTimeHighList.sort(Comparator.comparingInt(Score::getIntegerHighScore).reversed());
+
     }
 
     //Metod för att lägga till senaste high score i listan, om fler än 10 - tar bort sämsta score
     public void rearrangeAllTimeHigh(String playerName, int highScore) {
+
         ArrayList<Score> allTimeHighList = loadHighscores(); //Metoden för att läsa från fil
         allTimeHighList.add(new Score(highScore, playerName));
+
         sortByValue(allTimeHighList);   //Metoden för att sortera efter score
         if (allTimeHighList.size() > 10) {
             allTimeHighList.remove(allTimeHighList.size() - 1);
         }
-        saveHighScoresToFile(file, allTimeHighList);
+        //updateHighscoreFile(allTimeHighList);
     }
 
-    //Metod för att spara till fil
-    public void saveHighScoresToFile(File file, ArrayList<Score> allTimeHighList) {
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+
+    public void saveHighScoresToFile(Integer highScore, String playerName) {
+        allTimeHighList.add(new Score(highScore, playerName));
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
             for (Score score : allTimeHighList) {
-                bw.write(score.getPlayerName() + ":" + score.getIntegerHighScore());
+                bw.append(score.getPlayerName() + ":" + score.getIntegerHighScore());
                 bw.newLine();
+                System.out.println(score.getPlayerName() + ":" + score.getIntegerHighScore());
+
             }
         } catch (IOException e) {
             System.out.println("Failed to save high scores to file: " + e.getMessage());
         }
+        rearrangeAllTimeHigh(playerName, highScore);
+
+
     }
+    //Skriver alla likadant
+ /*   public void updateHighscoreFile(ArrayList<Score> allTimeHighList) {
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(file))) {
+            for (Score score : allTimeHighList) {
+                bw.append(score.getPlayerName() + ":" + score.getIntegerHighScore());
+                bw.newLine();
+                System.out.println(score.getPlayerName() + ":" + score.getIntegerHighScore());
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }*/
+
 }
 

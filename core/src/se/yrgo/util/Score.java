@@ -1,9 +1,13 @@
 package se.yrgo.util;
 
+import java.sql.Array;
+import java.util.ArrayList;
+
 public class Score {
     private static Integer score;
     private static Integer highScore;
     private static String playerName = "Sven";
+
 
     public Score(Integer highScore, String playerName) {
         Score.highScore = highScore;
@@ -20,14 +24,20 @@ public class Score {
         }
         if (score > highScore) {
             highScore = score;
+
         }
 
+
+
     }
 
-    public static void checkIfAllTimeHigh() {
+   public static void checkIfAllTimeHigh() {
         AllTimeHighHandler handler = new AllTimeHighHandler();
-        handler.rearrangeAllTimeHigh(playerName, score);
+        handler.saveHighScoresToFile(score,playerName);
+        System.out.println(playerName + score);
     }
+
+
 
     public static String getScore () {
         return score.toString();
@@ -42,4 +52,6 @@ public class Score {
     public Integer getIntegerHighScore() {
         return highScore;
     }
+
+
 }
