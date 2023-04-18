@@ -108,6 +108,7 @@ public class Hero {
     public void dispose() {
         hero.dispose();
         flap.dispose();
+        deathSound.dispose();
 
     }
 
