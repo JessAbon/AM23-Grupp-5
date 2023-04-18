@@ -19,6 +19,7 @@ public class Hero {
 
     private Sound flap;
     private Sound deathSound;
+    private boolean soundPlayed;
 
     // TODO: 2023-04-14 fix death sound
 
@@ -31,6 +32,7 @@ public class Hero {
         hasDeathJumped = false;
         flap = Gdx.audio.newSound(Gdx.files.internal("sound/jump.mp3"));
         deathSound = Gdx.audio.newSound(Gdx.files.internal("sound/hit.ogg"));
+        soundPlayed = false;
 
     }
 
@@ -44,9 +46,10 @@ public class Hero {
         forwardMovement(delta);
         velocity.scl(1 / delta);
 
-        /*if(hit){
+        if(hit && !soundPlayed){
             deathSound.play(0.1f);
-        }*/
+            soundPlayed = true;
+        }
 
     }
 
