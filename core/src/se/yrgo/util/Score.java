@@ -1,6 +1,6 @@
 package se.yrgo.util;
 
-public class Score{
+public class Score {
     private static Integer score;
     private static Integer highScore;
     private static String playerName = "Sven";
@@ -28,8 +28,6 @@ public class Score{
 
     }
    public static void checkIfAllTimeHigh() {
-        AllTimeHighHandler handler = new AllTimeHighHandler();
-        handler.saveHighScoresToFile(score,playerName);
         System.out.println(playerName + score);
     }
 
@@ -46,6 +44,7 @@ public class Score{
     public Integer getScore() {
         return highScore;
     }
+
 
 
 
