@@ -1,9 +1,6 @@
 package se.yrgo.util;
 
-import java.sql.Array;
-import java.util.ArrayList;
-
-public class Score {
+public class Score{
     private static Integer score;
     private static Integer highScore;
     private static String playerName = "Sven";
@@ -30,16 +27,13 @@ public class Score {
 
 
     }
-
    public static void checkIfAllTimeHigh() {
         AllTimeHighHandler handler = new AllTimeHighHandler();
         handler.saveHighScoresToFile(score,playerName);
         System.out.println(playerName + score);
     }
 
-
-
-    public static String getScore () {
+    public static String getScoreString() {
         return score.toString();
     }
     public static String getHighScore () {
@@ -49,9 +43,10 @@ public class Score {
     public String getPlayerName() {
         return playerName;
     }
-    public Integer getIntegerHighScore() {
+    public Integer getScore() {
         return highScore;
     }
+
 
 
 }
