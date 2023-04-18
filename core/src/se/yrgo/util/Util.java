@@ -1,12 +1,10 @@
 package se.yrgo.util;
 
 import se.yrgo.JumpyBirb;
-import sun.text.resources.cldr.ext.FormatData_es_419;
+
 
 public class Util {
     private static float globalHeroPositionX;
-
-
 
 
     public static void setGlobalHeroPositionX(float birdPositionX) {
