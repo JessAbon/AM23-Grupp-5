@@ -1,4 +1,4 @@
-package se.yrgo.Sprites;
+package se.yrgo.sprites;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Sound;
@@ -28,7 +28,7 @@ public class Hero {
         velocity = new Vector3(0, 0, 0);
         hero = new Texture("hero/heroanimation.png");
         heroAnimation = new Animation(new TextureRegion(hero), 6, 0.5f);
-        bounds = new Rectangle(x, y, hero.getWidth() / 6, hero.getHeight());
+        bounds = new Rectangle(x, y, hero.getWidth() / 6f, hero.getHeight());
         hasDeathJumped = false;
         flap = Gdx.audio.newSound(Gdx.files.internal("sound/jump.mp3"));
         deathSound = Gdx.audio.newSound(Gdx.files.internal("sound/hit.ogg"));

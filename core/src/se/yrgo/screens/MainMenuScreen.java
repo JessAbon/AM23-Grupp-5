@@ -8,11 +8,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import se.yrgo.JumpyBirb;
-import se.yrgo.Sprites.Button;
+import se.yrgo.sprites.Button;
 import se.yrgo.util.Settings;
 
 public class MainMenuScreen extends ApplicationAdapter implements Screen {

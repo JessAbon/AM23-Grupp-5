@@ -1,4 +1,4 @@
-package se.yrgo.Sprites;
+package se.yrgo.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
@@ -20,14 +20,14 @@ public class Tube {
     topTube = new Texture(Settings.getFolder() + "toptube.png");
     bottomTube = new Texture(Settings.getFolder() + "bottomtube.png");
     rand = new Random();
-    posTopTube = new Vector2(x, rand.nextInt(Settings.getTubeFluctuation()) + Settings.getTubeGap() + Settings.getTubeLowestOpening());
+    posTopTube = new Vector2(x, rand.nextInt(Settings.getTubeFluctuation()) + Settings.getTubeGap() + (float)Settings.getTubeLowestOpening());
     posBottomTube = new Vector2(x,posTopTube.y - Settings.getTubeGap() - bottomTube.getHeight());
     boundsTop = new Rectangle(posTopTube.x, posTopTube.y, topTube.getWidth(), topTube.getHeight());
     boundsBottom = new Rectangle(posBottomTube.x, posBottomTube.y, bottomTube.getWidth() , bottomTube.getHeight());
     }
 
     public void reposition (float x){
-        posTopTube.set(x - GameScreen.getTubeSpacing(), rand.nextInt(Settings.getTubeFluctuation()) + Settings.getTubeGap() + Settings.getTubeLowestOpening());
+        posTopTube.set(x - GameScreen.getTubeSpacing(), rand.nextInt(Settings.getTubeFluctuation()) + Settings.getTubeGap() + (float)Settings.getTubeLowestOpening());
         posBottomTube.set(x - GameScreen.getTubeSpacing() , posTopTube.y - Settings.getTubeGap() - bottomTube.getHeight());
         boundsTop.setPosition(posTopTube.x, posTopTube.y);
         boundsBottom.setPosition(posBottomTube.x, posBottomTube.y);

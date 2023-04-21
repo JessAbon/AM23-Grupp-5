@@ -1,12 +1,7 @@
-package se.yrgo.Sprites;
+package se.yrgo.sprites;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import se.yrgo.JumpyBirb;
-import se.yrgo.util.Util;
-
-import java.util.Random;
 
 public class Button {
 
