@@ -26,7 +26,7 @@ public class GameScreen implements Screen {
     private static final int TUBE_COUNT = 7;
     private static final int CAMERA_OF_SET = JumpyBirb.WIDTH / 4;
 
-    private static Texture bg = new Texture(Gdx.files.internal(Settings.getFolder() + "bg.png"));
+    private static Texture bg;
     final JumpyBirb game;
     private Hero hero;
     private OrthographicCamera camera;
@@ -49,6 +49,7 @@ public class GameScreen implements Screen {
         viewport = new ScreenViewport();
         glyphLayout = new GlyphLayout();
         tubes = new Array<>();
+        bg = new Texture(Gdx.files.internal(Settings.getFolder() + "bg.png"));
         for (int i = 2; i <= TUBE_COUNT; i++) {
             tubes.add(new Tube(i * (float)(Settings.getTubeSpacing() + Tube.TUBE_WIDTH)));
         }
