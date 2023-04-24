@@ -12,19 +12,6 @@ public class MyScore implements Comparable<MyScore> {
         this.name = name;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof MyScore)) return false;
-        MyScore myScore = (MyScore) o;
-        return score == myScore.score;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(score);
-    }
-
     public int getScore() {
         return score;
     }
@@ -35,7 +22,7 @@ public class MyScore implements Comparable<MyScore> {
 
     @Override
     public int compareTo(MyScore o) {
-        return this.score - o.getScore();
+        return o.getScore() - this.score;
     }
 }
 

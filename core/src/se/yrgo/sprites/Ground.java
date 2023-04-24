@@ -1,4 +1,4 @@
-package se.yrgo.Sprites;
+package se.yrgo.sprites;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Rectangle;

@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import se.yrgo.JumpyBirb;
-import se.yrgo.Sprites.*;
+import se.yrgo.sprites.*;
 import se.yrgo.util.Score;
 import se.yrgo.util.Settings;
 import se.yrgo.util.Util;
@@ -173,7 +173,6 @@ public class GameScreen implements Screen {
         if (hero.getPosition().y <= -hero.getHero().getHeight() * 2) {
             game.setScreen(new EndScreen(game));
             Score.setHighScore();
-            Score.checkIfAllTimeHigh();
             dispose();
         }
     }

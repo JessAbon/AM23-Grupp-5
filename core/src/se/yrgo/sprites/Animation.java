@@ -1,4 +1,4 @@
-package se.yrgo.Sprites;
+package se.yrgo.sprites;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
