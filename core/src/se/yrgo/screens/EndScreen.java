@@ -1,19 +1,23 @@
 package se.yrgo.screens;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import se.yrgo.JumpyBirb;
 import se.yrgo.sprites.Button;
 import se.yrgo.util.Score;
+import se.yrgo.util.*;
 
-public class EndScreen implements Screen {
+import java.io.IOException;
+
+public class EndScreen implements Screen, InputProcessor{
 
     private static final long DELAY_TIME = 1500;
     final JumpyBirb game;
@@ -22,6 +26,7 @@ public class EndScreen implements Screen {
     private GlyphLayout gLayout;
 
     private Texture gameOver;
+    private String inputText;
 
     private Texture playTexture;
 
@@ -68,6 +73,7 @@ public class EndScreen implements Screen {
 
     @Override
     public void show() {
+        Gdx.input.setInputProcessor(this);
 
     }
 
@@ -111,6 +117,8 @@ public class EndScreen implements Screen {
 
         //restart();
 
+
+
     }
 
     private void restart() {
@@ -153,5 +161,51 @@ public class EndScreen implements Screen {
     @Override
     public void dispose() {
 
+    }
+
+    @Override
+    public boolean keyDown(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode) {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character) {
+        String s = Character.toString(character);
+        if (s.matches("[a-z]")) {
+            char sChar = s.charAt(0);
+            inputText += character;
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+        return false;
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer) {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(float amountX, float amountY) {
+        return false;
     }
 }

@@ -2,6 +2,7 @@ package se.yrgo.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -11,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import se.yrgo.sprites.Hero;
 import se.yrgo.sprites.Ground;
 import se.yrgo.JumpyBirb;
+import se.yrgo.sprites.*;
 import se.yrgo.sprites.Tube;
 import se.yrgo.util.Score;
 import se.yrgo.util.Settings;
