@@ -92,7 +92,7 @@ public class GameScreen implements Screen {
         roofBound();
 
         game.batch.setProjectionMatrix(camera.combined);
-        glyphLayout.setText(game.font, Score.getScore());
+        glyphLayout.setText(game.font, Score.getScoreString());
 
         game.batch.begin();
         game.batch.draw(bg, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);

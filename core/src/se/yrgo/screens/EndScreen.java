@@ -56,6 +56,7 @@ public class EndScreen implements Screen, InputProcessor{
         viewport = new ScreenViewport();
         timeStamp = TimeUtils.millis();
         gLayout = new GlyphLayout();
+        inputText = "";
 
         gameOver = new Texture("menu/Bg.png");
         playTexture = new Texture("menu/PlayTest.png");
@@ -80,19 +81,26 @@ public class EndScreen implements Screen, InputProcessor{
     @Override
     public void render(float delta) {
 
+        ScreenUtils.clear(1,0,0,0);
+
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
+
         game.batch.draw(gameOver, 0, 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
 
         game.batch.draw(playTexture, playButton.getPositionButton().x, playButton.getPositionButton().y);
         game.batch.draw(homeTexture, homeButton.getPositionButton().x, homeButton.getPositionButton().y);
         game.batch.draw(stopTexture, stopButton.getPositionButton().x, stopButton.getPositionButton().y);
 
-        gLayout.setText(game.font, "SCORE: " + Score.getScore());
+        gLayout.setText(game.font, "SCORE: " + Score.getScoreString());
         game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2F - gLayout.width / 2F, JumpyBirb.HEIGHT / 2.7F + gLayout.height * 2);
-        gLayout.setText(game.font, "HIGHSCORE: " + Score.getHighScore());
+
+        gLayout.setText(game.font, "HIGHSCORE: " + Score.getHighScoreString());
         game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2F - gLayout.width / 2F, JumpyBirb.HEIGHT / 3F + gLayout.height);
+
+        gLayout.setText(game.font, "ENTER NAME: " + inputText);
+        game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2f - gLayout.width / 2f, JumpyBirb.HEIGHT / 2f + gLayout.height);
 
         if (Gdx.input.isTouched()) {
 
