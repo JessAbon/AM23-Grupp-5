@@ -137,9 +137,7 @@ public class EndScreen implements Screen, InputProcessor{
             inputText += character;
             return true;
         }
-        if(character == ' ') {
-            return false;
-        }
+        return false;
     }
 
     @Override
