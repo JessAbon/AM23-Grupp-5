@@ -154,7 +154,7 @@ private Texture bg;
                 dispose();
             } else if (highscoreButton.getBoundsButton().contains(click.x, click.y)) {
                 System.out.println("HIGHSCORE SCREEN?");
-                /*game.setScreen(new MainMenuScreen(game));*/
+                game.setScreen(new HighscoreScreen(game));
                 dispose();
             }
         }

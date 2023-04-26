@@ -116,6 +116,7 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
                 dispose();
             } else if (highscoreButton.getBoundsButton().contains(click.x, click.y)) {
                 System.out.println("HIGHSCORE");
+                game.setScreen(new HighscoreScreen(game));
                 dispose();
             }
             else if(exitButton.getBoundsButton().contains(click.x, click.y)){
