@@ -38,7 +38,6 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
     private ScreenViewport viewport;
 
 
-
     public MainMenuScreen(final JumpyBirb game) {
         this.game = game;
         camera = new OrthographicCamera();
@@ -85,7 +84,7 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
         game.batch.draw(highScoreTexture, highscoreButton.getPositionButton().x, highscoreButton.getPositionButton().y);
         game.batch.draw(exitTexture, exitButton.getPositionButton().x, exitButton.getPositionButton().y);
 
-        if (Gdx.input.isTouched() ) {
+        if (Gdx.input.isTouched()) {
 
             Vector3 click = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(click);
@@ -111,15 +110,14 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
             } else if (hardButton.getBoundsButton().contains(click.x, click.y)) {
                 Settings.hard();
                 game.batch.draw(hardButtonPressed, hardButton.getPositionButton().x,
-                        hardButton.getPositionButton().y + 115, hardBtnTexture.getWidth(), hardBtnTexture.getHeight() - 100 );
+                        hardButton.getPositionButton().y + 115, hardBtnTexture.getWidth(), hardBtnTexture.getHeight() - 100);
                 System.out.println("Hard");
                 dispose();
             } else if (highscoreButton.getBoundsButton().contains(click.x, click.y)) {
                 System.out.println("HIGHSCORE");
                 game.setScreen(new HighscoreScreen(game));
                 dispose();
-            }
-            else if(exitButton.getBoundsButton().contains(click.x, click.y)){
+            } else if (exitButton.getBoundsButton().contains(click.x, click.y)) {
                 Gdx.app.exit();
             }
 
