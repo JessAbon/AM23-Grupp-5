@@ -29,7 +29,7 @@ public class EndScreen implements Screen, InputProcessor {
     private String inputText;
 
     private Texture playTexture;
-
+private Texture bg;
 
     private Texture homeTexture;
 
@@ -61,6 +61,7 @@ public class EndScreen implements Screen, InputProcessor {
         inputText = "";
         enterName = "ENTER NAME: ";
 
+        bg = new Texture("highscore/BgHighscore.png");
         gameOver = new Texture("menu/Bg.png");
         playTexture = new Texture("menu/PlayTest.png");
         homeTexture = new Texture("menu/Home.png");
@@ -90,6 +91,7 @@ public class EndScreen implements Screen, InputProcessor {
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
+        game.batch.draw(bg, 0,0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
         if (isNewHighscore) {
             game.batch.draw(newHighscore, 130, 70, newHighscore.getWidth(), newHighscore.getHeight());
             game.batch.draw(newHighscoreTitle, 180, 400, newHighscoreTitle.getWidth(), newHighscoreTitle.getHeight());
