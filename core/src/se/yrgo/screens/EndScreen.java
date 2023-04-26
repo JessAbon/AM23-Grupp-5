@@ -1,23 +1,23 @@
 package se.yrgo.screens;
 
-import com.badlogic.gdx.*;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import se.yrgo.JumpyBirb;
 import se.yrgo.sprites.Button;
 import se.yrgo.util.Score;
-import se.yrgo.util.*;
 
-import java.io.IOException;
+import static se.yrgo.util.Score.isNewHighscore;
 
-public class EndScreen implements Screen, InputProcessor{
+public class EndScreen implements Screen, InputProcessor {
 
     private static final long DELAY_TIME = 1500;
     final JumpyBirb game;
@@ -30,22 +30,24 @@ public class EndScreen implements Screen, InputProcessor{
 
     private Texture playTexture;
 
-    private Texture playTexturePressed;
 
     private Texture homeTexture;
 
-    private Texture homeTexturePressed;
 
     private Texture stopTexture;
 
-    private Texture stopTexturePressed;
+    private Texture newHighscore;
 
+    private Texture newHighscoreTitle;
+    private Texture highscoreButtonTexture;
+    private Button highscoreButton;
     private Button playButton;
 
     private Button homeButton;
 
     private Button stopButton;
 
+    public String enterName;
     private ScreenViewport viewport;
 
     // TODO: 2023-04-14 background disappears when resizing
@@ -57,18 +59,20 @@ public class EndScreen implements Screen, InputProcessor{
         timeStamp = TimeUtils.millis();
         gLayout = new GlyphLayout();
         inputText = "";
+        enterName = "ENTER NAME: ";
 
         gameOver = new Texture("menu/Bg.png");
         playTexture = new Texture("menu/PlayTest.png");
-        playTexturePressed = new Texture("menu/Play-pressed.png");
         homeTexture = new Texture("menu/Home.png");
-        homeTexturePressed = new Texture("menu/Home-pressed.png");
         stopTexture = new Texture("menu/Stop.png");
-        stopTexturePressed = new Texture("menu/Stop-pressed.png");
+        newHighscore = new Texture("highscore/input_highscore.png");
+        newHighscoreTitle = new Texture("highscore/new_highscore.png");
+        highscoreButtonTexture = new Texture("highscore/highscoreButton.png");
 
-        playButton = new Button(190, 50, playTexture.getWidth(), playTexture.getHeight());
-        homeButton = new Button(365, 50, homeTexture.getWidth(), homeTexture.getHeight());
-        stopButton = new Button(550, 50, stopTexture.getWidth(), stopTexture.getHeight());
+        playButton = new Button(170, 50, playTexture.getWidth(), playTexture.getHeight());
+        homeButton = new Button(310, 50, homeTexture.getWidth(), homeTexture.getHeight());
+        stopButton = new Button(450, 50, stopTexture.getWidth(), stopTexture.getHeight());
+        highscoreButton = new Button(580, 50, highscoreButtonTexture.getWidth(), highscoreButtonTexture.getHeight());
 
     }
 
@@ -81,27 +85,54 @@ public class EndScreen implements Screen, InputProcessor{
     @Override
     public void render(float delta) {
 
-        ScreenUtils.clear(1,0,0,0);
+        ScreenUtils.clear(1, 0, 0, 0);
 
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
+        if (isNewHighscore) {
+            game.batch.draw(newHighscore, 130, 70, newHighscore.getWidth(), newHighscore.getHeight());
+            game.batch.draw(newHighscoreTitle, 180, 400, newHighscoreTitle.getWidth(), newHighscoreTitle.getHeight());
 
-        game.batch.draw(gameOver, 0, 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+            game.batch.draw(playTexture, playButton.getPositionButton().x, playButton.getPositionButton().y - 10);
+            game.batch.draw(homeTexture, homeButton.getPositionButton().x, homeButton.getPositionButton().y - 10);
+            game.batch.draw(stopTexture, stopButton.getPositionButton().x, stopButton.getPositionButton().y - 10);
+            game.batch.draw(highscoreButtonTexture, highscoreButton.getPositionButton().x, highscoreButton.getPositionButton().y - 10);
 
-        game.batch.draw(playTexture, playButton.getPositionButton().x, playButton.getPositionButton().y);
-        game.batch.draw(homeTexture, homeButton.getPositionButton().x, homeButton.getPositionButton().y);
-        game.batch.draw(stopTexture, stopButton.getPositionButton().x, stopButton.getPositionButton().y);
 
-        gLayout.setText(game.font, "SCORE: " + Score.getScoreString());
-        game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2F - gLayout.width / 2F, JumpyBirb.HEIGHT / 2.7F + gLayout.height * 2);
+            gLayout.setText(game.font, enterName + inputText);
+            game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2f - gLayout.width / 2f, JumpyBirb.HEIGHT / 2f - gLayout.height * 5);
 
-        gLayout.setText(game.font, "HIGHSCORE: " + Score.getHighScoreString());
-        game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2F - gLayout.width / 2F, JumpyBirb.HEIGHT / 3F + gLayout.height);
+            gLayout.setText(game.font, "SCORE: " + Score.getScoreString());
+            game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2F - gLayout.width / 2F, JumpyBirb.HEIGHT / 2.7F + gLayout.height * 4);
 
-        gLayout.setText(game.font, "ENTER NAME: " + inputText);
-        game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2f - gLayout.width / 2f, JumpyBirb.HEIGHT / 2f + gLayout.height);
+            navigateToScreen();
 
+        } else {
+
+            game.batch.draw(gameOver, 0, 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+            gLayout.setText(game.font, "SCORE: " + Score.getScoreString());
+            game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2F - gLayout.width / 2F, JumpyBirb.HEIGHT / 2.7F + gLayout.height * 2);
+
+            gLayout.setText(game.font, "HIGHSCORE: " + Score.getHighScoreString());
+            game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2F - gLayout.width / 2F, JumpyBirb.HEIGHT / 3F + gLayout.height);
+
+            game.batch.draw(playTexture, playButton.getPositionButton().x, playButton.getPositionButton().y);
+            game.batch.draw(homeTexture, homeButton.getPositionButton().x, homeButton.getPositionButton().y);
+            game.batch.draw(stopTexture, stopButton.getPositionButton().x, stopButton.getPositionButton().y);
+            game.batch.draw(highscoreButtonTexture, highscoreButton.getPositionButton().x, highscoreButton.getPositionButton().y);
+
+
+            navigateToScreen();
+        }
+        game.batch.end();
+
+        //restart();
+
+
+    }
+
+    private void navigateToScreen() {
         if (Gdx.input.isTouched()) {
 
             Vector3 click = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
@@ -119,14 +150,12 @@ public class EndScreen implements Screen, InputProcessor{
                 System.out.println("MAIN MENU");
                 game.setScreen(new MainMenuScreen(game));
                 dispose();
+            } else if (highscoreButton.getBoundsButton().contains(click.x, click.y)) {
+                System.out.println("HIGHSCORE SCREEN?");
+                /*game.setScreen(new MainMenuScreen(game));*/
+                dispose();
             }
         }
-        game.batch.end();
-
-        //restart();
-
-
-
     }
 
     private void restart() {
@@ -168,7 +197,7 @@ public class EndScreen implements Screen, InputProcessor{
 
     @Override
     public void dispose() {
-
+        gLayout.reset();
     }
 
     @Override
@@ -187,9 +216,20 @@ public class EndScreen implements Screen, InputProcessor{
         if (s.matches("[a-z]")) {
             char sChar = s.charAt(0);
             inputText += character;
+            hideText();
+            if(Gdx.input.isButtonJustPressed(66)){
+                return true;
+            }
             return true;
         }
         return false;
+    }
+    public void hideText(){
+        if(inputText == null){
+            enterName = "ENTER NAME: ";
+        }else{
+            enterName = "";
+        }
     }
 
     @Override
