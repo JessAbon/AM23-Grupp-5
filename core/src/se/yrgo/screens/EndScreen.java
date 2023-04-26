@@ -219,9 +219,6 @@ private Texture bg;
             char sChar = s.charAt(0);
             inputText += character;
             hideText();
-            if(Gdx.input.isButtonJustPressed(66)){
-                return true;
-            }
             return true;
         }
         return false;
