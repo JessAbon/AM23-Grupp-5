@@ -27,11 +27,14 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
     private Texture hardBtnTexture;
     private Texture hardButtonPressed;
     private Texture playTexture;
+    private Texture exitTexture;
+    private Texture highScoreTexture;
     private Button mediumButton;
     private Button hardButton;
     private Button easyButton;
     private Button playButton;
-
+    private Button highscoreButton;
+    private Button exitButton;
     private ScreenViewport viewport;
 
     public MainMenuScreen(final JumpyBirb game) {
@@ -45,17 +48,19 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
         fg = new Texture("menu/fg-main-menu.png");
 
         easyTexture = new Texture("menu/easy-btn.png");
-        easyButtonPressed = new Texture("menu/easy-btn-pressed.png");
+        easyButtonPressed = new Texture("menu/button_pressed.png");
         mediumTexture = new Texture("menu/medium-btn.png");
-        mediumButtonPressed = new Texture("menu/medium-btn-pressed.png");
+        mediumButtonPressed = new Texture("menu/button_pressed_v2.png");
         hardBtnTexture = new Texture("menu/hard-btn.png");
-        hardButtonPressed = new Texture("menu/hard-pressed.png");
+        hardButtonPressed = new Texture("menu/button_hover.png");
         playTexture = new Texture("menu/playbtn-wood.png");
+        highScoreTexture = new Texture("menu/highscore_button.png");
 
         playButton = new Button(310, 300, playTexture.getWidth(), playTexture.getHeight());
         hardButton = new Button(510, 40, hardBtnTexture.getWidth(), hardBtnTexture.getHeight());
         mediumButton = new Button(310, 20, mediumTexture.getWidth(), mediumTexture.getHeight());
         easyButton = new Button(110, 30, easyTexture.getWidth(), easyTexture.getHeight());
+        highscoreButton = new Button(770, 30, highScoreTexture.getWidth(), easyButtonPressed.getHeight());
 
         //camera.update();
     }
@@ -74,7 +79,7 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
         game.batch.draw(mediumTexture, mediumButton.getPositionButton().x, mediumButton.getPositionButton().y);
         game.batch.draw(hardBtnTexture, hardButton.getPositionButton().x, hardButton.getPositionButton().y);
         game.batch.draw(playTexture, playButton.getPositionButton().x, playButton.getPositionButton().y);
-
+        game.batch.draw(highScoreTexture, highscoreButton.getPositionButton().x, highscoreButton.getPositionButton().y);
         if (Gdx.input.isTouched()) {
 
             Vector3 click = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
