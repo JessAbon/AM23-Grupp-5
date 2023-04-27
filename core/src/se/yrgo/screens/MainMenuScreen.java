@@ -20,18 +20,12 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
     private GlyphLayout gLayout;
     private Texture startbg;
     private Texture fg;
-    private Texture easyTexture;
-    private Texture easyButtonPressed;
-    private Texture mediumTexture;
-    private Texture mediumButtonPressed;
-    private Texture hardBtnTexture;
-    private Texture hardButtonPressed;
     private Texture playTexture;
     private Texture exitTexture;
     private Texture highScoreTexture;
+    private Button easyButton;
     private Button mediumButton;
     private Button hardButton;
-    private Button easyButton;
     private Button playButton;
     private Button highscoreButton;
     private Button exitButton;
@@ -47,21 +41,15 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
         startbg = new Texture("menu/bg-mainmenu.png");
         fg = new Texture("menu/fg-main-menu.png");
 
-        easyTexture = new Texture("menu/easy-btn.png");
-        easyButtonPressed = new Texture("menu/button_pressed.png");
-        mediumTexture = new Texture("menu/medium-btn.png");
-        mediumButtonPressed = new Texture("menu/button_pressed.png");
-        hardBtnTexture = new Texture("menu/hard-btn.png");
-        hardButtonPressed = new Texture("menu/button_pressed.png");
         playTexture = new Texture("menu/playbtn-wood.png");
         highScoreTexture = new Texture("menu/highscore_button.png");
         exitTexture = new Texture("menu/exit_button.png");
 
         playButton = new Button(310, 300, playTexture.getWidth(), playTexture.getHeight());
-        hardButton = new Button(510, 40, hardBtnTexture.getWidth(), hardBtnTexture.getHeight());
-        mediumButton = new Button(310, 20, mediumTexture.getWidth(), mediumTexture.getHeight());
-        easyButton = new Button(110, 30, easyTexture.getWidth(), easyTexture.getHeight());
-        highscoreButton = new Button(705, 20, highScoreTexture.getWidth(), easyButtonPressed.getHeight());
+        hardButton = new Button(510, 40, "hard-btn.png");
+        mediumButton = new Button(310, 20, "medium-btn.png");
+        easyButton = new Button(110, 30, "easy-btn.png");
+        highscoreButton = new Button(705, 20, highScoreTexture.getWidth(), highScoreTexture.getHeight());
         exitButton = new Button(15, 550, exitTexture.getWidth(), exitTexture.getHeight());
 
         //camera.update();
@@ -77,12 +65,22 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
         game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2.0f - gLayout.width / 2, JumpyBirb.HEIGHT / 2.0f + gLayout.height / 2);
         game.batch.draw(startbg, 0, 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
 
-        game.batch.draw(easyTexture, easyButton.getPositionButton().x, easyButton.getPositionButton().y);
-        game.batch.draw(mediumTexture, mediumButton.getPositionButton().x, mediumButton.getPositionButton().y);
-        game.batch.draw(hardBtnTexture, hardButton.getPositionButton().x, hardButton.getPositionButton().y);
+        game.batch.draw(easyButton.getTexture(), easyButton.getPositionButton().x, easyButton.getPositionButton().y);
+        game.batch.draw(mediumButton.getTexture(), mediumButton.getPositionButton().x, mediumButton.getPositionButton().y);
+        game.batch.draw(hardButton.getTexture(), hardButton.getPositionButton().x, hardButton.getPositionButton().y);
         game.batch.draw(playTexture, playButton.getPositionButton().x, playButton.getPositionButton().y);
         game.batch.draw(highScoreTexture, highscoreButton.getPositionButton().x, highscoreButton.getPositionButton().y);
         game.batch.draw(exitTexture, exitButton.getPositionButton().x, exitButton.getPositionButton().y);
+
+        if(easyButton.isPressed()) {
+            game.batch.draw(easyButton.getTextureChecked(), easyButton.getPositionButton().x, easyButton.getPositionButton().y + 40f);
+        }
+        if(mediumButton.isPressed()) {
+            game.batch.draw(mediumButton.getTextureChecked(), mediumButton.getPositionButton().x, mediumButton.getPositionButton().y + 80f);
+        }
+        if(hardButton.isPressed()) {
+            game.batch.draw(hardButton.getTextureChecked(), hardButton.getPositionButton().x, hardButton.getPositionButton().y + 120f);
+        }
 
         if (Gdx.input.isTouched()) {
 
@@ -95,22 +93,25 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
             } else if (easyButton.getBoundsButton().contains(click.x, click.y)) {
                 Settings.easy();
-                game.batch.draw(easyButtonPressed, easyButton.getPositionButton().x,
-                        easyButton.getPositionButton().y + 40, easyTexture.getWidth(), easyTexture.getHeight() - 10);
+                easyButton.isPressed(true);
+                mediumButton.isPressed(false);
+                hardButton.isPressed(false);
                 System.out.println("EASY");
                 dispose();
 
             } else if (mediumButton.getBoundsButton().contains(click.x, click.y)) {
                 Settings.medium();
-                game.batch.draw(mediumButtonPressed, mediumButton.getPositionButton().x,
-                        mediumButton.getPositionButton().y + 80, mediumTexture.getWidth(), mediumTexture.getHeight() - 50);
+                easyButton.isPressed(false);
+                mediumButton.isPressed(true);
+                hardButton.isPressed(false);
                 System.out.println("Medium");
                 dispose();
 
             } else if (hardButton.getBoundsButton().contains(click.x, click.y)) {
                 Settings.hard();
-                game.batch.draw(hardButtonPressed, hardButton.getPositionButton().x,
-                        hardButton.getPositionButton().y + 115, hardBtnTexture.getWidth(), hardBtnTexture.getHeight() - 100);
+                easyButton.isPressed(false);
+                mediumButton.isPressed(false);
+                hardButton.isPressed(true);
                 System.out.println("Hard");
                 dispose();
             } else if (highscoreButton.getBoundsButton().contains(click.x, click.y)) {
