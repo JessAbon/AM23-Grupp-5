@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import se.yrgo.JumpyBirb;
 import se.yrgo.sprites.Button;
+import se.yrgo.sprites.ButtonInLine;
 import se.yrgo.util.Score;
 
 import static se.yrgo.util.Score.isNewHighscore;
@@ -41,12 +42,12 @@ public class EndScreen implements Screen, InputProcessor {
 
     private Texture newHighscoreTitle;
     private Texture highscoreButtonTexture;
-    private Button highscoreButton;
-    private Button playButton;
+    private ButtonInLine highscoreButton;
+    private ButtonInLine playButton;
 
-    private Button homeButton;
+    private ButtonInLine homeButton;
 
-    private Button stopButton;
+    private ButtonInLine stopButton;
 
     public String enterName;
     private ScalingViewport viewport;
@@ -72,6 +73,11 @@ public class EndScreen implements Screen, InputProcessor {
         newHighscore = new Texture("highscore/input_highscore.png");
         newHighscoreTitle = new Texture("highscore/new_highscore.png");
         highscoreButtonTexture = new Texture("highscore/highscoreButton.png");
+
+        playButton = new ButtonInLine(170, 50, playTexture.getWidth(), playTexture.getHeight());
+        homeButton = new ButtonInLine(310, 50, homeTexture.getWidth(), homeTexture.getHeight());
+        stopButton = new ButtonInLine(450, 50, stopTexture.getWidth(), stopTexture.getHeight());
+        highscoreButton = new ButtonInLine(580, 50, highscoreButtonTexture.getWidth(), highscoreButtonTexture.getHeight());
 
     }
 
