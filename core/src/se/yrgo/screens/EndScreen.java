@@ -138,33 +138,41 @@ public class EndScreen implements Screen, InputProcessor {
     }
 
     private void navigateToScreen() {
-        if (Gdx.input.isTouched()) {
+        if (game.spaceAndMouseClickInput()) {
 
-            Vector3 click = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
-            camera.unproject(click);
+            if (delayRestart()) {
 
-            if (playButton.getBoundsButton().contains(click.x, click.y)) {
-                System.out.println("PLAY END");
-                game.setScreen(new GameScreen(game));
-                dispose();
-            } else if (stopButton.getBoundsButton().contains(click.x, click.y)) {
-                System.out.println("QUIT");
-                Gdx.app.exit();
-                dispose();
-            } else if (homeButton.getBoundsButton().contains(click.x, click.y)) {
-                System.out.println("MAIN MENU");
-                game.setScreen(new MainMenuScreen(game));
-                dispose();
-            } else if (highscoreButton.getBoundsButton().contains(click.x, click.y)) {
-                System.out.println("HIGHSCORE SCREEN?");
-                game.setScreen(new HighscoreScreen(game));
-                dispose();
+                Vector3 click = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
+                camera.unproject(click);
+
+                if (playButton.getBoundsButton().contains(click.x, click.y)) {
+                    System.out.println("PLAY END");
+                    game.setScreen(new GameScreen(game));
+                    dispose();
+                }
+                else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+                    game.setScreen(new GameScreen(game));
+                    dispose();
+                }
+                else if (stopButton.getBoundsButton().contains(click.x, click.y)) {
+                    System.out.println("QUIT");
+                    Gdx.app.exit();
+                    dispose();
+                } else if (homeButton.getBoundsButton().contains(click.x, click.y)) {
+                    System.out.println("MAIN MENU");
+                    game.setScreen(new MainMenuScreen(game));
+                    dispose();
+                } else if (highscoreButton.getBoundsButton().contains(click.x, click.y)) {
+                    System.out.println("HIGHSCORE SCREEN?");
+                    game.setScreen(new HighscoreScreen(game));
+                    dispose();
+                }
             }
         }
+
     }
 
     private void restart() {
-
         if (game.spaceAndMouseClickInput()) {
             if (delayRestart()) {
                 game.setScreen(new GameScreen(game));
