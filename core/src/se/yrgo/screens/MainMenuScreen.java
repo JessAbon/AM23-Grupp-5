@@ -135,7 +135,6 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
         }
 
-        game.batch.end();
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             game.setScreen(new GameScreen(game));
