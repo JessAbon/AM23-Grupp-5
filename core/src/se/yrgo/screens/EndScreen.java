@@ -187,7 +187,8 @@ public class EndScreen implements Screen, InputProcessor {
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height, false);
+        viewport.update(width, height, true);
+
     }
 
     @Override
@@ -229,6 +230,7 @@ public class EndScreen implements Screen, InputProcessor {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+            game.setScreen(new HighscoreScreen(game));
         }
 
         return false;
@@ -241,6 +243,9 @@ public class EndScreen implements Screen, InputProcessor {
 
     @Override
     public boolean keyTyped(char character) {
+        if(inputText.length() == 3){
+            inputText = inputText;
+        }
         String s = Character.toString(character);
         if (s.matches("[a-z]")) {
             char sChar = s.charAt(0);

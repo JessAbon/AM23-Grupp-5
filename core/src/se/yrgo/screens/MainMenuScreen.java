@@ -93,31 +93,31 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
             if (playButton.getBoundsButton().contains(click.x, click.y)) {
                 System.out.println("PLAY");
                 game.setScreen(new GameScreen(game));
-
+                dispose();
             } else if (easyButton.getBoundsButton().contains(click.x, click.y)) {
                 Settings.easy();
                 game.batch.draw(easyButtonPressed, easyButton.getPositionButton().x,
                         easyButton.getPositionButton().y + 40, easyTexture.getWidth(), easyTexture.getHeight() - 10);
                 System.out.println("EASY");
-                dispose();
+
 
             } else if (mediumButton.getBoundsButton().contains(click.x, click.y)) {
                 Settings.medium();
                 game.batch.draw(mediumButtonPressed, mediumButton.getPositionButton().x,
                         mediumButton.getPositionButton().y + 80, mediumTexture.getWidth(), mediumTexture.getHeight() - 50);
                 System.out.println("Medium");
-                dispose();
+
 
             } else if (hardButton.getBoundsButton().contains(click.x, click.y)) {
                 Settings.hard();
                 game.batch.draw(hardButtonPressed, hardButton.getPositionButton().x,
                         hardButton.getPositionButton().y + 115, hardBtnTexture.getWidth(), hardBtnTexture.getHeight() - 100);
                 System.out.println("Hard");
-                dispose();
+
             } else if (highscoreButton.getBoundsButton().contains(click.x, click.y)) {
                 System.out.println("HIGHSCORE");
                 game.setScreen(new HighscoreScreen(game));
-                dispose();
+
             } else if (exitButton.getBoundsButton().contains(click.x, click.y)) {
                 Gdx.app.exit();
             }
