@@ -5,13 +5,15 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import se.yrgo.JumpyBirb;
 import se.yrgo.sprites.Button;
 
 public class HighscoreScreen implements Screen {
-    private ScreenViewport viewport;
+
     final JumpyBirb game;
     OrthographicCamera camera;
 
@@ -24,11 +26,14 @@ public class HighscoreScreen implements Screen {
     private Button homeButton;
 
     private Button quitButton;
+
+    private ScalingViewport viewport;
+    private Scaling scaling;
     public HighscoreScreen(final JumpyBirb game){
         this.game = game;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
-        viewport = new ScreenViewport();
+        viewport = new ScalingViewport((scaling) = scaling.fit, 800, 600,camera);
         background = new Texture("highscore/bg_highscore_v2.png");
         title = new Texture("highscore/highscoretitle.png");
         homeTexture = new Texture("menu/Home.png");
@@ -40,7 +45,7 @@ public class HighscoreScreen implements Screen {
     @Override
     public void render(float delta) {
 
-        ScreenUtils.clear(1, 0, 0, 0);
+        ScreenUtils.clear(0, 0, 0, 0);
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
@@ -71,7 +76,7 @@ public class HighscoreScreen implements Screen {
     }
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height);
+        viewport.update(width, height, false);
     }
     @Override
     public void show() {
