@@ -37,8 +37,9 @@ public class Button {
     public boolean isPressed() {
         return isPressed;
     }
-
     public void dispose() {
+        texture.dispose();
+        textureChecked.dispose();
     }
 
 }

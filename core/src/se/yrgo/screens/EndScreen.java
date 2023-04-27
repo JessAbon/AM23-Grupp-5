@@ -73,11 +73,6 @@ public class EndScreen implements Screen, InputProcessor {
         newHighscoreTitle = new Texture("highscore/new_highscore.png");
         highscoreButtonTexture = new Texture("highscore/highscoreButton.png");
 
-        playButton = new Button(170, 50, playTexture.getWidth(), playTexture.getHeight());
-        homeButton = new Button(310, 50, homeTexture.getWidth(), homeTexture.getHeight());
-        stopButton = new Button(450, 50, stopTexture.getWidth(), stopTexture.getHeight());
-        highscoreButton = new Button(580, 50, highscoreButtonTexture.getWidth(), highscoreButtonTexture.getHeight());
-
     }
 
     @Override
