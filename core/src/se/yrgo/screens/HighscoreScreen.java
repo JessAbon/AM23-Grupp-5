@@ -27,13 +27,15 @@ public class HighscoreScreen implements Screen {
 
     private Button quitButton;
 
-    private ScalingViewport viewport;
+    /*private ScalingViewport viewport;*/
+    private ScreenViewport viewport;
     private Scaling scaling;
     public HighscoreScreen(final JumpyBirb game){
         this.game = game;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
-        viewport = new ScalingViewport((scaling) = scaling.fit, 800, 600,camera);
+        /*viewport = new ScalingViewport((scaling) = scaling.fit, 800, 600,camera);*/
+        viewport = new ScreenViewport();
         background = new Texture("highscore/bg_highscore_v2.png");
         title = new Texture("highscore/highscoretitle.png");
         homeTexture = new Texture("menu/Home.png");
@@ -76,7 +78,7 @@ public class HighscoreScreen implements Screen {
     }
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height, false);
+        viewport.update(width, height);
     }
     @Override
     public void show() {

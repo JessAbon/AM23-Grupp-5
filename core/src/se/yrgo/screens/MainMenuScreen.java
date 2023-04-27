@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import se.yrgo.JumpyBirb;
 import se.yrgo.sprites.Button;
 import se.yrgo.util.Settings;
@@ -26,23 +27,27 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
     private Texture mediumButtonPressed;
     private Texture hardBtnTexture;
     private Texture hardButtonPressed;
+
     private Texture playTexture;
     private Texture exitTexture;
     private Texture highScoreTexture;
+
     private Button mediumButton;
     private Button hardButton;
     private Button easyButton;
     private Button playButton;
     private Button highscoreButton;
     private Button exitButton;
-    private ScalingViewport viewport;
+    //private ScalingViewport viewport;
+    private ScreenViewport viewport;
     private Scaling scaling;
 
     public MainMenuScreen(final JumpyBirb game) {
         this.game = game;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
-        viewport = new ScalingViewport((scaling) = scaling.fit, 800, 600,camera);
+        //viewport = new ScalingViewport((scaling) = scaling.fit, 800, 600,camera);
+        viewport = new ScreenViewport();
         gLayout = new GlyphLayout();
         startbg = new Texture("menu/bg-mainmenu.png");
         fg = new Texture("menu/fg-main-menu.png");
@@ -53,14 +58,16 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
         mediumButtonPressed = new Texture("menu/button_pressed.png");
         hardBtnTexture = new Texture("menu/hard-btn.png");
         hardButtonPressed = new Texture("menu/button_pressed.png");
+
         playTexture = new Texture("menu/playbtn-wood.png");
         highScoreTexture = new Texture("menu/highscore_button.png");
         exitTexture = new Texture("menu/exit_button.png");
 
-        playButton = new Button(310, 300, playTexture.getWidth(), playTexture.getHeight());
         hardButton = new Button(510, 40, hardBtnTexture.getWidth(), hardBtnTexture.getHeight());
         mediumButton = new Button(310, 20, mediumTexture.getWidth(), mediumTexture.getHeight());
         easyButton = new Button(110, 30, easyTexture.getWidth(), easyTexture.getHeight());
+
+        playButton = new Button(310, 300, playTexture.getWidth(), playTexture.getHeight());
         highscoreButton = new Button(705, 20, highScoreTexture.getWidth(), easyButtonPressed.getHeight());
         exitButton = new Button(15, 550, exitTexture.getWidth(), exitTexture.getHeight());
 
@@ -81,6 +88,7 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
         game.batch.draw(easyTexture, easyButton.getPositionButton().x, easyButton.getPositionButton().y);
         game.batch.draw(mediumTexture, mediumButton.getPositionButton().x, mediumButton.getPositionButton().y);
         game.batch.draw(hardBtnTexture, hardButton.getPositionButton().x, hardButton.getPositionButton().y);
+
         game.batch.draw(playTexture, playButton.getPositionButton().x, playButton.getPositionButton().y);
         game.batch.draw(highScoreTexture, highscoreButton.getPositionButton().x, highscoreButton.getPositionButton().y);
         game.batch.draw(exitTexture, exitButton.getPositionButton().x, exitButton.getPositionButton().y);
@@ -143,7 +151,7 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width , height, true);
+        viewport.update(width , height);
     }
 
     @Override

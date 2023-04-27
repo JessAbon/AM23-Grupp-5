@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import se.yrgo.JumpyBirb;
 import se.yrgo.sprites.Button;
 import se.yrgo.util.AllTimeHighHandler;
@@ -54,7 +55,8 @@ public class EndScreen implements Screen, InputProcessor {
     private Button stopButton;
 
     public String enterName;
-    private ScalingViewport viewport;
+    //private ScalingViewport viewport;
+    private ScreenViewport viewport;
 
     private Scaling scaling;
 
@@ -63,7 +65,8 @@ public class EndScreen implements Screen, InputProcessor {
         this.game = game;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
-        viewport = new ScalingViewport((scaling) = scaling.fit, 800, 600, camera);
+        /*viewport = new ScalingViewport((scaling) = scaling.fit, 800, 600, camera);*/
+        viewport = new ScreenViewport();
         timeStamp = TimeUtils.millis();
         gLayout = new GlyphLayout();
         inputText = "";
@@ -187,7 +190,7 @@ public class EndScreen implements Screen, InputProcessor {
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height, true);
+        viewport.update(width, height);
 
     }
 
@@ -243,10 +246,8 @@ public class EndScreen implements Screen, InputProcessor {
 
     @Override
     public boolean keyTyped(char character) {
-        if(inputText.length() == 3){
-            inputText = inputText;
-        }
         String s = Character.toString(character);
+
         if (s.matches("[a-z]")) {
             char sChar = s.charAt(0);
             inputText += character;
