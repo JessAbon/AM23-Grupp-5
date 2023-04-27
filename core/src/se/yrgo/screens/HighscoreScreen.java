@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
@@ -11,6 +12,9 @@ import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import se.yrgo.JumpyBirb;
 import se.yrgo.sprites.Button;
+import se.yrgo.util.AllTimeHighHandler;
+import se.yrgo.util.MyScore;
+import se.yrgo.util.Score;
 
 public class HighscoreScreen implements Screen {
 
@@ -26,6 +30,8 @@ public class HighscoreScreen implements Screen {
     private Button homeButton;
 
     private Button quitButton;
+    private GlyphLayout gLayout;
+    float addOn = 0;
 
     /*private ScalingViewport viewport;*/
     private ScreenViewport viewport;
@@ -43,6 +49,7 @@ public class HighscoreScreen implements Screen {
 
         homeButton = new Button(300, 10, homeTexture.getWidth(), homeTexture.getHeight());
         quitButton = new Button(400, 10, quitTexture.getWidth(), quitTexture.getHeight());
+        gLayout = new GlyphLayout();
     }
     @Override
     public void render(float delta) {
@@ -56,6 +63,15 @@ public class HighscoreScreen implements Screen {
 
         game.batch.draw(homeTexture, homeButton.getPositionButton().x,homeButton.getPositionButton().y);
         game.batch.draw(quitTexture, quitButton.getPositionButton().x,quitButton.getPositionButton().y);
+
+        for (int i = 0; i < AllTimeHighHandler.getScoreArray().size(); i++) {
+
+            gLayout.setText(game.font, AllTimeHighHandler.getScoreArray().get(i).getName()  + " : " + AllTimeHighHandler.getScoreArray().get(i).getScore());
+            game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2F - gLayout.width / 2F, (JumpyBirb.HEIGHT - 130f) - i * (gLayout.height*1.4f));
+        }
+
+
+
         game.batch.end();
 
         navigateToScreen();
@@ -82,6 +98,9 @@ public class HighscoreScreen implements Screen {
     }
     @Override
     public void show() {
+        AllTimeHighHandler.readFile();
+
+
 
     }
 

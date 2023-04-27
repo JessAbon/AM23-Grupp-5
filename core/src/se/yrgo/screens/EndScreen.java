@@ -23,7 +23,6 @@ import se.yrgo.util.Score;
 import java.io.IOException;
 
 import static se.yrgo.util.Score.getScore;
-import static se.yrgo.util.Score.isNewHighscore;
 
 public class EndScreen implements Screen, InputProcessor {
 
@@ -92,7 +91,6 @@ public class EndScreen implements Screen, InputProcessor {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(this);
-
     }
 
     @Override
@@ -104,7 +102,7 @@ public class EndScreen implements Screen, InputProcessor {
 
         game.batch.begin();
         game.batch.draw(bg, 0, 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
-        if (isNewHighscore) {
+        if (AllTimeHighHandler.isHighScore) {
             game.batch.draw(newHighscore, 130, 70, newHighscore.getWidth(), newHighscore.getHeight());
             game.batch.draw(newHighscoreTitle, 180, 400, newHighscoreTitle.getWidth(), newHighscoreTitle.getHeight());
 
@@ -128,7 +126,7 @@ public class EndScreen implements Screen, InputProcessor {
             gLayout.setText(game.font, "SCORE: " + Score.getScoreString());
             game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2F - gLayout.width / 2F, JumpyBirb.HEIGHT / 2.7F + gLayout.height * 2);
 
-            gLayout.setText(game.font, "HIGHSCORE: " + Score.getHighScoreString());
+            gLayout.setText(game.font, "YOUR BEST: " + Score.getHighScoreString());
             game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2F - gLayout.width / 2F, JumpyBirb.HEIGHT / 3F + gLayout.height);
 
             game.batch.draw(playTexture, playButton.getPositionButton().x, playButton.getPositionButton().y);
@@ -236,7 +234,6 @@ public class EndScreen implements Screen, InputProcessor {
         if(keycode == 66){
             MyScore myScore = new MyScore(getScore(), inputText);
             try {
-                AllTimeHighHandler.readFile();
                 AllTimeHighHandler.addScore(myScore);
                 inputText = "";
             } catch (IOException e) {

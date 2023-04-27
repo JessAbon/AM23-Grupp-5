@@ -21,6 +21,7 @@ import java.util.Collections;
 public class AllTimeHighHandler {
     private static Path filePath = Path.of("../assets/score/top10.txt");
     private static ArrayList<MyScore> scoreArray = new ArrayList<>();
+    public static boolean isHighScore;
 
 
     public static void readFile() {
@@ -40,6 +41,25 @@ public class AllTimeHighHandler {
         }
     }
 
+    public static ArrayList<MyScore> getScoreArray() {
+        return scoreArray;
+    }
+
+    public static void checkScore() {
+        isHighScore = false;
+        if (scoreArray.size() < 9) {
+            isHighScore = true;
+        }
+        else {
+            for (MyScore s : scoreArray) {
+                if (Score.getScore() > s.getScore()) {
+                    isHighScore = true;
+                    break;
+                }
+            }
+        }
+    }
+
 
     //CHECK IF SCORE > LOWEST COLLECTION MEMBER
     public static void addScore(MyScore newScore) throws IOException {
@@ -50,17 +70,17 @@ public class AllTimeHighHandler {
                     break;
                 }
             }
-        Collections.sort(scoreArray);
-        scoreArray.remove(scoreArray.size() - 1);
-        }
-        else {
+            Collections.sort(scoreArray);
+            scoreArray.remove(scoreArray.size() - 1);
+        } else {
+            isHighScore = true;
             scoreArray.add(newScore);
         }
         writeFile();
     }
 
 
-    public static void writeFile() throws IOException{
+    public static void writeFile() throws IOException {
         if (Files.exists(filePath)) {
             Files.delete(filePath);
         }
