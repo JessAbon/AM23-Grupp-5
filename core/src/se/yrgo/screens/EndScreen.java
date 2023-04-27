@@ -14,8 +14,13 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import se.yrgo.JumpyBirb;
 import se.yrgo.sprites.Button;
+import se.yrgo.util.AllTimeHighHandler;
+import se.yrgo.util.MyScore;
 import se.yrgo.util.Score;
 
+import java.io.IOException;
+
+import static se.yrgo.util.Score.getScore;
 import static se.yrgo.util.Score.isNewHighscore;
 
 public class EndScreen implements Screen, InputProcessor {
@@ -215,6 +220,17 @@ public class EndScreen implements Screen, InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
+        if(keycode == 66){
+            MyScore myScore = new MyScore(getScore(), inputText);
+            try {
+                AllTimeHighHandler.readFile();
+                AllTimeHighHandler.addScore(myScore);
+                inputText = "";
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
         return false;
     }
 
@@ -231,6 +247,14 @@ public class EndScreen implements Screen, InputProcessor {
             inputText += character;
             hideText();
             return true;
+        }
+        else if(s.matches("[å,ä]")){
+            inputText += "a";
+            hideText();
+        }
+        else if(s.matches("ö")){
+            inputText += "o";
+            hideText();
         }
         return false;
     }

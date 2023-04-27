@@ -1,5 +1,4 @@
 package se.yrgo.screens;
-
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -16,7 +15,6 @@ import se.yrgo.sprites.Button;
 import se.yrgo.util.Settings;
 
 public class MainMenuScreen extends ApplicationAdapter implements Screen {
-
     final JumpyBirb game;
     OrthographicCamera camera;
     private GlyphLayout gLayout;

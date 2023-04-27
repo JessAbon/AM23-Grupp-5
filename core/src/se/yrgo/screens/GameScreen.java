@@ -15,8 +15,6 @@ import se.yrgo.util.Score;
 import se.yrgo.util.Settings;
 import se.yrgo.util.Util;
 
-// TODO: 2023-04-14 fix dispose method
-
 
 public class GameScreen implements Screen {
 
