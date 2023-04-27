@@ -20,4 +20,7 @@ public class Button {
         return boundsButton;
     }
 
+    public void dispose() {
+    }
+
 }

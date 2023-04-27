@@ -165,12 +165,18 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
     @Override
     public void dispose() {
-        /*fg.dispose();
+        fg.dispose();
         startbg.dispose();
         playTexture.dispose();
+        exitTexture.dispose();
         easyTexture.dispose();
         mediumTexture.dispose();
-        hardBtnTexture.dispose();*/
+        hardBtnTexture.dispose();
+        easyButtonPressed.dispose();
+        mediumButtonPressed.dispose();
+        hardButtonPressed.dispose();
+        highScoreTexture.dispose();
+        gLayout.reset();
     }
 
 }

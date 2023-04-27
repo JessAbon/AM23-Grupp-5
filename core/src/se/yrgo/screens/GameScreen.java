@@ -9,7 +9,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import se.yrgo.JumpyBirb;
 import se.yrgo.sprites.*;
 import se.yrgo.util.Score;
@@ -130,7 +129,6 @@ public class GameScreen implements Screen {
             hero.jump();
         }
     }
-
     private void movementGround() {
         for (int i = 0; i < grounds.size; i++) {
             Ground ground = grounds.get(i);
@@ -145,7 +143,6 @@ public class GameScreen implements Screen {
             }
         }
     }
-
     private void movementMidGround() {
         for (int i = 0; i < midGrounds.size; i++) {
             MidGround midGround = midGrounds.get(i);
@@ -156,7 +153,6 @@ public class GameScreen implements Screen {
             }
         }
     }
-
     private void movementForGround() {
         for (int i = 0; i < forGrounds.size; i++) {
             ForGround forGround = forGrounds.get(i);
@@ -198,8 +194,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        //deathSound.dispose();
-        //hero.dispose();
+        bg.dispose();
 
         /*Settings.BACKGROUND.dispose();
         Settings.GROUND.dispose();

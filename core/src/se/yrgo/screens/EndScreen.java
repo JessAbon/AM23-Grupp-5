@@ -202,6 +202,14 @@ public class EndScreen implements Screen, InputProcessor {
 
     @Override
     public void dispose() {
+        bg.dispose();
+        gameOver.dispose();
+        playTexture.dispose();
+        homeTexture.dispose();
+        stopTexture.dispose();
+        newHighscore.dispose();
+        newHighscoreTitle.dispose();
+        highscoreButtonTexture.dispose();
         gLayout.reset();
     }
 

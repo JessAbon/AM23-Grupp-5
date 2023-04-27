@@ -104,6 +104,10 @@ public class HighscoreScreen implements Screen {
 
     @Override
     public void dispose() {
+        background.dispose();
+        title.dispose();
+        homeTexture.dispose();
+        quitTexture.dispose();
 
     }
 }
