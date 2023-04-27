@@ -11,6 +11,8 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import se.yrgo.JumpyBirb;
 import se.yrgo.sprites.Button;
 import se.yrgo.sprites.ButtonInLine;
@@ -32,14 +34,16 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
     private ButtonInLine playButton;
     private ButtonInLine highscoreButton;
     private ButtonInLine exitButton;
-    private ScalingViewport viewport;
-    private Scaling scaling;
+    private ScreenViewport viewport;
+    //private ScalingViewport viewport;
+    //private Scaling scaling;
 
     public MainMenuScreen(final JumpyBirb game) {
         this.game = game;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
-        viewport = new ScalingViewport((scaling) = scaling.fit, 800, 600, camera);
+        //viewport = new ScalingViewport((scaling) = scaling.fit, 800, 600,camera);
+        viewport = new ScreenViewport();
         gLayout = new GlyphLayout();
         startbg = new Texture("menu/bg-mainmenu.png");
         fg = new Texture("menu/fg-main-menu.png");
@@ -131,6 +135,8 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
         }
 
+        game.batch.end();
+
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             game.setScreen(new GameScreen(game));
             dispose();
@@ -148,7 +154,7 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width , height, false);
+        viewport.update(width , height);
     }
 
     @Override

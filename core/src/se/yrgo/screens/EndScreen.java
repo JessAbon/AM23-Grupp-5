@@ -12,10 +12,16 @@ import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import se.yrgo.JumpyBirb;
 import se.yrgo.sprites.Button;
+import se.yrgo.util.AllTimeHighHandler;
+import se.yrgo.util.MyScore;
 import se.yrgo.util.Score;
 
+import java.io.IOException;
+
+import static se.yrgo.util.Score.getScore;
 import static se.yrgo.util.Score.isNewHighscore;
 
 public class EndScreen implements Screen, InputProcessor {
@@ -49,7 +55,8 @@ public class EndScreen implements Screen, InputProcessor {
     private Button stopButton;
 
     public String enterName;
-    private ScalingViewport viewport;
+    //private ScalingViewport viewport;
+    private ScreenViewport viewport;
 
     private Scaling scaling;
 
@@ -58,7 +65,8 @@ public class EndScreen implements Screen, InputProcessor {
         this.game = game;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
-        viewport = new ScalingViewport((scaling) = scaling.fit, 800, 600, camera);
+        /*viewport = new ScalingViewport((scaling) = scaling.fit, 800, 600, camera);*/
+        viewport = new ScreenViewport();
         timeStamp = TimeUtils.millis();
         gLayout = new GlyphLayout();
         inputText = "";
@@ -185,7 +193,8 @@ public class EndScreen implements Screen, InputProcessor {
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height, false);
+        viewport.update(width, height);
+
     }
 
     @Override
@@ -218,6 +227,18 @@ public class EndScreen implements Screen, InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
+        if(keycode == 66){
+            MyScore myScore = new MyScore(getScore(), inputText);
+            try {
+                AllTimeHighHandler.readFile();
+                AllTimeHighHandler.addScore(myScore);
+                inputText = "";
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            game.setScreen(new HighscoreScreen(game));
+        }
+
         return false;
     }
 
@@ -229,11 +250,20 @@ public class EndScreen implements Screen, InputProcessor {
     @Override
     public boolean keyTyped(char character) {
         String s = Character.toString(character);
+
         if (s.matches("[a-z]")) {
             char sChar = s.charAt(0);
             inputText += character;
             hideText();
             return true;
+        }
+        else if(s.matches("[å,ä]")){
+            inputText += "a";
+            hideText();
+        }
+        else if(s.matches("ö")){
+            inputText += "o";
+            hideText();
         }
         return false;
     }

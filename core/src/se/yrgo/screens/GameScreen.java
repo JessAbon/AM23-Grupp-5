@@ -9,13 +9,12 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import se.yrgo.JumpyBirb;
 import se.yrgo.sprites.*;
 import se.yrgo.util.Score;
 import se.yrgo.util.Settings;
 import se.yrgo.util.Util;
-
-// TODO: 2023-04-14 fix dispose method
 
 
 public class GameScreen implements Screen {
@@ -32,8 +31,8 @@ public class GameScreen implements Screen {
     private Array<MidGround> midGrounds;
     private Array<ForGround> forGrounds;
     private GlyphLayout glyphLayout;
-    private ScalingViewport viewport;
-
+    //private ScalingViewport viewport;
+    private ScreenViewport viewport;
     private Scaling scaling;
 
 
@@ -43,7 +42,8 @@ public class GameScreen implements Screen {
         hero = new Hero(JumpyBirb.WIDTH / 4, JumpyBirb.HEIGHT / 2);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
-        viewport = new ScalingViewport((scaling) = scaling.fit, 800, 600,camera);
+        /*viewport = new ScalingViewport((scaling) = scaling.fit, 800, 600, camera);*/
+        viewport = new ScreenViewport();
         glyphLayout = new GlyphLayout();
         tubes = new Array<>();
         bg = new Texture(Gdx.files.internal(Settings.getFolder() + "bg.png"));
@@ -129,6 +129,7 @@ public class GameScreen implements Screen {
             hero.jump();
         }
     }
+
     private void movementGround() {
         for (int i = 0; i < grounds.size; i++) {
             Ground ground = grounds.get(i);
@@ -143,6 +144,7 @@ public class GameScreen implements Screen {
             }
         }
     }
+
     private void movementMidGround() {
         for (int i = 0; i < midGrounds.size; i++) {
             MidGround midGround = midGrounds.get(i);
@@ -153,6 +155,7 @@ public class GameScreen implements Screen {
             }
         }
     }
+
     private void movementForGround() {
         for (int i = 0; i < forGrounds.size; i++) {
             ForGround forGround = forGrounds.get(i);
@@ -220,7 +223,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height, true);
+        viewport.update(width, height);
     }
 
     @Override

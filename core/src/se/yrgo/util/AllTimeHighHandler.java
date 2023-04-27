@@ -42,7 +42,7 @@ public class AllTimeHighHandler {
 
 
     //CHECK IF SCORE > LOWEST COLLECTION MEMBER
-    public static void addScore(MyScore newScore) {
+    public static void addScore(MyScore newScore) throws IOException {
         if (scoreArray.size() > 9) {
             for (MyScore s : scoreArray) {
                 if (newScore.getScore() > s.getScore()) {
@@ -56,6 +56,7 @@ public class AllTimeHighHandler {
         else {
             scoreArray.add(newScore);
         }
+        writeFile();
     }
 
 
