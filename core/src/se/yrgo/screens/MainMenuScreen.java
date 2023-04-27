@@ -8,7 +8,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import se.yrgo.JumpyBirb;
 import se.yrgo.sprites.Button;
 import se.yrgo.util.Settings;
@@ -29,14 +31,14 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
     private Button playButton;
     private Button highscoreButton;
     private Button exitButton;
-    private ScreenViewport viewport;
-
+    private ScalingViewport viewport;
+    private Scaling scaling;
 
     public MainMenuScreen(final JumpyBirb game) {
         this.game = game;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
-        viewport = new ScreenViewport();
+        viewport = new ScalingViewport((scaling) = scaling.fit, 800, 600,camera);
         gLayout = new GlyphLayout();
         startbg = new Texture("menu/bg-mainmenu.png");
         fg = new Texture("menu/fg-main-menu.png");
@@ -57,6 +59,7 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
     @Override
     public void render(float delta) {
+        ScreenUtils.clear(0, 0, 0, 0);
         camera.update();
 
         game.batch.setProjectionMatrix(camera.combined);
@@ -143,7 +146,7 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height);
+        viewport.update(width , height, true);
     }
 
     @Override
@@ -163,12 +166,18 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
     @Override
     public void dispose() {
-        /*fg.dispose();
+        fg.dispose();
         startbg.dispose();
         playTexture.dispose();
+        exitTexture.dispose();
         easyTexture.dispose();
         mediumTexture.dispose();
-        hardBtnTexture.dispose();*/
+        hardBtnTexture.dispose();
+        easyButtonPressed.dispose();
+        mediumButtonPressed.dispose();
+        hardButtonPressed.dispose();
+        highScoreTexture.dispose();
+        gLayout.reset();
     }
 
 }

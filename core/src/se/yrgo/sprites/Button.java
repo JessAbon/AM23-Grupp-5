@@ -38,4 +38,7 @@ public class Button {
         return isPressed;
     }
 
+    public void dispose() {
+    }
+
 }

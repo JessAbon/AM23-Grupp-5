@@ -2,23 +2,18 @@ package se.yrgo.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import se.yrgo.sprites.Hero;
-import se.yrgo.sprites.Ground;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import se.yrgo.JumpyBirb;
 import se.yrgo.sprites.*;
-import se.yrgo.sprites.Tube;
 import se.yrgo.util.Score;
 import se.yrgo.util.Settings;
 import se.yrgo.util.Util;
-import se.yrgo.sprites.MidGround;
-import se.yrgo.sprites.ForGround;
 
 // TODO: 2023-04-14 fix dispose method
 
@@ -37,10 +32,10 @@ public class GameScreen implements Screen {
     private Array<MidGround> midGrounds;
     private Array<ForGround> forGrounds;
     private GlyphLayout glyphLayout;
+    private ScalingViewport viewport;
 
+    private Scaling scaling;
 
-
-    private ScreenViewport viewport;
 
     public GameScreen(JumpyBirb game) {
         this.game = game;
@@ -48,12 +43,12 @@ public class GameScreen implements Screen {
         hero = new Hero(JumpyBirb.WIDTH / 4, JumpyBirb.HEIGHT / 2);
         camera = new OrthographicCamera();
         camera.setToOrtho(false, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
-        viewport = new ScreenViewport();
+        viewport = new ScalingViewport((scaling) = scaling.fit, 800, 600,camera);
         glyphLayout = new GlyphLayout();
         tubes = new Array<>();
         bg = new Texture(Gdx.files.internal(Settings.getFolder() + "bg.png"));
         for (int i = 2; i <= TUBE_COUNT; i++) {
-            tubes.add(new Tube(i * (float)(Settings.getTubeSpacing() + Tube.TUBE_WIDTH)));
+            tubes.add(new Tube(i * (float) (Settings.getTubeSpacing() + Tube.TUBE_WIDTH)));
         }
         midGrounds = new Array<>();
         for (int i = 0; i <= 2; i++) {
@@ -74,7 +69,7 @@ public class GameScreen implements Screen {
     @Override
     public void render(float delta) {
 
-        ScreenUtils.clear(1, 2, 3, 1);
+        ScreenUtils.clear(0, 0, 0, 0);
 
         hero.update(delta);
         camera.position.x = hero.getPosition().x + CAMERA_OF_SET; // CAMERA FOLLOW
@@ -113,7 +108,7 @@ public class GameScreen implements Screen {
         for (ForGround forGround : forGrounds) {
             game.batch.draw(forGround.getGround(), forGround.getPosition().x, forGround.getPosition().y + 40);
         }
-        game.font.draw(game.batch, glyphLayout, camera.position.x + (JumpyBirb.WIDTH/2F - glyphLayout.width), JumpyBirb.HEIGHT);
+        game.font.draw(game.batch, glyphLayout, camera.position.x + (JumpyBirb.WIDTH / 2F - glyphLayout.width), JumpyBirb.HEIGHT);
 
         game.batch.end();
 
@@ -178,7 +173,7 @@ public class GameScreen implements Screen {
             }
             if (tube.collides(hero.getBounds())) {
 
-               hero.hit();
+                hero.hit();
             }
         }
     }
@@ -199,8 +194,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void dispose() {
-        //deathSound.dispose();
-        //hero.dispose();
+        bg.dispose();
 
         /*Settings.BACKGROUND.dispose();
         Settings.GROUND.dispose();
@@ -226,7 +220,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height);
+        viewport.update(width, height, true);
     }
 
     @Override

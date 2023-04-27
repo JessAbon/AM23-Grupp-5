@@ -8,9 +8,10 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import se.yrgo.JumpyBirb;
 import se.yrgo.sprites.Button;
 import se.yrgo.util.Score;
@@ -29,7 +30,7 @@ public class EndScreen implements Screen, InputProcessor {
     private String inputText;
 
     private Texture playTexture;
-private Texture bg;
+    private Texture bg;
 
     private Texture homeTexture;
 
@@ -48,14 +49,16 @@ private Texture bg;
     private Button stopButton;
 
     public String enterName;
-    private ScreenViewport viewport;
+    private ScalingViewport viewport;
+
+    private Scaling scaling;
 
     // TODO: 2023-04-14 background disappears when resizing
     public EndScreen(final JumpyBirb game) {
         this.game = game;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
-        viewport = new ScreenViewport();
+        viewport = new ScalingViewport((scaling) = scaling.fit, 800, 600, camera);
         timeStamp = TimeUtils.millis();
         gLayout = new GlyphLayout();
         inputText = "";
@@ -86,12 +89,12 @@ private Texture bg;
     @Override
     public void render(float delta) {
 
-        ScreenUtils.clear(1, 0, 0, 0);
+        ScreenUtils.clear(0, 0, 0, 0);
 
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
-        game.batch.draw(bg, 0,0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        game.batch.draw(bg, 0, 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
         if (isNewHighscore) {
             game.batch.draw(newHighscore, 130, 70, newHighscore.getWidth(), newHighscore.getHeight());
             game.batch.draw(newHighscoreTitle, 180, 400, newHighscoreTitle.getWidth(), newHighscoreTitle.getHeight());
@@ -179,7 +182,7 @@ private Texture bg;
 
     @Override
     public void resize(int width, int height) {
-        viewport.update(width, height);
+        viewport.update(width, height, false);
     }
 
     @Override
@@ -199,6 +202,14 @@ private Texture bg;
 
     @Override
     public void dispose() {
+        bg.dispose();
+        gameOver.dispose();
+        playTexture.dispose();
+        homeTexture.dispose();
+        stopTexture.dispose();
+        newHighscore.dispose();
+        newHighscoreTitle.dispose();
+        highscoreButtonTexture.dispose();
         gLayout.reset();
     }
 
@@ -223,10 +234,11 @@ private Texture bg;
         }
         return false;
     }
-    public void hideText(){
-        if(inputText == null){
+
+    public void hideText() {
+        if (inputText == null) {
             enterName = "ENTER NAME: ";
-        }else{
+        } else {
             enterName = "";
         }
     }
