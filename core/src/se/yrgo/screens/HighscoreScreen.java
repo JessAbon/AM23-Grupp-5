@@ -46,7 +46,7 @@ public class HighscoreScreen implements Screen {
         background = new Texture("highscore/bg_highscore_v2.png");
         title = new Texture("highscore/highscoretitle.png");
         homeTexture = new Texture("menu/Home.png");
-        quitTexture = new Texture("menu/Stop.png");
+        quitTexture = new Texture("highscore/back_button.png");
 
         homeButton = new Button(300, 10, homeTexture.getWidth(), homeTexture.getHeight());
         quitButton = new Button(400, 10, quitTexture.getWidth(), quitTexture.getHeight());
