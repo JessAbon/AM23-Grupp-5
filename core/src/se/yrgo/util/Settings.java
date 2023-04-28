@@ -4,9 +4,9 @@ public class Settings {
     private static int gravity = -15;
     private static int heroJumpVelocity = 280;
     private static int heroForwardMovement = 200;
-    private static int tubeSpacing = 200;
+    private static int tubeSpacing = 250;
     private static int tubeFluctuation = 250;
-    private static int tubeGap = 250;
+    private static int tubeGap = 180;
     private static int tubeLowestOpening = 120;
     private static String folder = "medium/";
 
@@ -15,9 +15,9 @@ public class Settings {
     public static void easy() {
         folder = "easy/";
 
-        tubeSpacing = 200;
+        tubeSpacing = 250;
         tubeFluctuation = 250;
-        tubeGap = 190;
+        tubeGap = 200;
         tubeLowestOpening = 150;
 
     }
@@ -25,9 +25,9 @@ public class Settings {
     public static void medium() {
         folder = "medium/";
 
-        tubeSpacing = 180;
+        tubeSpacing = 250;
         tubeFluctuation = 250;
-        tubeGap = 230;
+        tubeGap = 180;
         tubeLowestOpening = 130;
 
     }
@@ -35,10 +35,10 @@ public class Settings {
     public static void hard() {
         folder = "hard/";
 
-        heroForwardMovement = 200;
-        tubeSpacing = 170;
+        heroForwardMovement = 240;
+        tubeSpacing = 240;
         tubeFluctuation = 250;
-        tubeGap = 220;
+        tubeGap = 150;
         tubeLowestOpening = 150;
     }
 
