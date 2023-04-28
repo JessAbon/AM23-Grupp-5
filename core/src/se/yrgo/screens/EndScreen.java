@@ -60,7 +60,6 @@ public class EndScreen implements Screen, InputProcessor {
 
     private Scaling scaling;
 
-    // TODO: 2023-04-14 background disappears when resizing
     public EndScreen(final JumpyBirb game) {
         this.game = game;
         camera = new OrthographicCamera();
@@ -76,15 +75,15 @@ public class EndScreen implements Screen, InputProcessor {
         gameOver = new Texture("menu/Bg.png");
         playTexture = new Texture("menu/PlayTest.png");
         homeTexture = new Texture("menu/Home.png");
-        stopTexture = new Texture("menu/Stop.png");
+        stopTexture = new Texture("menu/exit_button.png");
         newHighscore = new Texture("highscore/input_highscore.png");
         newHighscoreTitle = new Texture("highscore/new_highscore.png");
         highscoreButtonTexture = new Texture("highscore/highscoreButton.png");
 
-        playButton = new ButtonInLine(170, 50, playTexture.getWidth(), playTexture.getHeight());
-        homeButton = new ButtonInLine(310, 50, homeTexture.getWidth(), homeTexture.getHeight());
-        stopButton = new ButtonInLine(450, 50, stopTexture.getWidth(), stopTexture.getHeight());
-        highscoreButton = new ButtonInLine(580, 50, highscoreButtonTexture.getWidth(), highscoreButtonTexture.getHeight());
+        playButton = new ButtonInLine(240, 45, playTexture.getWidth(), playTexture.getHeight());
+        homeButton = new ButtonInLine(360, 50, homeTexture.getWidth(), homeTexture.getHeight());
+        highscoreButton = new ButtonInLine(480, 50, highscoreButtonTexture.getWidth(), highscoreButtonTexture.getHeight());
+        stopButton = new ButtonInLine(10, 550, stopTexture.getWidth(), stopTexture.getHeight());
 
     }
 
