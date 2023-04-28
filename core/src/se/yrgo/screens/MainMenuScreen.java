@@ -83,13 +83,13 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
         game.batch.draw(exitTexture, exitButton.getPositionButton().x, exitButton.getPositionButton().y);
 
         if(easyButton.isPressed()) {
-            game.batch.draw(easyButton.getTextureChecked(), easyButton.getPositionButton().x, easyButton.getPositionButton().y + 40f);
+            game.batch.draw(easyButton.getTextureChecked(), easyButton.getPositionButton().x -20, easyButton.getPositionButton().y + 60f);
         }
         if(mediumButton.isPressed()) {
-            game.batch.draw(mediumButton.getTextureChecked(), mediumButton.getPositionButton().x, mediumButton.getPositionButton().y + 80f);
+            game.batch.draw(mediumButton.getTextureChecked(), mediumButton.getPositionButton().x -10, mediumButton.getPositionButton().y + 110f);
         }
         if(hardButton.isPressed()) {
-            game.batch.draw(hardButton.getTextureChecked(), hardButton.getPositionButton().x, hardButton.getPositionButton().y + 120f);
+            game.batch.draw(hardButton.getTextureChecked(), hardButton.getPositionButton().x -15, hardButton.getPositionButton().y + 145f);
         }
 
         game.batch.end();

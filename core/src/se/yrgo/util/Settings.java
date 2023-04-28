@@ -76,23 +76,6 @@ public class Settings {
         return tubeLowestOpening;
     }
 
-    public enum Difficulty {
-        EASY("Easy"),
-        MEDIUM("Medium"),
-        HARD("Hard");
-
-        private final String name;
-
-        Difficulty(String name) {
-            this.name = name;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-
-    }
 
 
 }

@@ -11,10 +11,8 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import se.yrgo.JumpyBirb;
-import se.yrgo.sprites.Button;
 import se.yrgo.sprites.ButtonInLine;
 import se.yrgo.util.AllTimeHighHandler;
 import se.yrgo.util.MyScore;
@@ -73,7 +71,7 @@ public class EndScreen implements Screen, InputProcessor {
 
         bg = new Texture("highscore/BgHighscore.png");
         gameOver = new Texture("menu/Bg.png");
-        playTexture = new Texture("menu/PlayTest.png");
+        playTexture = new Texture("menu/Play.png");
         homeTexture = new Texture("menu/Home.png");
         stopTexture = new Texture("menu/exit_button.png");
         newHighscore = new Texture("highscore/input_highscore.png");
@@ -100,7 +98,8 @@ public class EndScreen implements Screen, InputProcessor {
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
-        game.batch.draw(bg, 0, 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
+        game.batch.draw(bg, 0,0, bg.getWidth(),bg.getHeight());
+
         if (AllTimeHighHandler.isHighScore) {
             game.batch.draw(newHighscore, 130, 70, newHighscore.getWidth(), newHighscore.getHeight());
             game.batch.draw(newHighscoreTitle, 180, 400, newHighscoreTitle.getWidth(), newHighscoreTitle.getHeight());

@@ -14,7 +14,7 @@ public class Button {
 
     public Button (float x, float y, String filename){
         texture = new Texture("menu/" + filename);
-        textureChecked = new Texture("menu/button_pressed.png");
+        textureChecked = new Texture("menu/medium_pressed_v2.png");
         positionButton = new Vector2(x, y);
         boundsButton = new Rectangle(positionButton.x, positionButton.y, texture.getWidth(), texture.getHeight());
         isPressed = false;
