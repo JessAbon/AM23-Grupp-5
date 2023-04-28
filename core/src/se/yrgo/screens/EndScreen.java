@@ -69,14 +69,14 @@ public class EndScreen implements Screen, InputProcessor {
         inputText = "";
         enterName = "ENTER NAME: ";
 
-        bg = new Texture("highscore/BgHighscore.png");
+        bg = new Texture("highscoreGraphics/BgHighscore.png");
         gameOver = new Texture("menu/Bg.png");
         playTexture = new Texture("menu/Play.png");
         homeTexture = new Texture("menu/Home.png");
         stopTexture = new Texture("menu/exit_button.png");
-        newHighscore = new Texture("highscore/input_highscore.png");
-        newHighscoreTitle = new Texture("highscore/new_highscore.png");
-        highscoreButtonTexture = new Texture("highscore/highscoreButton.png");
+        newHighscore = new Texture("highscoreGraphics/input_highscore.png");
+        newHighscoreTitle = new Texture("highscoreGraphics/new_highscore.png");
+        highscoreButtonTexture = new Texture("highscoreGraphics/highscoreButton.png");
 
         playButton = new ButtonInLine(240, 45, playTexture.getWidth(), playTexture.getHeight());
         homeButton = new ButtonInLine(360, 50, homeTexture.getWidth(), homeTexture.getHeight());

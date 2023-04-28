@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class AllTimeHighHandler {
-    private static Path filePath = Path.of("../assets/score/top10.txt");
+    private static Path filePath = Path.of("../assets/highscore/top10.txt");
     private static ArrayList<MyScore> scoreArray = new ArrayList<>();
     public static boolean isHighScore;
 

@@ -43,11 +43,11 @@ public class HighscoreScreen implements Screen {
         camera.setToOrtho(false, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
         /*viewport = new ScalingViewport((scaling) = scaling.fit, 800, 600,camera);*/
         viewport = new ScreenViewport();
-        backgroundScreen = new Texture("highscore/Background_highscore_v2.png");
-        background = new Texture("highscore/BgHighscore.png");
-        title = new Texture("highscore/highscoretitle.png");
+        backgroundScreen = new Texture("highscoreGraphics/Background_highscore_v2.png");
+        background = new Texture("highscoreGraphics/BgHighscore.png");
+        title = new Texture("highscoreGraphics/highscoretitle.png");
         homeTexture = new Texture("menu/Home.png");
-        quitTexture = new Texture("highscore/back_button.png");
+        quitTexture = new Texture("highscoreGraphics/back_button.png");
 
         homeButton = new Button(300, 10, homeTexture.getWidth(), homeTexture.getHeight());
         quitButton = new Button(400, 10, quitTexture.getWidth(), quitTexture.getHeight());
