@@ -156,12 +156,12 @@ public class EndScreen implements Screen, InputProcessor {
                     System.out.println("PLAY END");
                     game.setScreen(new GameScreen(game));
                     dispose();
-                }
-                else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-                    game.setScreen(new GameScreen(game));
-                    dispose();
-                }
-                else if (stopButton.getBoundsButton().contains(click.x, click.y)) {
+                } else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+                    if (!AllTimeHighHandler.isHighScore) {
+                        game.setScreen(new GameScreen(game));
+                        dispose();
+                    }
+                } else if (stopButton.getBoundsButton().contains(click.x, click.y)) {
                     System.out.println("QUIT");
                     Gdx.app.exit();
                     dispose();
@@ -231,7 +231,7 @@ public class EndScreen implements Screen, InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        if(keycode == 66){
+        if (keycode == 66) {
             MyScore myScore = new MyScore(getScore(), inputText);
             try {
                 AllTimeHighHandler.addScore(myScore);
@@ -239,6 +239,7 @@ public class EndScreen implements Screen, InputProcessor {
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+            AllTimeHighHandler.isHighScore = false;
             game.setScreen(new HighscoreScreen(game));
         }
 
@@ -259,12 +260,10 @@ public class EndScreen implements Screen, InputProcessor {
             inputText += character;
             hideText();
             return true;
-        }
-        else if(s.matches("[å,ä]")){
+        } else if (s.matches("[å,ä]")) {
             inputText += "a";
             hideText();
-        }
-        else if(s.matches("ö")){
+        } else if (s.matches("ö")) {
             inputText += "o";
             hideText();
         }

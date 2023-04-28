@@ -1,6 +1,7 @@
 package se.yrgo.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -77,7 +78,7 @@ public class HighscoreScreen implements Screen {
         navigateToScreen();
     }
     private void navigateToScreen() {
-        if (Gdx.input.isTouched()) {
+        if (Gdx.input.isTouched() || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
 
             Vector3 click = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(click);
@@ -86,8 +87,8 @@ public class HighscoreScreen implements Screen {
                 game.setScreen(new MainMenuScreen(game));
                 dispose();
 
-            } else if (quitButton.getBoundsButton().contains(click.x, click.y)) {
-                Gdx.app.exit();
+            } else if (quitButton.getBoundsButton().contains(click.x, click.y) || Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
+                game.setScreen(new EndScreen(game));
                 dispose();
             }
         }
