@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import se.yrgo.JumpyBirb;
 import se.yrgo.sprites.ButtonInLine;
 import se.yrgo.util.AllTimeHighHandler;
+import se.yrgo.util.Misc;
 import se.yrgo.util.MyScore;
 import se.yrgo.util.Score;
 
@@ -88,6 +89,8 @@ public class EndScreen implements Screen, InputProcessor {
     @Override
     public void show() {
         Gdx.input.setInputProcessor(this);
+        Misc.setPreviousScreen(game.getScreen());
+
     }
 
     @Override
