@@ -14,10 +14,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import se.yrgo.JumpyBirb;
 import se.yrgo.sprites.ButtonInLine;
-import se.yrgo.util.AllTimeHighHandler;
-import se.yrgo.util.Misc;
-import se.yrgo.util.MyScore;
-import se.yrgo.util.Score;
+import se.yrgo.util.*;
 
 import java.io.IOException;
 
@@ -95,6 +92,7 @@ public class EndScreen implements Screen, InputProcessor {
 
     @Override
     public void render(float delta) {
+        System.out.println(Settings.getFolder());
 
         ScreenUtils.clear(0, 0, 0, 0);
 

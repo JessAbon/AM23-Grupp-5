@@ -10,6 +10,8 @@ public class Settings {
     private static int tubeLowestOpening = 120;
     private static String folder = "medium/";
 
+    private Settings() {}
+
 
 
     public static void easy() {
@@ -44,9 +46,7 @@ public class Settings {
 
 
 
-    public static String getFolder() {
-        return folder;
-    }
+    public static String getFolder() { return folder; }
 
     public static int getGravity() {
         return gravity;
@@ -72,9 +72,7 @@ public class Settings {
         return tubeGap;
     }
 
-    public static int getTubeLowestOpening() {
-        return tubeLowestOpening;
-    }
+    public static int getTubeLowestOpening() { return tubeLowestOpening; }
 
 
 

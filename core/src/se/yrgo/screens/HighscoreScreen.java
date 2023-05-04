@@ -14,6 +14,7 @@ import se.yrgo.JumpyBirb;
 import se.yrgo.sprites.Button;
 import se.yrgo.util.AllTimeHighHandler;
 import se.yrgo.util.Misc;
+import se.yrgo.util.Settings;
 
 public class HighscoreScreen implements Screen {
 
@@ -53,6 +54,7 @@ public class HighscoreScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        System.out.println(Settings.getFolder());
 
         ScreenUtils.clear(0, 0, 0, 0);
         game.batch.setProjectionMatrix(camera.combined);

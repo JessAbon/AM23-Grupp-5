@@ -68,6 +68,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
+        System.out.println(Settings.getFolder());
 
         ScreenUtils.clear(0, 0, 0, 0);
 

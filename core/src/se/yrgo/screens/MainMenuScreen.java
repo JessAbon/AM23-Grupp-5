@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -22,6 +23,8 @@ import se.yrgo.util.Settings;
 
 public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
+    private static final long DELAY_TIME = 300;
+    private long timeStamp;
     final JumpyBirb game;
     OrthographicCamera camera;
     private GlyphLayout gLayout;
@@ -33,9 +36,9 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
     private Button easyButton;
     private Button mediumButton;
     private Button hardButton;
-    private ButtonInLine playButton;
-    private ButtonInLine highscoreButton;
-    private ButtonInLine exitButton;
+    private Button playButton;
+    private Button highscoreButton;
+    private Button exitButton;
     private ScreenViewport viewport;
     //private ScalingViewport viewport;
     //private Scaling scaling;
@@ -54,19 +57,28 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
         highScoreTexture = new Texture("menu/highscore_button.png");
         exitTexture = new Texture("menu/exit_button.png");
 
-        hardButton = new Button(510, 40, "hard-btn.png");
-        mediumButton = new Button(310, 20, "medium-btn.png");
-        easyButton = new Button(110, 30, "easy-btn.png");
+        hardButton = new Button("hard/", 510, 40, "hard-btn.png");
+        mediumButton = new Button("medium/",310, 20, "medium-btn.png");
+        easyButton = new Button("easy/",110, 30, "easy-btn.png");
 
-        playButton = new ButtonInLine(310, 300, playTexture.getWidth(), playTexture.getHeight());
-        highscoreButton = new ButtonInLine(705, 20, highScoreTexture.getWidth(), highScoreTexture.getHeight());
-        exitButton = new ButtonInLine(15, 550, exitTexture.getWidth(), exitTexture.getHeight());
+        playButton = new Button(310, 300, playTexture.getWidth(), playTexture.getHeight());
+        highscoreButton = new Button(705, 20, highScoreTexture.getWidth(), highScoreTexture.getHeight());
+        exitButton = new Button(15, 550, exitTexture.getWidth(), exitTexture.getHeight());
+        timeStamp = TimeUtils.millis();
+
+        hardButton.checkStatus();
+        mediumButton.checkStatus();
+        easyButton.checkStatus();
 
         //camera.update();
     }
 
     @Override
     public void render(float delta) {
+        hardButton.checkStatus();
+        mediumButton.checkStatus();
+        easyButton.checkStatus();
+
         ScreenUtils.clear(0, 0, 0, 0);
         camera.update();
 
@@ -96,7 +108,7 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
         game.batch.end();
 
-        if (Gdx.input.isTouched()) {
+        if (Gdx.input.isTouched() && delayClick()) {
 
             Vector3 click = new Vector3(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(click);
@@ -108,28 +120,21 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
             } else if (easyButton.getBoundsButton().contains(click.x, click.y)) {
                 Settings.easy();
-                easyButton.isPressed(true);
-                mediumButton.isPressed(false);
-                hardButton.isPressed(false);
+
                 System.out.println("EASY");
 
             } else if (mediumButton.getBoundsButton().contains(click.x, click.y)) {
                 Settings.medium();
-                easyButton.isPressed(false);
-                mediumButton.isPressed(true);
-                hardButton.isPressed(false);
+
                 System.out.println("Medium");
 
             } else if (hardButton.getBoundsButton().contains(click.x, click.y)) {
                 Settings.hard();
-                easyButton.isPressed(false);
-                mediumButton.isPressed(false);
-                hardButton.isPressed(true);
+
                 System.out.println("Hard");
 
             } else if (highscoreButton.getBoundsButton().contains(click.x, click.y)) {
                 System.out.println("HIGHSCORE");
-                System.out.println(Settings.getFolder());
                 AllTimeHighHandler.readFile();
                 game.setScreen(new HighscoreScreen(game));
                 Misc.setPreviousScreen(game.getScreen());
@@ -149,6 +154,10 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
         game.batch.begin();
         game.batch.draw(fg, 0, 0, fg.getWidth(), fg.getHeight());
         game.batch.end();
+    }
+
+    private boolean delayClick() {
+        return TimeUtils.millis() - timeStamp > DELAY_TIME;
     }
 
     @Override
