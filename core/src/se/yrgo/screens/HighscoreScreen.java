@@ -54,9 +54,6 @@ public class HighscoreScreen implements Screen {
     @Override
     public void render(float delta) {
 
-        System.out.println(Misc.previousScreen.getClass().getName());
-
-
         ScreenUtils.clear(0, 0, 0, 0);
         game.batch.setProjectionMatrix(camera.combined);
 
