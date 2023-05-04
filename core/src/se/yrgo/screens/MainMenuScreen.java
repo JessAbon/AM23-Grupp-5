@@ -17,6 +17,7 @@ import se.yrgo.JumpyBirb;
 import se.yrgo.sprites.Button;
 import se.yrgo.sprites.ButtonInLine;
 import se.yrgo.util.AllTimeHighHandler;
+import se.yrgo.util.Misc;
 import se.yrgo.util.Settings;
 
 public class MainMenuScreen extends ApplicationAdapter implements Screen {
@@ -131,6 +132,7 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
                 System.out.println(Settings.getFolder());
                 AllTimeHighHandler.readFile();
                 game.setScreen(new HighscoreScreen(game));
+                Misc.setPreviousScreen(game.getScreen());
 
             } else if (exitButton.getBoundsButton().contains(click.x, click.y)) {
                 Gdx.app.exit();
@@ -182,6 +184,7 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
         exitTexture.dispose();
         highScoreTexture.dispose();
         gLayout.reset();
+
     }
 
 }

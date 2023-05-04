@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import se.yrgo.JumpyBirb;
 import se.yrgo.sprites.*;
 import se.yrgo.util.AllTimeHighHandler;
+import se.yrgo.util.Misc;
 import se.yrgo.util.Score;
 import se.yrgo.util.Settings;
 
@@ -198,6 +199,7 @@ public class GameScreen implements Screen {
         AllTimeHighHandler.readFile();
         AllTimeHighHandler.checkScore();
         bg.dispose();
+        Misc.setPreviousScreen(game.getScreen());
 
         /*Settings.BACKGROUND.dispose();
         Settings.GROUND.dispose();
