@@ -6,6 +6,12 @@
 hs_err_pid*
 ## Robovm
 /ios/robovm-build/
+assets/score/easy/top10.txt
+assets/score/medium/top10.txt
+assets/score/hard/top10.txt
+!assets/score/easy/.gitkeep
+!assets/score/medium/.gitkeep
+!assets/score/hard/.gitkeep
 
 ## GWT
 /html/war/
