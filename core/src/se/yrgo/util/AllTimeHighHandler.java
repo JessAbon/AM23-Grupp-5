@@ -15,17 +15,20 @@ package se.yrgo.util;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class AllTimeHighHandler {
-    private static Path filePath = Path.of("../assets/score/top10.txt");
+    private static Path filePath;
     private static ArrayList<MyScore> scoreArray = new ArrayList<>();
     public static boolean isHighScore;
 
 
     public static void readFile() {
+        filePath = Path.of("../assets/score/" + Settings.getFolder() + "/top10.txt");
         scoreArray.clear();
+        System.out.println(filePath.toString());
         try (BufferedReader reader = Files.newBufferedReader(filePath)) {
 
             String line;
@@ -79,8 +82,7 @@ public class AllTimeHighHandler {
         writeFile();
     }
 
-
-    public static void writeFile() throws IOException {
+    private static void writeFile() throws IOException {
         if (Files.exists(filePath)) {
             Files.delete(filePath);
         }

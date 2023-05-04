@@ -8,14 +8,12 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
-import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import se.yrgo.JumpyBirb;
 import se.yrgo.sprites.*;
 import se.yrgo.util.AllTimeHighHandler;
 import se.yrgo.util.Score;
 import se.yrgo.util.Settings;
-import se.yrgo.util.Util;
 
 
 public class GameScreen implements Screen {
@@ -77,7 +75,6 @@ public class GameScreen implements Screen {
         camera.update();
 
         Score.setScore(hero.getPosition().x);
-        Util.setGlobalHeroPositionX(hero.getPosition().x);
         if (!hero.getHit()) {
             movementMidGround();
             movementForGround();
@@ -191,7 +188,7 @@ public class GameScreen implements Screen {
         if (hero.getPosition().y <= -hero.getHero().getHeight() * 2) {
 
             game.setScreen(new EndScreen(game));
-            Score.setHighScore();
+            Score.setBestScore();
             dispose();
         }
     }

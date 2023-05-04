@@ -56,6 +56,7 @@ public class HighscoreScreen implements Screen {
     @Override
     public void render(float delta) {
 
+
         ScreenUtils.clear(0, 0, 0, 0);
         game.batch.setProjectionMatrix(camera.combined);
 
@@ -72,8 +73,6 @@ public class HighscoreScreen implements Screen {
             gLayout.setText(game.font, AllTimeHighHandler.getScoreArray().get(i).getName()  + " : " + AllTimeHighHandler.getScoreArray().get(i).getScore());
             game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2F - gLayout.width / 2F, (JumpyBirb.HEIGHT - 130f) - i * (gLayout.height*1.4f));
         }
-
-
 
         game.batch.end();
 
@@ -101,9 +100,7 @@ public class HighscoreScreen implements Screen {
     }
     @Override
     public void show() {
-        AllTimeHighHandler.readFile();
-
-
+        System.out.println("Highscore SHOW()");
 
     }
 

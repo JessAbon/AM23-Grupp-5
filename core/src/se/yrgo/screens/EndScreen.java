@@ -24,7 +24,7 @@ import static se.yrgo.util.Score.getScore;
 
 public class EndScreen implements Screen, InputProcessor {
 
-    private static final long DELAY_TIME = 1500;
+    private static final long DELAY_TIME = 300;
     final JumpyBirb game;
     OrthographicCamera camera;
     private final long timeStamp;
@@ -230,6 +230,11 @@ public class EndScreen implements Screen, InputProcessor {
     @Override
     public boolean keyDown(int keycode) {
         if (keycode == 66) {
+
+            if (inputText == "") {
+                return false;
+            } else {
+
             MyScore myScore = new MyScore(getScore(), inputText);
             try {
                 AllTimeHighHandler.addScore(myScore);
@@ -239,6 +244,8 @@ public class EndScreen implements Screen, InputProcessor {
             }
             AllTimeHighHandler.isHighScore = false;
             game.setScreen(new HighscoreScreen(game));
+            }
+
         }
 
         return false;

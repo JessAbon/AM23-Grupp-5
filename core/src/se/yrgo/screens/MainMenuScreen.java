@@ -16,6 +16,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import se.yrgo.JumpyBirb;
 import se.yrgo.sprites.Button;
 import se.yrgo.sprites.ButtonInLine;
+import se.yrgo.util.AllTimeHighHandler;
 import se.yrgo.util.Settings;
 
 public class MainMenuScreen extends ApplicationAdapter implements Screen {
@@ -127,6 +128,8 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
             } else if (highscoreButton.getBoundsButton().contains(click.x, click.y)) {
                 System.out.println("HIGHSCORE");
+                System.out.println(Settings.getFolder());
+                AllTimeHighHandler.readFile();
                 game.setScreen(new HighscoreScreen(game));
 
             } else if (exitButton.getBoundsButton().contains(click.x, click.y)) {

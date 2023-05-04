@@ -8,7 +8,7 @@ public class Score {
         score = (int) birdPosition / 10;
     }
 
-    public static void setHighScore() {
+    public static void setBestScore() {
         if (highScore == null) {
             highScore = 0;
         }
@@ -27,10 +27,6 @@ public class Score {
 
     public static Integer getScore() {
         return score;
-    }
-
-    public static Integer getHighScore() {
-        return highScore;
     }
 
 

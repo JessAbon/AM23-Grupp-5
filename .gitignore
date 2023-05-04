@@ -4,8 +4,6 @@
 *.war
 *.ear
 hs_err_pid*
-assets/score/top10.txt
-!assets/score/.gitkeep
 ## Robovm
 /ios/robovm-build/
 
