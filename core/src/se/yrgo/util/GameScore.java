@@ -1,6 +1,6 @@
 package se.yrgo.util;
 
-public class Score {
+public class GameScore {
     private static Integer score;
     private static Integer highScore;
 

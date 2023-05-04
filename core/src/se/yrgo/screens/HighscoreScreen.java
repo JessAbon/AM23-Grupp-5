@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import se.yrgo.JumpyBirb;
 import se.yrgo.sprites.Button;
-import se.yrgo.util.AllTimeHighHandler;
+import se.yrgo.util.HighScoreHandler;
 import se.yrgo.util.Misc;
 import se.yrgo.util.Settings;
 
@@ -54,7 +54,6 @@ public class HighscoreScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        System.out.println(Settings.getFolder());
 
         ScreenUtils.clear(0, 0, 0, 0);
         game.batch.setProjectionMatrix(camera.combined);
@@ -66,9 +65,9 @@ public class HighscoreScreen implements Screen {
 
         game.batch.draw(quitTexture, backButton.getPositionButton().x, backButton.getPositionButton().y);
 
-        for (int i = 0; i < AllTimeHighHandler.getScoreArray().size(); i++) {
+        for (int i = 0; i < HighScoreHandler.getScoreArray().size(); i++) {
 
-            gLayout.setText(game.font, AllTimeHighHandler.getScoreArray().get(i).getName() + " : " + AllTimeHighHandler.getScoreArray().get(i).getScore());
+            gLayout.setText(game.font, HighScoreHandler.getScoreArray().get(i).getName() + " : " + HighScoreHandler.getScoreArray().get(i).getScore());
             game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2F - gLayout.width / 2F, (JumpyBirb.HEIGHT - 130f) - i * (gLayout.height * 1.4f));
         }
 
@@ -103,7 +102,6 @@ public class HighscoreScreen implements Screen {
 
     @Override
     public void show() {
-        System.out.println("Highscore SHOW()");
 
     }
 

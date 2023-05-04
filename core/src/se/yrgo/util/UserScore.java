@@ -1,13 +1,10 @@
 package se.yrgo.util;
 
-import java.util.Comparator;
-import java.util.Objects;
-
-public class MyScore implements Comparable<MyScore> {
+public class UserScore implements Comparable<UserScore> {
     private int score;
     private String name;
 
-    public MyScore(int score, String name) {
+    public UserScore(int score, String name) {
         this.score = score;
         this.name = name;
     }
@@ -21,7 +18,7 @@ public class MyScore implements Comparable<MyScore> {
     }
 
     @Override
-    public int compareTo(MyScore o) {
+    public int compareTo(UserScore o) {
         return o.getScore() - this.score;
     }
 }

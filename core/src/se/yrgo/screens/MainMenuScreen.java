@@ -8,16 +8,12 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.badlogic.gdx.utils.viewport.ScalingViewport;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import se.yrgo.JumpyBirb;
 import se.yrgo.sprites.Button;
-import se.yrgo.sprites.ButtonInLine;
-import se.yrgo.util.AllTimeHighHandler;
+import se.yrgo.util.HighScoreHandler;
 import se.yrgo.util.Misc;
 import se.yrgo.util.Settings;
 
@@ -135,7 +131,7 @@ public class MainMenuScreen extends ApplicationAdapter implements Screen {
 
             } else if (highscoreButton.getBoundsButton().contains(click.x, click.y)) {
                 System.out.println("HIGHSCORE");
-                AllTimeHighHandler.readFile();
+                HighScoreHandler.readFile();
                 game.setScreen(new HighscoreScreen(game));
                 Misc.setPreviousScreen(game.getScreen());
 

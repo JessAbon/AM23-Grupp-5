@@ -11,9 +11,9 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import se.yrgo.JumpyBirb;
 import se.yrgo.sprites.*;
-import se.yrgo.util.AllTimeHighHandler;
+import se.yrgo.util.HighScoreHandler;
 import se.yrgo.util.Misc;
-import se.yrgo.util.Score;
+import se.yrgo.util.GameScore;
 import se.yrgo.util.Settings;
 
 
@@ -68,7 +68,6 @@ public class GameScreen implements Screen {
 
     @Override
     public void render(float delta) {
-        System.out.println(Settings.getFolder());
 
         ScreenUtils.clear(0, 0, 0, 0);
 
@@ -76,7 +75,7 @@ public class GameScreen implements Screen {
         camera.position.x = hero.getPosition().x + CAMERA_OF_SET; // CAMERA FOLLOW
         camera.update();
 
-        Score.setScore(hero.getPosition().x);
+        GameScore.setScore(hero.getPosition().x);
         if (!hero.getHit()) {
             movementMidGround();
             movementForGround();
@@ -87,7 +86,7 @@ public class GameScreen implements Screen {
         roofBound();
 
         game.batch.setProjectionMatrix(camera.combined);
-        glyphLayout.setText(game.font, Score.getScoreString());
+        glyphLayout.setText(game.font, GameScore.getScoreString());
 
         game.batch.begin();
         game.batch.draw(bg, camera.position.x - (camera.viewportWidth / 2), 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
@@ -190,15 +189,15 @@ public class GameScreen implements Screen {
         if (hero.getPosition().y <= -hero.getHero().getHeight() * 2) {
 
             game.setScreen(new EndScreen(game));
-            Score.setBestScore();
+            GameScore.setBestScore();
             dispose();
         }
     }
 
     @Override
     public void dispose() {
-        AllTimeHighHandler.readFile();
-        AllTimeHighHandler.checkScore();
+        HighScoreHandler.readFile();
+        HighScoreHandler.checkScore();
         bg.dispose();
         Misc.setPreviousScreen(game.getScreen());
 

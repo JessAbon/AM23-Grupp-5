@@ -15,20 +15,21 @@ package se.yrgo.util;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class AllTimeHighHandler {
+public class HighScoreHandler {
     private static Path filePath;
-    private static ArrayList<MyScore> scoreArray = new ArrayList<>();
+    private static ArrayList<UserScore> scoreArray = new ArrayList<>();
     public static boolean isHighScore;
 
 
     public static void readFile() {
         filePath = Path.of("../assets/score/" + Settings.getFolder() + "/top10.txt");
         scoreArray.clear();
-        System.out.println(filePath.toString());
+        if (!Files.exists(filePath)) {
+            filePath = Path.of("../assets/score/top10_template.txt");
+        }
         try (BufferedReader reader = Files.newBufferedReader(filePath)) {
 
             String line;
@@ -36,15 +37,16 @@ public class AllTimeHighHandler {
                 String[] part = line.split(":");
                 int score = Integer.parseInt(part[0]);
                 String name = part[1];
-                MyScore scoreObj = new MyScore(score, name);
+                UserScore scoreObj = new UserScore(score, name);
                 scoreArray.add(scoreObj);
             }
+            filePath = Path.of("../assets/score/" + Settings.getFolder() + "/top10.txt");
         } catch (IOException e) {
-            System.out.println("So much fuckin error" + e.getMessage());
+            System.err.println("So much fuckin error" + e.getMessage());
         }
     }
 
-    public static ArrayList<MyScore> getScoreArray() {
+    public static ArrayList<UserScore> getScoreArray() {
         return scoreArray;
     }
 
@@ -54,8 +56,8 @@ public class AllTimeHighHandler {
             isHighScore = true;
         }
         else {
-            for (MyScore s : scoreArray) {
-                if (Score.getScore() > s.getScore()) {
+            for (UserScore s : scoreArray) {
+                if (GameScore.getScore() > s.getScore()) {
                     isHighScore = true;
                     break;
                 }
@@ -65,9 +67,9 @@ public class AllTimeHighHandler {
 
 
     //CHECK IF SCORE > LOWEST COLLECTION MEMBER
-    public static void addScore(MyScore newScore) throws IOException {
+    public static void addScore(UserScore newScore) throws IOException {
         if (scoreArray.size() > 9) {
-            for (MyScore s : scoreArray) {
+            for (UserScore s : scoreArray) {
                 if (newScore.getScore() > s.getScore()) {
                     scoreArray.add(newScore);
                     break;
@@ -89,12 +91,12 @@ public class AllTimeHighHandler {
 
         try (BufferedWriter bw = Files.newBufferedWriter(filePath)) {
             Collections.sort(scoreArray);
-            for (MyScore s : scoreArray) {
+            for (UserScore s : scoreArray) {
                 bw.append(s.getScore() + ":" + s.getName());
                 bw.newLine();
             }
         } catch (IOException e) {
-            System.out.println("Failed to save high scores to file: " + e.getMessage());
+            System.err.println("Failed to save high scores to file: " + e.getMessage());
         }
     }
 }

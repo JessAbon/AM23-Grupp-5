@@ -13,12 +13,12 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import se.yrgo.JumpyBirb;
-import se.yrgo.sprites.ButtonInLine;
+import se.yrgo.sprites.Button;
 import se.yrgo.util.*;
 
 import java.io.IOException;
 
-import static se.yrgo.util.Score.getScore;
+import static se.yrgo.util.GameScore.getScore;
 
 public class EndScreen implements Screen, InputProcessor {
 
@@ -43,12 +43,12 @@ public class EndScreen implements Screen, InputProcessor {
 
     private Texture newHighscoreTitle;
     private Texture highscoreButtonTexture;
-    private ButtonInLine highscoreButton;
-    private ButtonInLine playButton;
+    private Button highscoreButton;
+    private Button playButton;
 
-    private ButtonInLine homeButton;
+    private Button homeButton;
 
-    private ButtonInLine stopButton;
+    private Button stopButton;
 
     public String enterName;
     //private ScalingViewport viewport;
@@ -76,10 +76,10 @@ public class EndScreen implements Screen, InputProcessor {
         newHighscoreTitle = new Texture("highscoreGraphics/new_highscore.png");
         highscoreButtonTexture = new Texture("highscoreGraphics/highscoreButton.png");
 
-        playButton = new ButtonInLine(240, 45, playTexture.getWidth(), playTexture.getHeight());
-        homeButton = new ButtonInLine(360, 50, homeTexture.getWidth(), homeTexture.getHeight());
-        highscoreButton = new ButtonInLine(480, 50, highscoreButtonTexture.getWidth(), highscoreButtonTexture.getHeight());
-        stopButton = new ButtonInLine(10, 550, stopTexture.getWidth(), stopTexture.getHeight());
+        playButton = new Button(240, 45, playTexture.getWidth(), playTexture.getHeight());
+        homeButton = new Button(360, 50, homeTexture.getWidth(), homeTexture.getHeight());
+        highscoreButton = new Button(480, 50, highscoreButtonTexture.getWidth(), highscoreButtonTexture.getHeight());
+        stopButton = new Button(10, 550, stopTexture.getWidth(), stopTexture.getHeight());
 
     }
 
@@ -92,7 +92,6 @@ public class EndScreen implements Screen, InputProcessor {
 
     @Override
     public void render(float delta) {
-        System.out.println(Settings.getFolder());
 
         ScreenUtils.clear(0, 0, 0, 0);
 
@@ -101,7 +100,7 @@ public class EndScreen implements Screen, InputProcessor {
         game.batch.begin();
         game.batch.draw(bg, 0,0, bg.getWidth(),bg.getHeight());
 
-        if (AllTimeHighHandler.isHighScore) {
+        if (HighScoreHandler.isHighScore) {
             game.batch.draw(newHighscore, 130, 70, newHighscore.getWidth(), newHighscore.getHeight());
             game.batch.draw(newHighscoreTitle, 180, 400, newHighscoreTitle.getWidth(), newHighscoreTitle.getHeight());
 
@@ -114,7 +113,7 @@ public class EndScreen implements Screen, InputProcessor {
             gLayout.setText(game.font, enterName + inputText);
             game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2f - gLayout.width / 2f, JumpyBirb.HEIGHT / 2f - gLayout.height * 5);
 
-            gLayout.setText(game.font, "SCORE: " + Score.getScoreString());
+            gLayout.setText(game.font, "SCORE: " + GameScore.getScoreString());
             game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2F - gLayout.width / 2F, JumpyBirb.HEIGHT / 2.7F + gLayout.height * 4);
 
             navigateToScreen();
@@ -122,10 +121,10 @@ public class EndScreen implements Screen, InputProcessor {
         } else {
 
             game.batch.draw(gameOver, 0, 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
-            gLayout.setText(game.font, "SCORE: " + Score.getScoreString());
+            gLayout.setText(game.font, "SCORE: " + GameScore.getScoreString());
             game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2F - gLayout.width / 2F, JumpyBirb.HEIGHT / 2.7F + gLayout.height * 2);
 
-            gLayout.setText(game.font, "YOUR BEST: " + Score.getHighScoreString());
+            gLayout.setText(game.font, "YOUR BEST: " + GameScore.getHighScoreString());
             game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2F - gLayout.width / 2F, JumpyBirb.HEIGHT / 3F + gLayout.height);
 
             game.batch.draw(playTexture, playButton.getPositionButton().x, playButton.getPositionButton().y);
@@ -156,7 +155,7 @@ public class EndScreen implements Screen, InputProcessor {
                     game.setScreen(new GameScreen(game));
                     dispose();
                 } else if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-                    if (!AllTimeHighHandler.isHighScore) {
+                    if (!HighScoreHandler.isHighScore) {
                         game.setScreen(new GameScreen(game));
                         dispose();
                     }
@@ -236,14 +235,14 @@ public class EndScreen implements Screen, InputProcessor {
                 return false;
             } else {
 
-            MyScore myScore = new MyScore(getScore(), inputText);
+            UserScore myScore = new UserScore(getScore(), inputText);
             try {
-                AllTimeHighHandler.addScore(myScore);
+                HighScoreHandler.addScore(myScore);
                 inputText = "";
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
-            AllTimeHighHandler.isHighScore = false;
+            HighScoreHandler.isHighScore = false;
             game.setScreen(new HighscoreScreen(game));
             }
 
