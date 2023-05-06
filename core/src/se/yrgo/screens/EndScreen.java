@@ -121,7 +121,7 @@ public class EndScreen implements Screen, InputProcessor {
         } else {
 
             game.batch.draw(gameOver, 0, 0, JumpyBirb.WIDTH, JumpyBirb.HEIGHT);
-            gLayout.setText(game.font, "SCORE: " + GameScore.getScoreString());
+            gLayout.setText(game.font, "SCORE: " + GameScore.getScoreString()) ;
             game.font.draw(game.batch, gLayout, JumpyBirb.WIDTH / 2F - gLayout.width / 2F, JumpyBirb.HEIGHT / 2.7F + gLayout.height * 2);
 
             gLayout.setText(game.font, "YOUR BEST: " + GameScore.getHighScoreString());

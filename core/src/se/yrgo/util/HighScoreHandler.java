@@ -42,7 +42,7 @@ public class HighScoreHandler {
             }
             filePath = Path.of("../assets/score/" + Settings.getFolder() + "/top10.txt");
         } catch (IOException e) {
-            System.err.println("So much fuckin error" + e.getMessage());
+            System.err.println("Something went wrong with reading the file " + e.getMessage());
         }
     }
 

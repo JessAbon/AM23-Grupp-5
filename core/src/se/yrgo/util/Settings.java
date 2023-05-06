@@ -9,10 +9,9 @@ public class Settings {
     private static int tubeGap = 180;
     private static int tubeLowestOpening = 120;
     private static String folder = "medium/";
+    private static int level = 0;
 
     private Settings() {}
-
-
 
     public static void easy() {
         folder = "easy/";
@@ -21,6 +20,7 @@ public class Settings {
         tubeFluctuation = 250;
         tubeGap = 200;
         tubeLowestOpening = 150;
+        level = 0;
 
     }
 
@@ -31,7 +31,7 @@ public class Settings {
         tubeFluctuation = 250;
         tubeGap = 180;
         tubeLowestOpening = 130;
-
+        level = 1;
     }
 
     public static void hard() {
@@ -42,6 +42,7 @@ public class Settings {
         tubeFluctuation = 250;
         tubeGap = 150;
         tubeLowestOpening = 150;
+        level = 2;
     }
 
 
@@ -74,6 +75,7 @@ public class Settings {
 
     public static int getTubeLowestOpening() { return tubeLowestOpening; }
 
-
-
+    public static int getLevel() {
+        return level;
+    }
 }
