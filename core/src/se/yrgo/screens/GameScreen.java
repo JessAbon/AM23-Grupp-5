@@ -201,22 +201,19 @@ public class GameScreen implements Screen {
         bg.dispose();
         Misc.setPreviousScreen(game.getScreen());
 
-        /*Settings.BACKGROUND.dispose();
-        Settings.GROUND.dispose();
-        Settings.MIDGROUND.dispose();*/
 
-        //for (Ground ground : grounds) {
-        //    ground.dispose();
-        //}
-        //for (Tube tube : tubes) {
-        //    tube.dispose();
-        //}
-        //for (MidGround ground : midGrounds) {
-        //    ground.dispose();
-        //}
-        //for (ForGround ground : forGrounds) {
-        //    ground.dispose();
-        //}
+        for (Ground ground : grounds) {
+            ground.dispose();
+        }
+        for (Tube tube : tubes) {
+            tube.dispose();
+        }
+        for (MidGround ground : midGrounds) {
+            ground.dispose();
+        }
+        for (ForGround ground : forGrounds) {
+            ground.dispose();
+        }
     }
 
     @Override

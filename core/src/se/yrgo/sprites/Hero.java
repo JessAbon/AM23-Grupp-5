@@ -28,7 +28,7 @@ public class Hero {
         velocity = new Vector3(0, 0, 0);
         hero = new Texture("hero/heroanimation.png");
         heroAnimation = new Animation(new TextureRegion(hero), 6, 0.5f);
-        bounds = new Rectangle(x, y, hero.getWidth() / 6f, hero.getHeight());
+        bounds = new Rectangle(x, y, (hero.getWidth() - 5f) / 6f, hero.getHeight() - 5f);
         hasDeathJumped = false;
         flap = Gdx.audio.newSound(Gdx.files.internal("sound/jump.mp3"));
         deathSound = Gdx.audio.newSound(Gdx.files.internal("sound/hit.ogg"));
